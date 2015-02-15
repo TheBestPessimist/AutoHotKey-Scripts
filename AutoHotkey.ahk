@@ -95,4 +95,9 @@ Capslock & 4::Send {Volume_Up 2}
 
 ;-------------------------------------------------
 ;       Capslock sublime text
-Capslock & s::run "D:\d3rp\Sublime Text 3\sublime_text.exe"
+CapsLock & s::
+{
+    run "E:\portable apps\Sublime Text 3\sublime_text.exe"
+    WinActivate, sublime
+}
+
