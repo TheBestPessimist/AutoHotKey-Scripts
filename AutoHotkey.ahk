@@ -9,7 +9,6 @@ XButton2::
 firstClick = 1
 loop
 {
-
     if firstClick = 1   ; so that i have a pause after pressing and holding the key
     {
         Send {Volume_Up 2}
@@ -32,7 +31,6 @@ XButton1::
 firstClick = 1
 loop
 {
-
     if firstClick = 1   ; so that i have a pause after pressing and holding the key
     {
         Send {Volume_Down 2}
@@ -102,3 +100,16 @@ CapsLock & s::
     WinActivate, sublime
 }
 
+;------------------------------------------------
+; Disable faulty double middle click
+; as per here: http://leo.steamr.com/2012/08/fixing-mouse-buttonwheel-from-unintended-double-clicking/
+
+MButton::
+    If (A_TimeSincePriorHotkey < 100 && A_TimeSincePriorHotkey > 0) {
+      ;  MsgBox % A_TimeSincePriorHotkey
+        Return
+    }
+    Send {MButton Down}
+    KeyWait, MButton
+    Send {MButton Up}
+Return
