@@ -113,3 +113,8 @@ MButton::
     KeyWait, MButton
     Send {MButton Up}
 Return
+
+
+;------------------------------------------------
+; caps lock + space => always on top
+CapsLock & SPACE::  Winset, Alwaysontop, , A
