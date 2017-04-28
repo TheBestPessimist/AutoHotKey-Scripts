@@ -21,8 +21,12 @@
 ;             v1.00 (2013-10-11) - First release.
 ;--------------------------------------------------------------------------------------------------------------------------
 
+
+; from here: https://gist.githubusercontent.com/tmplinshi/6933557/raw/1ab54db84d2f3e03da3a662023a0a58ae673420d/KeypressOSD.ahk
+
 #SingleInstance force
 #NoEnv
+#MaxHotkeysPerInterval 200
 SetBatchLines, -1
 ListLines, Off
 
