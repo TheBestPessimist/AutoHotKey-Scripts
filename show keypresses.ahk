@@ -11,8 +11,11 @@
 
 
 
+#InstallKeybdHook
+#UseHook
 #SingleInstance force
 #NoEnv
+
 SetBatchLines, -1
 ListLines, Off
 CoordMode, Mouse, Screen
@@ -62,8 +65,33 @@ Display:
             prefix .= A_LoopField "+"
     if (!prefix && !ShowSingleKey)
         return
-    key := PreviousKey prefix SubStr(A_ThisHotkey, 3)
-    PreviousKey := key " "
+
+    currentKey := SubStr(A_ThisHotkey, 3)
+
+
+    needSpace := False
+    Loop, parse, Otherkeys, |
+    {
+        if (A_LoopField = currentKey)
+        {
+            needSpace := true
+            ; ToolTip, 3.%previousKey%.needSpace
+        }
+    }
+
+    if(prefix = "" and !needSpace)
+    {
+        key := PreviousKey . currentKey
+        ; ToolTip, 1.%PreviousKey%."|".%currentKey%
+    }
+    else
+    {
+        key := PreviousKey .  " " . prefix .currentKey
+        ; ToolTip, 2.%PreviousKey%."|".%currentKey%
+    }
+    PreviousKey := key
+
+
     if (key = " ")
         key := "Space"
     else if (key = "Numpad0")
@@ -126,7 +154,7 @@ ShowHotkey:
             prev_LastHotkeyPressedTime := LastHotkeyPressedTime
             SetTimer, HideGUI, % -1 * DisplayTime2
         }
-        Sleep, 20
+        Sleep, 1
     }
 Return
 
