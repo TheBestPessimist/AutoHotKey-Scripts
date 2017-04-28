@@ -25,6 +25,7 @@ DisplayTime2  := 2500
 
 ; Create GUI
 Gui, +AlwaysOnTop -Caption +Owner +LastFound +E0x20
+Gui +ToolWindow         ; hide from alt+tab/windows+tab menu
 Gui, Margin, 0, 0
 Gui, Color, Black
 Gui, Font, cWhite s30 bold, Arial
