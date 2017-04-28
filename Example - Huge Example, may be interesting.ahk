@@ -31,7 +31,7 @@ SetBatchLines, -1
 ListLines, Off
 
 ; Settings
-    global TransN                := 200      ; 0~255
+    global TransN                := 70      ; 0~255
     global ShowSingleKey         := True
     global ShowMouseButton       := True
     global ShowSingleModifierKey := True
