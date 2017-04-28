@@ -65,7 +65,7 @@ return
 CreateGUI() {
     global
 
-    Gui, +AlwaysOnTop -Caption +Owner +LastFound +E0x20
+    Gui, +AlwaysOnTop -Caption +Owner +LastFound +E0x20 +ToolWindow
     Gui, Margin, 0, 0
     Gui, Color, Black
     Gui, Font, cWhite s%FontSize% bold, Arial
