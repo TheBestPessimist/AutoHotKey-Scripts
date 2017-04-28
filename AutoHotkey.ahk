@@ -11,13 +11,13 @@ loop
 {
     if firstClick = 1   ; so that i have a pause after pressing and holding the key
     {
-        Send {Volume_Up 2}
+        Send {Volume_Up 1}
         sleep, 500
         firstClick = 0
     }
     GetKeyState, state, XButton2, P
     if state = D
-        Send {Volume_Up}
+        Send {Volume_Up 1} 
     else
         return
 
@@ -33,13 +33,13 @@ loop
 {
     if firstClick = 1   ; so that i have a pause after pressing and holding the key
     {
-        Send {Volume_Down 2}
+        Send {Volume_Down 1}
         sleep, 500
         firstClick = 0
     }
     GetKeyState, state, XButton1, P
     if state = D
-        Send {Volume_Down}
+        Send {Volume_Down 1}
     else
         return
     sleep, 120
@@ -98,6 +98,7 @@ CapsLock & s::
     run "D:\D3RP\Sublime Text 3\sublime_text.exe"
     sleep, 15
     WinActivate, sublime
+    Return
 }
 
 ;------------------------------------------------
