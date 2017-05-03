@@ -78,6 +78,12 @@ loop
 
 
 
+;-------------------------------------------------
+;   Handle multiple virtual desktops
+Capslock & D:: Send ^#{Right}
+Capslock & A:: Send ^#{Left}
+
+
 
 ;-------------------------------------------------
 ;       Capslock media keys
