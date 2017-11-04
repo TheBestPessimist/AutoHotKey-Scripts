@@ -17,7 +17,7 @@ loop
     }
     GetKeyState, state, XButton2, P
     if state = D
-        Send {Volume_Up 1} 
+        Send {Volume_Up 1}
     else
         return
 
@@ -115,9 +115,8 @@ CapsLock & s::
 ; Kinda annoying yea.
 
 ; This fixes the problem.
-
 MButton::
-    If (A_TimeSincePriorHotkey < 100 && A_TimeSincePriorHotkey > 0) {
+    If (A_TimeSincePriorHotkey < 190 && A_TimeSincePriorHotkey > 1) {
       ;  MsgBox % A_TimeSincePriorHotkey
         Return
     }
@@ -127,6 +126,17 @@ MButton::
 Return
 
 
-;------------------------------------------------
+;----------------------------------------------
 ; caps lock + space => always on top
 CapsLock & SPACE::  Winset, Alwaysontop, , A
+
+
+;----------------------------------------------
+; caps lock + 1 => sleep screen
+CapsLock & 1::
+Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
+SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into off mode
+; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
+Sleep 2
+SendMessage 0x112, 0xF170, 2,,Program Manager
+return
