@@ -31,16 +31,18 @@ SetBatchLines, -1
 ListLines, Off
 
 ; Settings
-    global TransN                := 70      ; 0~255
-    global ShowSingleKey         := True
-    global ShowMouseButton       := True
-    global ShowSingleModifierKey := True
-    global ShowModifierKeyCount  := true
-    global ShowStickyModKeyCount := false
-    global DisplayTime           := 2000     ; In milliseconds
-    global GuiPosition           := "Bottom" ; Top or Bottom
-    global FontSize              := 50
-    global GuiHeight             := 115
+    global TransN                   := 70       ; 0~255
+    global ShowSingleKey            := True
+    global ShowMouseButton          := True
+    global ShowSingleModifierKey    := True
+    global ShowModifierKeyCount     := true
+    global ShowStickyModKeyCount    := false
+    global DisplayTime              := 2000     ; In milliseconds
+    global GuiPosition              := "Bottom" ; Top or Bottom
+    global FontSize                 := 50
+    global GuiHeight                := 115
+    global MaxWaitBetweenKeypresses := 700      ; In milliseconds
+
 
 CreateGUI()
 CreateHotkey()
@@ -135,6 +137,14 @@ ShowHotkey(HotkeyStr) {
 }
 
 GetKeyStr() {
+
+    ; todo: understand what the hell is happening in the following iffs, so that i can understand where i should put the freaking spaces.
+    ; ... er.... kinda difficult this :-/
+    ;
+    ;
+    ;
+    ;
+
     static modifiers := ["Ctrl", "Shift", "Alt", "LWin", "RWin"]
     static repeatCount := 1
 
@@ -196,6 +206,16 @@ GetKeyStr() {
 
         repeatCount := 1
     }
+
+
+        ; somehow i think here i should handle stringlen, and putting the tet together as a sentence.
+        previousKey := key        ; this one should be at the top of the function most likely
+        ; ToolTip, |%key%|%previousKey%|
+        if( A_TimeSincePriorHotkey < MaxWaitBetweenKeypresses) {
+            key := previousKey . " " . key
+
+        }
+
     return result ? result : prefix . key
 }
 
