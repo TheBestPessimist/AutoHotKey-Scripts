@@ -5,45 +5,45 @@
 
 ;-------------------------------------------------
 ;       mouse lower the volume
-XButton2::
-firstClick = 1
-loop
-{
-    if firstClick = 1   ; so that i have a pause after pressing and holding the key
-    {
-        Send {Volume_Up 1}
-        sleep, 500
-        firstClick = 0
-    }
-    GetKeyState, state, XButton2, P
-    if state = D
-        Send {Volume_Up 1}
-    else
-        return
+; XButton2::
+; firstClick = 1
+; loop
+; {
+;     if firstClick = 1   ; so that i have a pause after pressing and holding the key
+;     {
+;         Send {Volume_Up 1}
+;         sleep, 500
+;         firstClick = 0
+;     }
+;     GetKeyState, state, XButton2, P
+;     if state = D
+;         Send {Volume_Up 1}
+;     else
+;         return
 
-    sleep, 120
-}
+;     sleep, 120
+; }
 
 
 ;-------------------------------------------------
 ;       mouse increase the volume
-XButton1::
-firstClick = 1
-loop
-{
-    if firstClick = 1   ; so that i have a pause after pressing and holding the key
-    {
-        Send {Volume_Down 1}
-        sleep, 500
-        firstClick = 0
-    }
-    GetKeyState, state, XButton1, P
-    if state = D
-        Send {Volume_Down 1}
-    else
-        return
-    sleep, 120
-}
+; XButton1::
+; firstClick = 1
+; loop
+; {
+;     if firstClick = 1   ; so that i have a pause after pressing and holding the key
+;     {
+;         Send {Volume_Down 1}
+;         sleep, 500
+;         firstClick = 0
+;     }
+;     GetKeyState, state, XButton1, P
+;     if state = D
+;         Send {Volume_Down 1}
+;     else
+;         return
+;     sleep, 120
+; }
 
 
 
@@ -101,10 +101,13 @@ Capslock & 4::Send {Volume_Up 1}
 ;       Capslock sublime text
 CapsLock & s::
 {
-    run "D:\D3RP\Sublime Text 3\sublime_text.exe"
-    sleep, 15
-    WinActivate, sublime
-    Return
+    IfWinNotExist, ahk_exe sublime_text.exe
+    {
+      Run "C:\d3rp\Sublime Text 3\sublime_text.exe"
+      WinWait ahk_exe sublime_text.exe
+    }
+    WinActivate ahk_exe sublime_text.exe
+    return
 }
 
 ;------------------------------------------------
@@ -114,16 +117,16 @@ CapsLock & s::
 ; which if pressed once it actually can register 1, none, or even 20 clicks.
 ; Kinda annoying yea.
 
-; This fixes the problem.
-MButton::
-    If (A_TimeSincePriorHotkey < 190 && A_TimeSincePriorHotkey > 1) {
-      ;  MsgBox % A_TimeSincePriorHotkey
-        Return
-    }
-    Send {MButton Down}
-    KeyWait, MButton
-    Send {MButton Up}
-Return
+; ; This fixes the problem.
+; MButton::
+;     If (A_TimeSincePriorHotkey < 190 && A_TimeSincePriorHotkey > 1) {
+;       ;  MsgBox % A_TimeSincePriorHotkey
+;         Return
+;     }
+;     Send {MButton Down}
+;     KeyWait, MButton
+;     Send {MButton Up}
+; Return
 
 
 ;----------------------------------------------
