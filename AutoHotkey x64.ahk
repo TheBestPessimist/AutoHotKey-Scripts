@@ -34,13 +34,13 @@ Capslock & 4::Send {Volume_Up 1}
 ;       Capslock sublime text
 CapsLock & s::
 {
-    subl = ahk_exe sublime_text.exe
-    IfWinNotExist, %subl%
+    subl := "ahk_exe sublime_text.exe"
+    IfWinNotExist, % subl
     {
       Run "C:\d3rp\Sublime Text 3\sublime_text.exe"
-      WinWait %subl%
+      WinWait % subl
     }
-    WinActivate %subl%
+    WinActivate % subl
     Return
 }
 
@@ -57,12 +57,12 @@ CapsLock & s::
 ;
 CapsLock & t::
 {
-    telegram = ahk_exe telegram.exe
-    IfWinNotExist, %telegram%
+    telegram := "ahk_exe telegram.exe"
+    IfWinNotExist, % telegram
     {
         Run "C:\d3rp\PortableApps\Telegram\Telegram.exe"
-        Winwait %telegram%
-        WinActivate %telegram%
+        Winwait % telegram
+        WinActivate % telegram
         Sleep 9
         SendInput {PgUp} + {Enter}
     }
