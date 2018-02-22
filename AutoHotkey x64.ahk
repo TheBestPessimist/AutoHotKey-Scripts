@@ -1,6 +1,5 @@
-;-------------------------------------------------
-; i use this to capture the keyboard keystrokes (it does not work for FN + sth on SUSV)
-;
+#NoEnv
+
 ; #InstallKeybdHook
 ; #InstallMouseHook
 ; DetectHiddenWindows, on
