@@ -130,26 +130,25 @@ CapsLock & s::
       WinWait %subl%
     }
     WinActivate %subl%
-    return
+    Return
 }
 
-;------------------------------------------------
-; Disable faulty double middle click
-; as per here: http://leo.steamr.com/2012/08/fixing-mouse-buttonwheel-from-unintended-double-clicking/
-; Explanation: my Madcatz RAT 9 mouse has a faulty middle buttton
-; which if pressed once it actually can register 1, none, or even 20 clicks.
-; Kinda annoying yea.
 
-; ; This fixes the problem.
-; MButton::
-;     If (A_TimeSincePriorHotkey < 190 && A_TimeSincePriorHotkey > 1) {
-;       ;  MsgBox % A_TimeSincePriorHotkey
-;         Return
-;     }
-;     Send {MButton Down}
-;     KeyWait, MButton
-;     Send {MButton Up}
-; Return
+
+;-------------------------------------------------
+;       Capslock Telegram
+;
+; it seems that i cannot open telegram window when it is in task bar, so
+; i just chose to reopen it every time. telegram is single instance, so all
+; looks good so far :^)
+CapsLock & t::
+{
+    Run "C:\d3rp\PortableApps\Telegram\Telegram.exe"
+    Winwait ahk_exe telegram.exe
+    WinActivate
+    Return
+}
+
 
 
 ;----------------------------------------------
