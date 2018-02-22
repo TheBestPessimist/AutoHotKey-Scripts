@@ -75,6 +75,6 @@ CapsLock & 1::
 Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
 SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into off mode
 ; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
-Sleep 2
+Sleep 20
 SendMessage 0x112, 0xF170, 2,,Program Manager
 return
