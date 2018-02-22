@@ -53,11 +53,24 @@ CapsLock & s::
 ; it seems that i cannot open telegram window when it is in task bar, so
 ; i just chose to reopen it every time. telegram is single instance, so all
 ; looks good so far :^)
+;
+; SendInput is used so that i select the first chat :^)
+;
 CapsLock & t::
 {
-    Run "C:\d3rp\PortableApps\Telegram\Telegram.exe"
-    Winwait ahk_exe telegram.exe
-    WinActivate
+    telegram = ahk_exe telegram.exe
+    IfWinNotExist, %telegram%
+    {
+        Run "C:\d3rp\PortableApps\Telegram\Telegram.exe"
+        Winwait %telegram%
+        WinActivate %telegram%
+        Sleep 9
+        SendInput {PgUp} + {Enter}
+    }
+    else
+    {
+        WinActivate
+    }
     Return
 }
 
