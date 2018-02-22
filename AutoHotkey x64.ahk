@@ -33,7 +33,6 @@ Capslock & 4::Send {Volume_Up 1}
 ;-------------------------------------------------
 ;       Capslock sublime text
 CapsLock & s::
-{
     subl := "ahk_exe sublime_text.exe"
     IfWinNotExist % subl
     {
@@ -41,8 +40,7 @@ CapsLock & s::
       WinWait % subl
     }
     WinActivate % subl
-    Return
-}
+Return
 
 
 
@@ -56,7 +54,6 @@ CapsLock & s::
 ; SendInput is used so that i select the first chat :^)
 ;
 CapsLock & t::
-{
     telegram := "ahk_exe telegram.exe"
     IfWinNotExist % telegram
     {
@@ -70,8 +67,7 @@ CapsLock & t::
     {
         WinActivate
     }
-    Return
-}
+Return
 
 
 
@@ -84,9 +80,9 @@ CapsLock & SPACE::  Winset, Alwaysontop, , A
 ;----------------------------------------------
 ; caps lock + 1 => sleep screen
 CapsLock & 1::
-Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
-SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into off mode
-; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
-Sleep 20
-SendMessage 0x112, 0xF170, 2,,Program Manager
-return
+    Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
+    SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into off mode
+    ; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
+    Sleep 20
+    SendMessage 0x112, 0xF170, 2,,Program Manager
+Return
