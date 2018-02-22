@@ -1,4 +1,5 @@
-
+#NoEnv
+#SingleInstance, force
 
 ;-------------------------------------------------
 ;       Capslock sublime text
