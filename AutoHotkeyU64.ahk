@@ -1,6 +1,7 @@
 #NoEnv
+#SingleInstance, force
 
-#include start_app.ahk
+#include app_handling.ahk
 
 ; #InstallKeybdHook
 ; #InstallMouseHook
