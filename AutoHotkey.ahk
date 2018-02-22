@@ -3,6 +3,28 @@
 ; #InstallKeybdHook
 ; #InstallMouseHook
 
+
+DetectHiddenWindows, on
+
+
+CapsLock & t::
+{
+;    subl = ahk_exe sublime_text.exe
+;    IfWinNotExist, %subl%
+;    {
+;      Run "C:\d3rp\Sublime Text 3\sublime_text.exe"
+;      WinWait %subl%
+;    }
+;    WinShow ahk_exe telegram.exe
+;    WinActivate ahk_exe telegram.exe
+;    return
+
+telegram = ahk_exe telegram.exe
+WinActivate, %telegram%
+Return
+}
+
+
 ;-------------------------------------------------
 ;       mouse lower the volume
 ; XButton2::
@@ -101,12 +123,13 @@ Capslock & 4::Send {Volume_Up 1}
 ;       Capslock sublime text
 CapsLock & s::
 {
-    IfWinNotExist, ahk_exe sublime_text.exe
+    subl = ahk_exe sublime_text.exe
+    IfWinNotExist, %subl%
     {
       Run "C:\d3rp\Sublime Text 3\sublime_text.exe"
-      WinWait ahk_exe sublime_text.exe
+      WinWait %subl%
     }
-    WinActivate ahk_exe sublime_text.exe
+    WinActivate %subl%
     return
 }
 
