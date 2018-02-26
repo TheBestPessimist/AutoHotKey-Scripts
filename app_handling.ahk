@@ -46,5 +46,18 @@ CapsLock & t::
     {
         WinActivate
     }
+    Sleep 90
+    getTaskbarDimensions(tw, th)
+    w := A_ScreenWidth/4
+    h := A_ScreenHeight - th - 1
+    x := A_ScreenWidth - w
+    y := 0
+    WinMove % telegram, , x, y, w, h,
 Return
 
+
+
+; get taskbar dimensions, assuming bottom position
+getTaskbarDimensions(ByRef tw, ByRef th) {
+    WinGetPos x, y, tw, th, ahk_class Shell_TrayWnd,
+}
