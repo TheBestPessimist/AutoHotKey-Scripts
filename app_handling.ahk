@@ -31,8 +31,16 @@ CapsLock & t::
         Run "C:\all\Portable Apps\Telegram\Telegram.exe"
         Winwait % telegram
         WinActivate % telegram
-        ; Sleep 9
-        SendInput {PgUp} + {Enter}
+        Sleep 90
+        SendInput {PgDn}
+        Sleep 90
+        SendInput {PgUp}
+        Sleep 90
+        SendInput {PgUp}
+        Sleep 90
+        SendInput {PgUp}
+        Sleep 90
+        SendInput {Enter}
     }
     else
     {
