@@ -31,6 +31,7 @@ CapsLock & t::
         Run "C:\all\Portable Apps\Telegram\Telegram.exe"
         Winwait % telegram
         WinActivate % telegram
+        ; select the most important chat
         Sleep 90
         SendInput {PgDn}
         Sleep 90
@@ -41,22 +42,22 @@ CapsLock & t::
         SendInput {PgUp}
         Sleep 90
         SendInput {Enter}
+        ; move the window to its proper position
+        getTaskbarDimensions(tw, th)
+        w := A_ScreenWidth/3
+        h := A_ScreenHeight - th - 1
+        x := A_ScreenWidth - w
+        y := 0
+        WinMove % telegram, , x, y, w, h,
     }
     else
     {
-        WinActivate
+        WinActivate % telegram
     }
-    Sleep 90
-    getTaskbarDimensions(tw, th)
-    w := A_ScreenWidth/4
-    h := A_ScreenHeight - th - 1
-    x := A_ScreenWidth - w
-    y := 0
-    WinMove % telegram, , x, y, w, h,
 Return
 
 
-
+;-------------------------------------------------
 ; get taskbar dimensions, assuming bottom position
 getTaskbarDimensions(ByRef tw, ByRef th) {
     WinGetPos x, y, tw, th, ahk_class Shell_TrayWnd,
