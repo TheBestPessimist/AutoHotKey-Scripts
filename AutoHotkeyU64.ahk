@@ -1,5 +1,8 @@
 #NoEnv
 #SingleInstance, force
+#MaxHotkeysPerInterval 200
+
+#include test.ahk
 
 #include app_handling.ahk
 
@@ -31,13 +34,13 @@ Capslock & 4::Send {Volume_Up 1}
 
 
 
-;----------------------------------------------
+;------------------------------------------------
 ; caps lock + space => always on top
 CapsLock & SPACE::  Winset, Alwaysontop, , A
 
 
 
-;----------------------------------------------
+;------------------------------------------------
 ; caps lock + 1 => sleep screen
 CapsLock & 1::
     Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
@@ -49,7 +52,7 @@ Return
 
 
 
-;-----------------------------
+;-------------------------------------------------
 ; reload this script
 ; caps + shift + r
 CapsLock & F5::

@@ -1,6 +1,7 @@
 #NoEnv
 #SingleInstance, force
 #WinActivateForce
+#MaxHotkeysPerInterval 200
 
 
 
