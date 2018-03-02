@@ -1,5 +1,6 @@
 #NoEnv
 #SingleInstance, force
+#WinActivateForce
 
 ;-------------------------------------------------
 ;       Capslock sublime text
