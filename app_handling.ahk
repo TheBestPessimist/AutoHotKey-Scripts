@@ -1,10 +1,3 @@
-#NoEnv
-#SingleInstance, force
-#WinActivateForce
-#MaxHotkeysPerInterval 200
-
-
-
 ;-------------------------------------------------
 ;       Capslock sublime text
 CapsLock & s::

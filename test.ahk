@@ -1,32 +1,39 @@
-#NoEnv
-#SingleInstance, force
-#MaxHotkeysPerInterval 200
 
-; ================================================
-; show a tooltip with the coordinates of the mouse
-; and some more info about the current window
-; SetTimer, WatchCursor, 1000
-; return
-
+;-------------------------------------------------
+; show a mouse tooltip
+;
 CapsLock & /::
-    timer := 20
-
-    global WatchCursorToggle := !WatchCursorToggle
-    if(WatchCursorToggle) {
-        SetTimer WatchCursor, % timer
-    } else {
-        SetTimer, WatchCursor, Off
-        ToolTip,
-    }
+    CallMethodWithTimer("WatchCursor", 100)
 Return
 
+
+
+;-------------------------------------------------
+; setup a timer for calling a method
+CallMethodWithTimer(methodName, timer)
+{
+    global allToggles
+
+    toggle := !allToggles[methodName]
+    allToggles[methodName] := toggle
+
+    if(toggle) {
+        SetTimer %methodName%, % timer
+    } else {
+        SetTimer %methodName%, Off
+        ToolTip
+    }
+}
+
+
+
+;-------------------------------------------------
+; show a tooltip with some data
 WatchCursor()
 {
     MouseGetPos, x, y, id
     WinGetTitle, title, ahk_id %id%
     WinGetClass, class, ahk_id %id%
-    ; ToolTip, % "x: " x "`ny: " y "`nahk_id: " id "`nahk_class: " class "`ntitle: " title
-    ToolTip, % A_ThisHotkey " " A_PriorHotkey
+    ; ToolTip % "x: " x "`ny: " y "`nahk_id: " id "`nahk_class: " class "`ntitle: " title
+    ToolTip, % "A_ThisHotkey: " A_ThisHotkey "`n" "A_PriorHotkey: " A_PriorHotkey
 }
-
-

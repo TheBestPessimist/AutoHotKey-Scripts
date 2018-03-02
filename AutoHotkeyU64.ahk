@@ -1,10 +1,18 @@
 #NoEnv
 #SingleInstance, force
 #MaxHotkeysPerInterval 200
+#WinActivateForce
 
-#include test.ahk
+; ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
+; very very very important note: #included scripts cannot (CANNOT!!!!)
+; contain variables. all variables should be placed before the #include in the main script.
+global allToggles := {}
+
 
 #include app_handling.ahk
+#include test.ahk
+
+
 
 ; #InstallKeybdHook
 ; #InstallMouseHook
@@ -13,24 +21,24 @@
 
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
-Capslock & D:: Send ^#{Right}
-Capslock & A:: Send ^#{Left}
+CapsLock & D:: Send ^#{Right}
+CapsLock & A:: Send ^#{Left}
 
 
 
 ;-------------------------------------------------
-;       Capslock media keys
-Capslock & Right::Send {Media_Next}
-Capslock & Left::Send {Media_Prev}
-Capslock & Up::Send {Media_Play_Pause}
-Capslock & Down::Send {Media_Play_Pause}
+;       CapsLock media keys
+CapsLock & Right::Send {Media_Next}
+CapsLock & Left::Send {Media_Prev}
+CapsLock & Up::Send {Media_Play_Pause}
+CapsLock & Down::Send {Media_Play_Pause}
 
 
 
 ;-------------------------------------------------
-;       Capslock volume
-Capslock & 3::Send {Volume_Down 1}
-Capslock & 4::Send {Volume_Up 1}
+;       CapsLock volume
+CapsLock & 3::Send {Volume_Down 1}
+CapsLock & 4::Send {Volume_Up 1}
 
 
 
