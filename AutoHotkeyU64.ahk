@@ -48,3 +48,11 @@ CapsLock & 1::
     Sleep 20
     SendMessage 0x112, 0xF170, 2,,Program Manager
 Return
+
+
+;-----------------------------
+; reload this script
+; caps + shift + r
+CapsLock & F5::
+SetCapsLockState Off
+Reload
