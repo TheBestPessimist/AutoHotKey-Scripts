@@ -2,6 +2,8 @@
 #SingleInstance, force
 #WinActivateForce
 
+
+
 ;-------------------------------------------------
 ;       Capslock sublime text
 CapsLock & s::
@@ -56,6 +58,30 @@ CapsLock & t::
         WinActivate % telegram
     }
 Return
+
+
+
+; ------------------------------------------------
+; Firefox and Chrome: mouse-scroll over the "tab area" to switch tabs forward and backward, instead of clicking/using
+; ctrl+tab or ctrl+shift+tab
+;
+; "~"" is  used so that i can scroll in the normal page
+#If WinActive("ahk_class MozillaWindowClass") || WinActive("ahk_class Chrome_WidgetWin_1")
+~WheelUp::
+    MouseGetPos, , y
+    if(y <= 40) {
+        Send ^+{Tab}
+    }
+    Return
+
+~WheelDown::
+    MouseGetPos, , y
+    if(y <= 40) {
+        Send ^{Tab}
+    }
+    Return
+#IfWinActive
+
 
 
 ;-------------------------------------------------

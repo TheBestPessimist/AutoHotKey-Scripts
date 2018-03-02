@@ -8,12 +8,10 @@
 ; DetectHiddenWindows, on
 
 
-
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
 Capslock & D:: Send ^#{Right}
 Capslock & A:: Send ^#{Left}
-
 
 
 
@@ -48,6 +46,7 @@ CapsLock & 1::
     Sleep 20
     SendMessage 0x112, 0xF170, 2,,Program Manager
 Return
+
 
 
 ;-----------------------------
