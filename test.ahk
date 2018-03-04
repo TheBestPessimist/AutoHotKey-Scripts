@@ -10,8 +10,7 @@ Return
 
 ;-------------------------------------------------
 ; setup a timer for calling a method
-CallMethodWithTimer(methodName, timer)
-{
+CallMethodWithTimer(methodName, timer) {
     global allToggles
 
     toggle := !allToggles[methodName]
@@ -29,8 +28,7 @@ CallMethodWithTimer(methodName, timer)
 
 ;-------------------------------------------------
 ; show a tooltip with some data
-WatchCursor()
-{
+WatchCursor() {
     MouseGetPos, x, y, id
     WinGetTitle, title, ahk_id %id%
     WinGetClass, class, ahk_id %id%

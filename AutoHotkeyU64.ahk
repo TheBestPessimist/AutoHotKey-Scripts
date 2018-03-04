@@ -1,16 +1,18 @@
 #NoEnv
 #SingleInstance, force
-#MaxHotkeysPerInterval 200
+#MaxHotkeysPerInterval 500
 #WinActivateForce
+
 
 ; ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
 ; very very very important note: #included scripts cannot (CANNOT!!!!)
 ; contain variables. all variables should be placed before the #include in the main script.
 global allToggles := {}
+SetTimer, hideSublimeRegister, 1000
 
-
-#include app_handling.ahk
+; rest of everything
 #include test.ahk
+#include app_handling.ahk
 
 
 
@@ -64,5 +66,6 @@ Return
 ; reload this script
 ; caps + shift + r
 CapsLock & F5::
-SetCapsLockState Off
-Reload
+    SetCapsLockState Off
+    Reload
+Return

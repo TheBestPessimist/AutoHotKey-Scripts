@@ -1,9 +1,8 @@
 ;-------------------------------------------------
-;       Capslock sublime text
+;       CapsLock sublime text
 CapsLock & s::
     subl := "ahk_exe sublime_text.exe"
-    if !WinExist(subl)
-    {
+    if !WinExist(subl) {
       Run "C:\all\Portable Apps\Sublime Text 3\sublime_text.exe"
       WinWait % subl
     }
@@ -13,7 +12,7 @@ Return
 
 
 ;-------------------------------------------------
-;       Capslock Telegram
+;       CapsLock Telegram
 ;
 ; it seems that i cannot open telegram window when it is in task bar, so
 ; i just chose to reopen it every time. telegram is single instance, so all
@@ -23,8 +22,7 @@ Return
 ;
 CapsLock & t::
     telegram := "ahk_exe telegram.exe"
-    if !WinExist(telegram)
-    {
+    if !WinExist(telegram) {
         Run "C:\all\Portable Apps\Telegram\Telegram.exe"
         Winwait % telegram
         WinActivate % telegram
@@ -47,8 +45,7 @@ CapsLock & t::
         y := 0
         WinMove % telegram, , x, y, w, h,
     }
-    else
-    {
+    else {
         WinActivate % telegram
     }
 Return
@@ -74,7 +71,7 @@ Return
         Send ^{Tab}
     }
     Return
-#IfWinActive
+#If
 
 
 
@@ -83,3 +80,31 @@ Return
 getTaskbarDimensions(ByRef tw, ByRef th) {
     WinGetPos x, y, tw, th, ahk_class Shell_TrayWnd,
 }
+
+
+
+
+;-------------------------------------------------
+; Sublime Text: CapsLock & w to toggle word wrap
+#If WinActive("ahk_exe sublime_text.exe")
+CapsLock & w::
+    SendInput ^+P
+    Sleep 10
+    SendInput wwp{Enter}
+Return
+#If
+
+
+;-------------------------------------------------
+; hide the Sublime Text message for unregistered copy
+; #IfWinExist This is an unregistered copy ahk_exe sublime_text.exe
+hideSublimeRegister() {
+    sublime_window := WinExist("This is an unregistered copy ahk_exe sublime_text.exe")
+    If sublime_window {
+        WinActivate
+        SendInput {Esc}
+    }
+}
+
+
+
