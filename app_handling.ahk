@@ -40,7 +40,7 @@ CapsLock & t::
         ; move the window to its proper position
         getTaskbarDimensions(tw, th)
         w := A_ScreenWidth/3
-        h := A_ScreenHeight - th - 1
+        h := A_ScreenHeight - th
         x := A_ScreenWidth - w
         y := 0
         WinMove % telegram, , x, y, w, h,
