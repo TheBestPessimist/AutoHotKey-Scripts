@@ -32,6 +32,6 @@ WatchCursor() {
     MouseGetPos, x, y, id
     WinGetTitle, title, ahk_id %id%
     WinGetClass, class, ahk_id %id%
-    ; ToolTip % "x: " x "`ny: " y "`nahk_id: " id "`nahk_class: " class "`ntitle: " title
-    ToolTip, % "A_ThisHotkey: " A_ThisHotkey "`n" "A_PriorHotkey: " A_PriorHotkey
+    ToolTip % "x: " x "`ny: " y "`nahk_id: " id "`nahk_class: " class "`ntitle: " title
+    ; ToolTip, % "A_ThisHotkey: " A_ThisHotkey "`n" "A_PriorHotkey: " A_PriorHotkey
 }

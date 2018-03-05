@@ -37,13 +37,46 @@ CapsLock & t::
         SendInput {PgUp}
         Sleep 90
         SendInput {Enter}
-        ; move the window to its proper position
-        getTaskbarDimensions(tw, th)
-        w := A_ScreenWidth/3
-        h := A_ScreenHeight - th
-        x := A_ScreenWidth - w
-        y := 0
-        WinMove % telegram, , x, y, w, h,
+        ; ; move the window to its proper position
+        ; NOTE: THIS DOES NOT WORK. SOMETIMES TELEGRAM JUST WONT FUCKING RESIZE.
+        ;                   RUUUUUUDE!
+        ; getTaskbarDimensions(tw, th)
+        ; w := A_ScreenWidth/3
+        ; h := A_ScreenHeight - th
+        ; x := A_ScreenWidth - w
+        ; y := 0
+        ; WinMove % telegram, , x, y, w, h,
+        ; save initial mouse pos
+
+        CoordMode Mouse, Screen
+        MouseGetPos, initial_x, initial_y
+
+        SetDefaultMouseSpeed 3
+        CoordMode Mouse, Window
+
+        ; move mouse to starting position
+        MouseMove, 200, 16
+
+        ; do a windows right-snap (resize window to half the screen, right side)
+        SendInput {LButton down}
+        CoordMode Mouse, Screen         ;; this coordMode trickery has to be done for each movement.
+        MouseMove, A_ScreenWidth, A_ScreenHeight/2
+        CoordMode Mouse, Window
+        SendInput {LButton up}
+
+        Sleep 90
+
+        ; set the desired window size
+        MouseMove, -1, 200
+        SendInput {LButton down}
+        CoordMode Mouse, Screen
+        MouseMove, A_ScreenWidth - A_ScreenWidth/3, 2
+        CoordMode Mouse, Window
+        SendInput {LButton up}
+
+        ; move the mouse back to the original position
+        CoordMode Mouse, Screen
+        MouseMove, initial_x, initial_y
     }
     else {
         WinActivate % telegram
