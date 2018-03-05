@@ -37,6 +37,7 @@ CapsLock & t::
         SendInput {PgUp}
         Sleep 90
         SendInput {Enter}
+
         ; ; move the window to its proper position
         ; NOTE: THIS DOES NOT WORK. SOMETIMES TELEGRAM JUST WONT FUCKING RESIZE.
         ;                   RUUUUUUDE!
