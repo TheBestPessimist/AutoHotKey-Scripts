@@ -41,47 +41,74 @@ CapsLock & t::
         ; ; move the window to its proper position
         ; NOTE: THIS DOES NOT WORK. SOMETIMES TELEGRAM JUST WONT FUCKING RESIZE.
         ;                   RUUUUUUDE!
-        ; getTaskbarDimensions(tw, th)
-        ; w := A_ScreenWidth/3
-        ; h := A_ScreenHeight - th
-        ; x := A_ScreenWidth - w
-        ; y := 0
-        ; WinMove % telegram, , x, y, w, h,
+        getTaskbarDimensions(tw, th)
+        w := A_ScreenWidth/3
+        h := A_ScreenHeight - th
+        x := A_ScreenWidth - w
+        y := 0
+        WinMove % telegram, , x, y, w, h,
+        ; WinMove % telegram, , , , w, h,
+
+
+
+        ; another method of moving telegram to its desired position.
+        ; this also bugges sometimes
         ; save initial mouse pos
+        ; CoordMode Mouse, Screen
+        ; MouseGetPos, initial_x, initial_y
 
-        CoordMode Mouse, Screen
-        MouseGetPos, initial_x, initial_y
+        ; SetDefaultMouseSpeed 40
+        ; CoordMode Mouse, Window
 
-        SetDefaultMouseSpeed 3
-        CoordMode Mouse, Window
+        ; ; move mouse to starting position of resize process
+        ; MouseMove, 100, 16
 
-        ; move mouse to starting position
-        MouseMove, 200, 16
+        ; SendInput {LButton}
+        ; SendInput {LButton}
+        ; Sleep 90
 
-        ; do a windows right-snap (resize window to half the screen, right side)
-        SendInput {LButton down}
-        CoordMode Mouse, Screen         ;; this coordMode trickery has to be done for each movement.
-        MouseMove, A_ScreenWidth, A_ScreenHeight/2
-        CoordMode Mouse, Window
-        SendInput {LButton up}
+        ; MouseMove, 100, 16
 
-        Sleep 90
 
-        ; set the desired window size
-        MouseMove, -1, 200
-        SendInput {LButton down}
-        CoordMode Mouse, Screen
-        MouseMove, A_ScreenWidth - A_ScreenWidth/3, 2
-        CoordMode Mouse, Window
-        SendInput {LButton up}
+        ; ; do a windows right-snap (resize window to half the screen, right side)
+        ; SendInput {LButton down}
+        ; CoordMode Mouse, Screen         ;; this coordMode trickery has to be done for each movement.
+        ; MouseMove, A_ScreenWidth, A_ScreenHeight/2
+        ; CoordMode Mouse, Window
+        ; SendInput {LButton up}
 
-        ; move the mouse back to the original position
-        CoordMode Mouse, Screen
-        MouseMove, initial_x, initial_y
+
+        ; Sleep 90
+
+        ; ; set the desired window size
+        ; MouseMove, -1, 200
+        ; SendInput {LButton down}
+        ; CoordMode Mouse, Screen
+        ; MouseMove, A_ScreenWidth - A_ScreenWidth/3, 200
+        ; CoordMode Mouse, Window
+        ; SendInput {LButton up}
+
+        ; ; ; de-snap the window, so that the size is remembered.
+        ; ; ; windows is retarded and does not remember the size/position for snapped windows.
+        ; ; MouseMove, 200, 16
+        ; ; SendInput {LButton down}
+        ; ; MouseMove, -10, 0,,R
+        ; ; SendInput {LButton up}
+        ; ; Sleep 90
+        ; ; SendInput {LButton down}
+        ; ; MouseMove, 10, 0,,R
+        ; ; SendInput {LButton up}
+        ; ; Sleep 90
+
+
+        ; ; move the mouse back to the original position
+        ; CoordMode Mouse, Screen
+        ; MouseMove, initial_x, initial_y
     }
     else {
         WinActivate % telegram
     }
+    SetCapsLockState Off
 Return
 
 
