@@ -4,15 +4,12 @@
 #WinActivateForce
 
 
-; ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
-; very very very important note: #included scripts cannot (CANNOT!!!!)
-; contain variables. all variables should be placed before the #include in the main script.
-global allToggles := {}
-SetTimer, hideSublimeRegister, 1000
+; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
+#Include autoExecuteArea.ahk
 
 ; rest of everything
-#include test.ahk
-#include app_handling.ahk
+#Include test.ahk
+#Include app_handling.ahk
 
 
 

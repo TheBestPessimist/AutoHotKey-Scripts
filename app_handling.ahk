@@ -1,12 +1,11 @@
 ;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s::
-    subl := "ahk_exe sublime_text.exe"
-    if !WinExist(subl) {
+    if !WinExist(ahk_sublime) {
       Run "C:\all\Portable Apps\Sublime Text 3\sublime_text.exe"
-      WinWait % subl
+      WinWait % ahk_sublime
     }
-    WinActivate % subl
+    WinActivate % ahk_sublime
 Return
 
 
@@ -21,11 +20,10 @@ Return
 ; SendInput is used so that i select the first chat :^)
 ;
 CapsLock & t::
-    telegram := "ahk_exe telegram.exe"
-    if !WinExist(telegram) {
+    if !WinExist(ahk_telegram) {
         Run "C:\all\Portable Apps\Telegram\Telegram.exe"
-        Winwait % telegram
-        WinActivate % telegram
+        Winwait % ahk_telegram
+        WinActivate % ahk_telegram
         ; select the most important chat
         Sleep 90
         SendInput {PgDn}
@@ -46,7 +44,7 @@ CapsLock & t::
         h := A_ScreenHeight - th
         x := A_ScreenWidth - w
         y := 0
-        WinMove % telegram, , x, y, w, h,
+        WinMove % ahk_telegram, , x, y, w, h,
         ; WinMove % telegram, , , , w, h,
 
 
@@ -106,7 +104,7 @@ CapsLock & t::
         ; MouseMove, initial_x, initial_y
     }
     else {
-        WinActivate % telegram
+        WinActivate % ahk_telegram
     }
     SetCapsLockState Off
 Return
@@ -118,7 +116,7 @@ Return
 ; ctrl+tab or ctrl+shift+tab
 ;
 ; "~"" is  used so that i can scroll in the normal page
-#If WinActive("ahk_class MozillaWindowClass") || WinActive("ahk_class Chrome_WidgetWin_1")
+#If WinActive(ahk_firefox) || WinActive(ahk_chrome)
 ~WheelUp::
     MouseGetPos, , y
     if(y <= 40) {
@@ -147,7 +145,7 @@ getTaskbarDimensions(ByRef tw, ByRef th) {
 
 ;-------------------------------------------------
 ; Sublime Text: CapsLock & w to toggle word wrap
-#If WinActive("ahk_exe sublime_text.exe")
+#If WinActive(ahk_sublime)
 CapsLock & w::
     SendInput ^+P
     Sleep 10
@@ -160,7 +158,7 @@ Return
 ; hide the Sublime Text message for unregistered copy
 ; #IfWinExist This is an unregistered copy ahk_exe sublime_text.exe
 hideSublimeRegister() {
-    sublime_window := WinExist("This is an unregistered copy ahk_exe sublime_text.exe")
+    sublime_window := WinExist("This is an unregistered copy " . ahk_sublime)
     If sublime_window {
         WinActivate
         SendInput {Esc}
