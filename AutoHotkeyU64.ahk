@@ -20,24 +20,24 @@
 
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
-CapsLock & D:: Send ^#{Right}
-CapsLock & A:: Send ^#{Left}
+CapsLock & D:: SendInput ^#{Right}
+CapsLock & A:: SendInput ^#{Left}
 
 
 
 ;-------------------------------------------------
 ;       CapsLock media keys
-CapsLock & Right::Send {Media_Next}
-CapsLock & Left::Send {Media_Prev}
-CapsLock & Up::Send {Media_Play_Pause}
-CapsLock & Down::Send {Media_Play_Pause}
+CapsLock & Right::SendInput {Media_Next}
+CapsLock & Left::SendInput {Media_Prev}
+CapsLock & Up::SendInput {Media_Play_Pause}
+CapsLock & Down::SendInput {Media_Play_Pause}
 
 
 
 ;-------------------------------------------------
 ;       CapsLock volume
-CapsLock & 3::Send {Volume_Down 1}
-CapsLock & 4::Send {Volume_Up 1}
+CapsLock & 3::SendInput {Volume_Down 1}
+CapsLock & 4::SendInput {Volume_Up 1}
 
 
 
