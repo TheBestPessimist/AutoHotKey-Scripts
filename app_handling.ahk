@@ -167,3 +167,8 @@ hideSublimeRegister() {
 
 
 
+;-------------------------------------------------
+; use just F4 to close some windows
+#If WinActive(ahk_firefox) || WinActive(ahk_chrome) || WinActive(ahk_telegram)
+F4:: SendInput !{F4}
+#If
