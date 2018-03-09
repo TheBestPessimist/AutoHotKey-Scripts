@@ -16,7 +16,7 @@ CallMethodWithTimer(methodName, timer) {
     toggle := !allToggles[methodName]
     allToggles[methodName] := toggle
 
-    if(toggle) {
+    if (toggle) {
         SetTimer %methodName%, % timer
     } else {
         SetTimer %methodName%, Off
@@ -24,6 +24,11 @@ CallMethodWithTimer(methodName, timer) {
     }
 }
 
+IsToggleOn(methodName){
+    global allToggles
+
+    return allToggles[methodName]
+}
 
 
 ;-------------------------------------------------

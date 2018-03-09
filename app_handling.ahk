@@ -119,14 +119,14 @@ Return
 #If WinActive(ahk_firefox) || WinActive(ahk_chrome)
 ~WheelUp::
     MouseGetPos, , y
-    if(y <= 40) {
+    if (y > -1 && y <= 40) {
         Send ^+{Tab}
     }
     Return
 
 ~WheelDown::
     MouseGetPos, , y
-    if(y <= 40) {
+    if (y > -1 && y <= 40) {
         Send ^{Tab}
     }
     Return
@@ -159,7 +159,7 @@ Return
 ; #IfWinExist This is an unregistered copy ahk_exe sublime_text.exe
 hideSublimeRegister() {
     sublime_window := WinExist("This is an unregistered copy " . ahk_sublime)
-    If sublime_window {
+    if (sublime_window) {
         WinActivate
         SendInput {Esc}
     }
@@ -169,6 +169,40 @@ hideSublimeRegister() {
 
 ;-------------------------------------------------
 ; use just F4 to close some windows
-#If WinActive(ahk_firefox) || WinActive(ahk_chrome) || WinActive(ahk_telegram)
+#If WinActive(ahk_firefox) || WinActive(ahk_chrome) || WinActive(ahk_telegram) || WinActive(ahk_vlc)
 F4:: SendInput !{F4}
 #If
+
+
+
+#If WinActive(ahk_tf2)
+;-------------------------------------------------
+; tf2: press reload and autoclick
+CapsLock & R::
+    CallMethodWithTimer("pressR", 500)
+    CallMethodWithTimer("clickLMouse", 50)
+Return
+
+; stop autoclicking (for example if scoped -> stop scope and autoclicking)
+~RButton::
+    if (WinActive(ahk_tf2) && IsToggleOn("pressR") && IsToggleOn("clickLMouse")){
+        CallMethodWithTimer("pressR", 1)
+        CallMethodWithTimer("clickLMouse", 1)
+    }
+Return
+
+#If
+
+pressR() {
+    if (WinActive(ahk_tf2)){
+        SendInput {r}
+    }
+    SetCapsLockState Off
+}
+
+clickLMouse(){
+    if (WinActive(ahk_tf2)){
+        SendInput {LButton}
+    }
+    SetCapsLockState Off
+}
