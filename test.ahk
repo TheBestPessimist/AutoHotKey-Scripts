@@ -20,7 +20,7 @@ CallMethodWithTimer(methodName, timer) {
         SetTimer %methodName%, % timer
     } else {
         SetTimer %methodName%, Off
-        ToolTip
+        ; ToolTip
     }
 }
 
