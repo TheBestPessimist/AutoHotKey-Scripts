@@ -23,9 +23,10 @@ CapsLock & t::
     if !WinExist(ahk_telegram) {
         Run "C:\all\Portable Apps\Telegram\Telegram.exe"
         Winwait % ahk_telegram
+        Sleep 499
         WinActivate % ahk_telegram
         ; select the most important chat
-        Sleep 90
+        Sleep 499
         SendInput {PgDn}
         Sleep 90
         SendInput {PgUp}
@@ -35,7 +36,7 @@ CapsLock & t::
         SendInput {PgUp}
         Sleep 90
         SendInput {Enter}
-        Sleep 90
+        Sleep 499
 
         ; ; move the window to its proper position
         ; NOTE: THIS DOES NOT WORK. SOMETIMES TELEGRAM JUST WONT FUCKING RESIZE.
