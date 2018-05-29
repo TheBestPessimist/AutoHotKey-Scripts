@@ -118,22 +118,22 @@ Return
 ; Firefox and Chrome: mouse-scroll over the "tab area" to switch tabs forward and backward, instead of clicking/using
 ; ctrl+tab or ctrl+shift+tab
 ;
-; "~"" is  used so that i can scroll in the normal page
-#If WinActive(ahk_firefox) || WinActive(ahk_chrome)
-~WheelUp::
-    MouseGetPos, , y
-    if (y > -1 && y <= 40) {
-        Send ^+{Tab}
-    }
-Return
+; ; "~"" is  used so that i can scroll in the normal page
+; #If WinActive(ahk_firefox) || WinActive(ahk_chrome)
+; ~WheelUp::
+;     MouseGetPos, , y
+;     if (y > -1 && y <= 40) {
+;         Send ^+{Tab}
+;     }
+; Return
 
-~WheelDown::
-    MouseGetPos, , y
-    if (y > -1 && y <= 40) {
-        Send ^{Tab}
-    }
-Return
-#If
+; ~WheelDown::
+;     MouseGetPos, , y
+;     if (y > -1 && y <= 40) {
+;         Send ^{Tab}
+;     }
+; Return
+; #If
 
 
 
