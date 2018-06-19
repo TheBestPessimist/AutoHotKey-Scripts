@@ -151,8 +151,11 @@ getTaskbarDimensions(ByRef tw, ByRef th) {
 #If WinActive(ahk_sublime)
 CapsLock & w::
     SendInput ^+P
-    Sleep 10
-    SendInput wwp{Enter}
+    Sleep 90
+    SendInput wwp
+    Sleep 90
+    SendInput {Enter}
+    SetCapsLockState Off
 Return
 #If
 
@@ -166,6 +169,7 @@ hideSublimeRegister() {
         WinActivate
         SendInput {Esc}
     }
+
 }
 
 
