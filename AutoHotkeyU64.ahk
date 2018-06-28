@@ -11,11 +11,14 @@
 ; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
 #Include autoExecute_test.ahk
 #include autoExecute_appHandling.ahk
+#include autoExecute_lidOff.ahk
 
 
 ; rest of everything
 #Include test.ahk
 #Include app_handling.ahk
+#Include lidOff.ahk
+
 
 
 ;-------------------------------------------------
