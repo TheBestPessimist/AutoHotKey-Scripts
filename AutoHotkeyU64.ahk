@@ -2,20 +2,20 @@
 #SingleInstance, force
 #MaxHotkeysPerInterval 500
 #WinActivateForce
+; #InstallKeybdHook
+; #InstallMouseHook
+; DetectHiddenWindows, on
+
 
 
 ; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
-#Include autoExecuteArea.ahk
+#Include autoExecute_test.ahk
+#include autoExecute_appHandling.ahk
+
 
 ; rest of everything
 #Include test.ahk
 #Include app_handling.ahk
-
-
-
-; #InstallKeybdHook
-; #InstallMouseHook
-; DetectHiddenWindows, on
 
 
 ;-------------------------------------------------
