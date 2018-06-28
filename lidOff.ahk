@@ -6,9 +6,6 @@ WM_POWERBROADCAST(wparam, lparam)
     ;new_state = 0 = closed
     ;new_state = 1 = opened
     if(new_state = 0) {
-        ; FormatTime, TimeString,, HH:mm:ss
-        ; global aaa := "The lid was " (new_state ? "opened" : "closed" ) " at " TimeString "`n"
-        ; ToolTip % aaa
         DllCall("LockWorkStation")
     }
   }
