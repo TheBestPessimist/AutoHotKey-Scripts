@@ -62,7 +62,7 @@ Return
 ;-------------------------------------------------
 ; reload this script
 ; caps + shift + r
-CapsLock & F5::
+~CapsLock & F5::
     SetCapsLockState Off
     Reload
 Return
