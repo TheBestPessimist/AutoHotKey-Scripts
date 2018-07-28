@@ -9,9 +9,9 @@
 
 
 ; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
-#Include autoExecute_test.ahk
-#include autoExecute_appHandling.ahk
-#include autoExecute_lidOff.ahk
+#Include test_autoExecute.ahk
+#include appHandling_autoExecute.ahk
+#include lidOff_autoExecute.ahk
 
 
 ; rest of everything
