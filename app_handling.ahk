@@ -151,7 +151,7 @@ getTaskbarDimensions(ByRef tw, ByRef th) {
 #If WinActive(ahk_sublime)
 CapsLock & w::
     SendInput ^+P
-    Sleep 90
+    Sleep 180
     SendInput wwp
     Sleep 90
     SendInput {Enter}
