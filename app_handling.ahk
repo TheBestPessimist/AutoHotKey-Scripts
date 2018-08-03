@@ -161,6 +161,22 @@ Return
 
 
 ;-------------------------------------------------
+; Intellij Idea: CapsLock & w to toggle word wrap
+#If WinActive(ahk_intellij_idea)
+CapsLock & w::
+    SendInput ^+A
+    Sleep 280
+    SendInput active editor use soft wraps
+    Sleep 90
+    SendInput {Enter}
+    SetCapsLockState Off
+    Sleep 90
+    SendInput {Esc}
+Return
+#If
+
+
+;-------------------------------------------------
 ; hide the Sublime Text message for unregistered copy
 ; #IfWinExist This is an unregistered copy ahk_exe sublime_text.exe
 hideSublimeRegister() {
