@@ -165,9 +165,9 @@ Return
 #If WinActive(ahk_intellij_idea)
 CapsLock & w::
     SendInput ^+A
-    Sleep 280
+    Sleep 380
     SendInput active editor use soft wraps
-    Sleep 90
+    Sleep 100
     SendInput {Enter}
     SetCapsLockState Off
     Sleep 90
@@ -177,16 +177,16 @@ Return
 
 
 ;-------------------------------------------------
+; 2018.09.07: no need for this as sublime text is licensed now!
 ; hide the Sublime Text message for unregistered copy
 ; #IfWinExist This is an unregistered copy ahk_exe sublime_text.exe
-hideSublimeRegister() {
-    sublime_window := WinExist("This is an unregistered copy " . ahk_sublime)
-    if (sublime_window) {
-        WinActivate
-        SendInput {Esc}
-    }
-
-}
+; hideSublimeRegister() {
+;     sublime_window := WinExist("This is an unregistered copy " . ahk_sublime)
+;     if (sublime_window) {
+;         WinActivate
+;         SendInput {Esc}
+;     }
+; }
 
 
 
