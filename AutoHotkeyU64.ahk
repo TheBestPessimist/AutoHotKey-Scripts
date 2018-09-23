@@ -51,12 +51,6 @@ CapsLock & SPACE::  Winset, Alwaysontop, , A
 
 
 ;------------------------------------------------
-; Eve V: alt + menu => ctrl
-!AppsKey::Ctrl
-AppsKey & Alt::Ctrl
-
-
-;------------------------------------------------
 ; caps lock + 1 => sleep screen
 CapsLock & 1::
     Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
@@ -65,6 +59,14 @@ CapsLock & 1::
     Sleep 20
     SendMessage 0x112, 0xF170, 2,,Program Manager
 Return
+
+
+
+;------------------------------------------------
+; Eve V: alt + menu => ctrl
+!AppsKey::Ctrl
+AppsKey & Alt::Ctrl
+AppsKey::Send {AppsKey}
 
 
 
