@@ -167,7 +167,7 @@ CapsLock & w::
     SendInput ^+A
     Sleep 380
     SendInput active editor use soft wraps
-    Sleep 100
+    Sleep 200
     SendInput {Enter}
     SetCapsLockState Off
     Sleep 90
