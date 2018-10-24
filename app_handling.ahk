@@ -151,11 +151,11 @@ getTaskbarDimensions(ByRef tw, ByRef th) {
 #If WinActive(ahk_sublime)
 CapsLock & w::
     SendInput ^+P
-    Sleep 180
+    Sleep 200
     SendInput wwp
-    Sleep 90
-    SendInput {Enter}
+    Sleep 200
     SetCapsLockState Off
+    SendInput {Enter}
 Return
 #If
 
@@ -168,9 +168,9 @@ CapsLock & w::
     Sleep 380
     SendInput active editor use soft wraps
     Sleep 200
-    SendInput {Enter}
     SetCapsLockState Off
-    Sleep 90
+    SendInput {Enter}
+    Sleep 100
     SendInput {Esc}
 Return
 #If
