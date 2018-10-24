@@ -161,8 +161,8 @@ Return
 
 
 ;-------------------------------------------------
-; Intellij Idea: CapsLock & w to toggle word wrap
-#If WinActive(ahk_intellij_idea)
+; Intellij Idea/goland: CapsLock & w to toggle word wrap
+#If WinActive(ahk_intellij_idea) || WinActive(ahk_goland)
 CapsLock & w::
     SendInput ^+A
     Sleep 380
