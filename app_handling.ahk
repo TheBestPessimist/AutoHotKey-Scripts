@@ -192,9 +192,9 @@ Return
 
 ;-------------------------------------------------
 ; use just F4 to close some windows
-#If WinActive(ahk_firefox)
-    || WinActive(ahk_chrome)
-    || WinActive(ahk_telegram)
+#If WinActive(ahk_telegram)
+    ; || WinActive(ahk_chrome)
+    ; || WinActive(ahk_firefox)
     || WinActive(ahk_vlc)
     || WinActive(ahk_modern_photos[1], ahk_modern_photos[2])
 F4:: SendInput !{F4}
