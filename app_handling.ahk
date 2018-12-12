@@ -2,7 +2,7 @@
 ;       CapsLock sublime text
 CapsLock & s::
     if !WinExist(ahk_sublime) {
-      Run "C:\all\Portable Apps\Sublime Text 3\sublime_text.exe"
+      Run "C:\all\Sublime Text 3\sublime_text.exe"
       WinWait % ahk_sublime
     }
     WinActivate % ahk_sublime
@@ -21,7 +21,7 @@ Return
 ;
 CapsLock & t::
     if !WinExist(ahk_telegram) {
-        Run "C:\all\Portable Apps\Telegram\Telegram.exe"
+        Run "C:\all\Telegram\Telegram.exe"
         Winwait % ahk_telegram
         Sleep 499
         WinActivate % ahk_telegram
