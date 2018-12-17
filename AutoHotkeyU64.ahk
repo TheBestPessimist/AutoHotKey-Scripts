@@ -12,6 +12,9 @@
 #Include test_autoExecute.ahk
 #include appHandling_autoExecute.ahk
 #include lidOff_autoExecute.ahk
+#include soundBalance_autoExecute.ahk
+
+
 
 
 ; rest of everything
