@@ -32,6 +32,15 @@ if (A_ComputerName = "TBP-NUC") {
 }
 
 fixTheGoddamnVolumeBalance() {
+    ; Bluetooth headphones don't have individually-controlled channels.
+    ; In other words there's no balance control for bluetooth headphones
+    device := VA_GetDevice("playback")
+    device_name := VA_GetDeviceName(device)
+    ObjRelease(device)
+    If ( InStr(device_name, "Beat 2000", false) ) {
+        Return
+    }
+
     curr_vol := VA_GetMasterVolume()
 
     ; a good ratio is
