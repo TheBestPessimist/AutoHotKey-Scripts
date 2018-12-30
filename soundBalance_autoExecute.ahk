@@ -24,7 +24,7 @@
 ; Autohotkey ref: https://autohotkey.com/board/topic/21984-vista-audio-control-functions/
 ;
 ;
-#include VA.ahk
+#include lib/VA.ahk
 
 ; only run this on the desk PC
 if (A_ComputerName = "TBP-NUC") {
