@@ -35,11 +35,15 @@ fixTheGoddamnVolumeBalance() {
     ; Bluetooth headphones don't have individually-controlled channels.
     ; In other words there's no balance control for bluetooth headphones
     device := VA_GetDevice("playback")
-    device_name := VA_GetDeviceName(device)
-    ObjRelease(device)
+    device_name := ""
+    If (device != 0) {
+        device_name = VA_GetDeviceName(device)
+    }
+
     If ( InStr(device_name, "Beat 2000", false) ) {
         Return
     }
+    ObjRelease(device)
 
     curr_vol := VA_GetMasterVolume()
 
