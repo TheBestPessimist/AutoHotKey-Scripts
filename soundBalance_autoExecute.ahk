@@ -37,14 +37,14 @@ fixTheGoddamnVolumeBalance() {
     device := VA_GetDevice("playback")
     device_name := ""
     If (device != 0) {
-        device_name = VA_GetDeviceName(device)
+        device_name := VA_GetDeviceName(device)
     }
-
     If ( InStr(device_name, "Beat 2000", false) ) {
         Return
     }
     ObjRelease(device)
 
+    ; Get the master volume of the default playback device.
     curr_vol := VA_GetMasterVolume()
 
     ; a good ratio is
