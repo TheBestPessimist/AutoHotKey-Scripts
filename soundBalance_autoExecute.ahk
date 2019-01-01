@@ -34,12 +34,13 @@ if (A_ComputerName = "TBP-NUC") {
 fixTheGoddamnVolumeBalance() {
     ; Bluetooth headphones don't have individually-controlled channels.
     ; In other words there's no balance control for bluetooth headphones
+    ; Moreover, my bluetooth speakers don't do stereo properly even when on wired bypass.
     device := VA_GetDevice("playback")
     device_name := ""
     If (device != 0) {
         device_name := VA_GetDeviceName(device)
     }
-    If ( InStr(device_name, "Beat 2000", false) ) {
+    If ( InStr(device_name, "Beat 2000", false) || InStr(device_name, "DELL", false) ) {
         Return
     }
     ObjRelease(device)
