@@ -151,9 +151,9 @@ getTaskbarDimensions(ByRef tw, ByRef th) {
 #If WinActive(ahk_sublime)
 CapsLock & w::
     SendInput ^+P
-    Sleep 200
+    Sleep 500
     SendInput wwp
-    Sleep 200
+    Sleep 500
     SetCapsLockState Off
     SendInput {Enter}
 Return
@@ -165,12 +165,12 @@ Return
 #If WinActive(ahk_intellij_idea) || WinActive(ahk_goland)
 CapsLock & w::
     SendInput ^+A
-    Sleep 380
+    Sleep 500
     SendInput active editor use soft wraps
-    Sleep 300
+    Sleep 500
     SetCapsLockState Off
     SendInput {Enter}
-    Sleep 200
+    Sleep 500
     SendInput {Esc}
 Return
 #If
