@@ -191,12 +191,31 @@ Return
 
 
 ;-------------------------------------------------
+; hide the TeamViewer message for sponsored session
+hideTeamviewerSponsoredsession() {
+    tw_window := WinExist(ahk_teamviewer_sponsoredsession)
+    if (tw_window) {
+        ; WinActivate
+        ; SendInput {Esc}
+
+        SetControlDelay 0
+        ControlClick, OK
+
+        ; SetControlDelay 0
+        ; ControlClick, OK, ahk_teamviewer_sponsoredsession,,,, NA
+    }
+}
+
+
+
+;-------------------------------------------------
 ; use just F4 to close some windows
 #If WinActive(ahk_telegram)
     ; || WinActive(ahk_chrome)
     ; || WinActive(ahk_firefox)
     || WinActive(ahk_vlc)
     || WinActive(ahk_modern_photos[1], ahk_modern_photos[2])
+    || WinActive(ahk_teamviewer)
 F4:: SendInput !{F4}
 #If
 
