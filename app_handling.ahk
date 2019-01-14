@@ -192,17 +192,13 @@ Return
 
 ;-------------------------------------------------
 ; hide the TeamViewer message for sponsored session
+; and also close the TeamViewer window afterwards
 hideTeamviewerSponsoredsession() {
     tw_window := WinExist(ahk_teamviewer_sponsoredsession)
     if (tw_window) {
-        ; WinActivate
-        ; SendInput {Esc}
-
         SetControlDelay 0
         ControlClick, OK
-
-        ; SetControlDelay 0
-        ; ControlClick, OK, ahk_teamviewer_sponsoredsession,,,, NA
+        WinClose
     }
 }
 
