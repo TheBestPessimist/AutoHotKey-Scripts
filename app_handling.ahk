@@ -194,11 +194,16 @@ Return
 ; hide the TeamViewer message for sponsored session
 ; and also close the TeamViewer window afterwards
 hideTeamviewerSponsoredsession() {
-    tw_window := WinExist(ahk_teamviewer_sponsoredsession)
-    if (tw_window) {
+    if WinExist(ahk_teamviewer_sponsoredsession) {
         SetControlDelay 0
         ControlClick, OK
-        WinClose
+
+        ; It seems that simply Winclose, ahk_teamviewer doesnt work.
+        ; I have to actually search for the window and then WinClose the automatically filled variable.
+        ; Weird...
+        if WinExist(ahk_teamviewer) {
+            WinClose
+        }
     }
 }
 
