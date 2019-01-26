@@ -217,6 +217,7 @@ hideTeamviewerSponsoredsession() {
     || WinActive(ahk_vlc)
     || WinActive(ahk_modern_photos[1], ahk_modern_photos[2])
     || WinActive(ahk_teamviewer)
+    || WinActive(ahk_CorsairCUE)
 F4:: SendInput !{F4}
 #If
 

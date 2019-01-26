@@ -10,7 +10,7 @@ global ahk_intellij_idea := "ahk_exe idea64.exe"
 global ahk_goland := "ahk_exe goland64.exe"
 global ahk_teamviewer_sponsoredsession := "Sponsored session ahk_exe TeamViewer.exe"
 global ahk_teamviewer := "TeamViewer ahk_exe TeamViewer.exe"
-
+global ahk_CorsairCUE := "ahk_class CUEBorderlessWindow ahk_exe iCUE.exe"
 
 SetTimer, hideTeamviewerSponsoredsession, 5000
 
