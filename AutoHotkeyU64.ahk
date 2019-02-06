@@ -21,6 +21,8 @@
 #Include test.ahk
 #Include app_handling.ahk
 #Include lidOff.ahk
+#include Tippy.ahk
+#include PowerManager.ahk
 
 
 
@@ -70,6 +72,16 @@ Return
 !AppsKey::Ctrl
 AppsKey & Alt::Ctrl
 AppsKey::Send {AppsKey}
+
+
+
+
+;------------------------------------------------
+; CapsLock + P: Toggle between "Power saver" and "Balanced" powers schemes
+CapsLock & P::TogglePowerScheme()
+
+
+
 
 
 
