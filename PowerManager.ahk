@@ -14,7 +14,7 @@ TogglePowerScheme()
 
   RunWaitCommand("powercfg /setActive " . scheme[2])
 
-  Tippy("Power Plan " . scheme[1])
+  Tippy("Power Plan " . scheme[1], 3000)
 
   ; ToolTipFM("Power Plan " . scheme[1])
   ; Sleep, 1000
