@@ -6,6 +6,11 @@
 ; Function TippyOn is called on a timer every 10 ms to update the tooltip position (that function also calls itself)
 ; To hide the tooltip the function TippyOff is called after %Duration% time which turns off the timer for TippyOn so everything is clean
 ;
+; How to use:
+; - At the top of your script include this second script:
+;           #include Tippy.ahk
+; - Then just call Tippy() with the text and duration you want.
+;           You have an example at the end of the script!
 ; The tooltip is beautifully shown using ToolTipFM (a fancier tooltip -- read it's own comments).
 Tippy(Text = "", Duration = 1000) {
     global TippyText := Text
@@ -30,10 +35,10 @@ TippyOff() {
 
 
 
-; ; ToolTip which follows the mouse without flickering
-; ; It uses MoveWindow dll call instead of recreating the ToolTip!
-; ;
-; ; Ref: https://autohotkey.com/board/topic/63640-tooltip-which-follows-the-mouse-is-flickering/#entry409383
+; ToolTip which follows the mouse without flickering
+; It uses MoveWindow dll call instead of recreating the ToolTip!
+;
+; Ref: https://autohotkey.com/board/topic/63640-tooltip-which-follows-the-mouse-is-flickering/#entry409383
 ToolTipFM(Text="", WhichToolTip=16, xOffset=16, yOffset=16) { ; ToolTip which Follows the Mouse
     static LastText, hwnd, VirtualScreenWidth, VirtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
 
@@ -84,3 +89,49 @@ ToolTipFM(Text="", WhichToolTip=16, xOffset=16, yOffset=16) { ; ToolTip which Fo
         Winset, AlwaysOnTop, on, ahk_id %hwnd%
     }
 }
+
+
+
+
+; ================================
+; HERE IS HOW YOU TEST THE SCRIPT!
+
+; Press and hold F1-F2 hotkeys, and move mouse.
+
+
+; Text = ; Make too long ToolTip text for testing purpose
+; (
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; )
+
+
+; ;=== Test ToolTip mouse following ===
+; ; Just keep F1 or F2 pressed and see the difference!
+; F1:: ; old system = flickers + high CPU load + slow moving
+; While, GetKeyState(A_ThisHotkey,"p")
+; {
+;     ToolTip, % text
+;     Sleep, 10
+; }
+; ToolTip
+; return
+
+; F2:: ; new system = does not flicker + low CPU load + fast moving
+; {
+;     Tippy(text, 2000) ; you pass the text and the duration
+; }
+; return
+
