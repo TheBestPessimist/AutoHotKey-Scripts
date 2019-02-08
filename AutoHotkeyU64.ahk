@@ -11,6 +11,16 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ; DetectHiddenWindows, on
 
 
+; Change the icon in taskbar
+; Ref: https://github.com/TaranVH/2nd-keyboard/blob/master/INFO_and_PROFILES/system32-shell32_dll.png
+; Menu, Tray, Icon, shell32.dll, 303 ; changes tray icon to a  check mark
+; Menu, Tray, Icon, shell32.dll, 16 ; change tray icon to a little laptop
+Menu, Tray, Icon, shell32.dll, 321 ; change tray icon to a blue star
+; Menu, Tray, Icon, shell32.dll, 44 ; change tray icon to a yellow star
+
+
+
+
 
 ; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
 #Include test_autoExecute.ahk
@@ -27,6 +37,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Include lidOff.ahk
 #include Tippy.ahk
 #include PowerManager.ahk
+
 
 
 
@@ -96,3 +107,11 @@ CapsLock & P::TogglePowerScheme()
     SetCapsLockState Off
     Reload
 Return
+
+
+
+
+
+
+
+
