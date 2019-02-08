@@ -19,7 +19,10 @@ Return
 ;
 ; SendInput is used so that i select the first chat :^)
 ;
-CapsLock & t::
+CapsLock & t::startAndResizeTelegram()
+
+startAndResizeTelegram()
+{
     if !WinExist(ahk_telegram) {
         Run "C:\all\Telegram\Telegram.exe"
         Winwait % ahk_telegram
@@ -110,7 +113,7 @@ CapsLock & t::
     }
     Sleep 100
     SetCapsLockState Off
-Return
+}
 
 
 
@@ -140,7 +143,7 @@ Return
 ;-------------------------------------------------
 ; get taskbar dimensions, assuming bottom position
 getTaskbarDimensions(ByRef tw, ByRef th) {
-    WinGetPos x, y, tw, th, ahk_class Shell_TrayWnd,
+    WinGetPos, x, y, tw, th, ahk_class Shell_TrayWnd
 }
 
 
