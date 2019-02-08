@@ -223,40 +223,40 @@ F4:: SendInput !{F4}
 
 
 
-#If WinActive(ahk_tf2)
-;-------------------------------------------------
-; tf2: press reload and autoclick
-CapsLock & R::
-    CallMethodWithTimer("pressR", 500)
-    CallMethodWithTimer("clickLMouse", 50)
-
-    Sleep 100
-    SetCapsLockState Off
-Return
-
-; stop autoclicking (for example if scoped -> stop scope and autoclicking)
-~RButton::
-    SetCapsLockState AlwaysOff
-    if (WinActive(ahk_tf2)
-        && IsToggleOn("pressR")
-        && IsToggleOn("clickLMouse")) {
-            CallMethodWithTimer("pressR", 1)
-            CallMethodWithTimer("clickLMouse", 1)
-    }
-
-    Sleep 100
-    SetCapsLockState Off
-Return
-#If
-
-pressR() {
-     if (WinActive(ahk_tf2)) {
-        SendInput {r}
-    }
-}
-
-clickLMouse(){
-     if (WinActive(ahk_tf2)) {
-        SendInput {LButton}
-    }
-}
+; #If WinActive(ahk_tf2)
+; ;-------------------------------------------------
+; ; tf2: press reload and autoclick
+; CapsLock & R::
+;     CallMethodWithTimer("pressR", 500)
+;     CallMethodWithTimer("clickLMouse", 50)
+;
+    ; Sleep 100
+;     SetCapsLockState Off
+; Return
+;
+; ; stop autoclicking (for example if scoped -> stop scope and autoclicking)
+; ~RButton::
+;     SetCapsLockState AlwaysOff
+;     if (WinActive(ahk_tf2)
+;         && IsToggleOn("pressR")
+;         && IsToggleOn("clickLMouse")) {
+;             CallMethodWithTimer("pressR", 1)
+;             CallMethodWithTimer("clickLMouse", 1)
+;     }
+;
+;     Sleep 100
+;     SetCapsLockState Off
+; Return
+; #If
+;
+; pressR() {
+;      if (WinActive(ahk_tf2)) {
+;         SendInput {r}
+;     }
+; }
+;
+; clickLMouse(){
+;      if (WinActive(ahk_tf2)) {
+;         SendInput {LButton}
+;     }
+; }
