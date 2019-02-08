@@ -46,7 +46,7 @@ CapsLock & t::
         h := A_ScreenHeight - th
         x := A_ScreenWidth - w
         y := 0
-        WinMove % ahk_telegram, , x, y, w, h,
+        WinMove % ahk_telegram, , x, y, w, h
         ; WinMove % telegram, , , , w, h,
 
 
