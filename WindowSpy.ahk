@@ -17,7 +17,7 @@ txtFocusCtrl := "Focused Control"
 Gui, New, hwndhGui AlwaysOnTop Resize MinSize
 Gui, Add, Text,, Window Title, Class and Process:
 Gui, Add, Checkbox, yp xp+200 w120 Right vCtrl_FollowMouse, Follow Mouse
-Gui, Add, Edit, xm w320 r3 ReadOnly -Wrap vCtrl_Title
+Gui, Add, Edit, xm w320 r4 ReadOnly -Wrap vCtrl_Title
 Gui, Add, Text,, Mouse Position:
 Gui, Add, Edit, w320 r4 ReadOnly vCtrl_MousePos
 Gui, Add, Text, w320 vCtrl_CtrlLabel, % txtFocusCtrl ":"
@@ -44,7 +44,7 @@ if !horzMargin
 	return
 SetTimer, Update, % A_EventInfo=1 ? "Off" : "On" ; Suspend on minimize
 ctrlW := A_GuiWidth - horzMargin
-list = Title,MousePos,MouseCur,Pos,SBText,VisText,AllText,Freeze
+list = Title,MousePos,Ctrl,Pos,SBText,VisText,AllText,Freeze
 Loop, Parse, list, `,
 	GuiControl, Move, Ctrl_%A_LoopField%, w%ctrlW%
 return
@@ -75,7 +75,8 @@ if (curWin = hGui || t2 = "MultitaskingViewFrame") ; Our Gui || Alt-tab
 }
 GuiControl,, Ctrl_Freeze, % txtNotFrozen
 WinGet, t3, ProcessName
-GuiControl,, Ctrl_Title, % t1 "`nahk_class " t2 "`nahk_exe " t3
+WinGet, t4, PID
+GuiControl,, Ctrl_Title, % t1 "`nahk_class " t2 "`nahk_exe " t3 "`nahk_pid " t4
 CoordMode, Mouse, Relative
 MouseGetPos, mrX, mrY
 CoordMode, Mouse, Client
@@ -101,7 +102,7 @@ else
 GuiControl,, Ctrl_Ctrl, % cText
 WinGetPos, wX, wY, wW, wH
 GetClientSize(curWin, wcW, wcH)
-GuiControl,, Ctrl_Pos, % "`tx: " wX "`ty: " wY "`tw: " wW "`th: " wH "`nClient:`t`t`tw: " wcW "`th: " wcH
+GuiControl,, Ctrl_Pos, % "`tx: " wX "`ty: " wY "`tw: " wW "`th: " wH "`nClient:`tx: 0`ty: 0`tw: " wcW "`th: " wcH
 sbTxt := ""
 Loop
 {
