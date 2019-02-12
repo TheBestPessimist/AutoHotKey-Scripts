@@ -105,8 +105,9 @@ CapsLock & P::TogglePowerScheme()
 ;-------------------------------------------------
 ; reload this script
 ; caps + shift + r
-~CapsLock & F5::Reload
-
+#If GetKeyState("CapsLock", "P")
+~F5::Reload
+#If
 
 
 
