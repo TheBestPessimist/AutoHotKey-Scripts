@@ -1,4 +1,4 @@
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
@@ -27,7 +27,7 @@ Menu, Tray, Icon, shell32.dll, 321 ; change tray icon to a blue star
 #include appHandling_autoExecute.ahk
 #include lidOff_autoExecute.ahk
 #include soundBalance_autoExecute.ahk
-
+#include capsLockToggle_autoExecute.ahk
 
 
 
@@ -36,6 +36,7 @@ Menu, Tray, Icon, shell32.dll, 321 ; change tray icon to a blue star
 #Include lidOff.ahk
 #include Tippy.ahk
 #include PowerManager.ahk
+#include capsLockToggle.ahk
 
 
 
@@ -72,12 +73,14 @@ CapsLock & SPACE::  Winset, Alwaysontop, , A
 ;------------------------------------------------
 ; caps lock + 1 => sleep screen
 CapsLock & 1::
+{
     Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
     SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into off mode
     ; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
     Sleep 20
     SendMessage 0x112, 0xF170, 2,,Program Manager
-Return
+    Return
+}
 
 
 
@@ -102,10 +105,7 @@ CapsLock & P::TogglePowerScheme()
 ;-------------------------------------------------
 ; reload this script
 ; caps + shift + r
-~CapsLock & F5::
-    SetCapsLockState Off
-    Reload
-Return
+~CapsLock & F5::Reload
 
 
 

@@ -111,8 +111,6 @@ startAndResizeTelegram()
     else {
         WinActivate % ahk_telegram
     }
-    Sleep 100
-    SetCapsLockState Off
 }
 
 
@@ -157,7 +155,6 @@ CapsLock & w::
     Sleep 500
     SendInput wwp
     Sleep 500
-    SetCapsLockState Off
     SendInput {Enter}
 Return
 #If
@@ -171,7 +168,6 @@ CapsLock & w::
     Sleep 500
     SendInput active editor use soft wraps
     Sleep 500
-    SetCapsLockState Off
     SendInput {Enter}
     Sleep 500
     SendInput {Esc}
@@ -233,13 +229,10 @@ F4:: SendInput !{F4}
 ;     CallMethodWithTimer("pressR", 500)
 ;     CallMethodWithTimer("clickLMouse", 50)
 ;
-    ; Sleep 100
-;     SetCapsLockState Off
 ; Return
 ;
 ; ; stop autoclicking (for example if scoped -> stop scope and autoclicking)
 ; ~RButton::
-;     SetCapsLockState AlwaysOff
 ;     if (WinActive(ahk_tf2)
 ;         && IsToggleOn("pressR")
 ;         && IsToggleOn("clickLMouse")) {
@@ -247,8 +240,6 @@ F4:: SendInput !{F4}
 ;             CallMethodWithTimer("clickLMouse", 1)
 ;     }
 ;
-;     Sleep 100
-;     SetCapsLockState Off
 ; Return
 ; #If
 ;
