@@ -25,7 +25,7 @@ startAndResizeTelegram()
 {
     if !WinExist(ahk_telegram) {
         Run "C:\all\Telegram\Telegram.exe"
-        Winwait % ahk_telegram
+        WinWaitActive % ahk_telegram
         Sleep 499
         WinActivate % ahk_telegram
         ; select the most important chat
