@@ -12,7 +12,7 @@
 ; - Then just call Tippy() with the text and duration you want.
 ;           You have an example at the end of the script!
 ; The tooltip is beautifully shown using ToolTipFM (a fancier tooltip -- read it's own comments).
-Tippy(Text = "", Duration = 1000) {
+Tippy(Text = "", Duration = 3333) {
     global TippyText := Text
 
     SetTimer, TippyOff, %Duration%
