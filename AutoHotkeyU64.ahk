@@ -8,8 +8,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #WinActivateForce
 ; #InstallKeybdHook
 ; #InstallMouseHook
-DetectHiddenWindows, On
-SetTitleMatchMode, 2
+; these 2 settings are killing the telegram starter, since the telegram process exists,
+; just that it is hidden in the tray, instead of taskbar
+; DetectHiddenWindows, On
+; SetTitleMatchMode, 2
 
 ; Change the icon in taskbar
 ; Ref: https://github.com/TaranVH/2nd-keyboard/blob/master/INFO_and_PROFILES/system32-shell32_dll.png
@@ -110,6 +112,9 @@ CapsLock & P::TogglePowerScheme()
 ; That wParam is what ahk interprets are "Reload"
 CapsLock & F5::
 ReloadAllAhkScripts() {
+    DetectHiddenWindows, On
+    SetTitleMatchMode, 2
+
     thisScriptsHWND := WinExist("Ahk_PID " DllCall("GetCurrentProcessId"))
     allAhkExe := []
     WinGet, allAhkExe, List, ahk_class AutoHotkey
