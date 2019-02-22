@@ -1,4 +1,4 @@
-; disable normal CapsLock usage
+﻿; disable normal CapsLock usage
 CapsLock::return
 
 ;-------------------------------------------------
@@ -8,6 +8,8 @@ keepCapsLockOff()
 {
     if(!shouldKeepCapsLockOff)
     {
+        Sleep, 100
+        SetCapsLockState On
         return
     }
     SetCapsLockState Off
@@ -20,11 +22,13 @@ CapsLock & Alt::
     Sleep, 100
     if (shouldKeepCapsLockOff)
     {
+        Sleep, 300    ; one has to sleep JUST BEFORE toggling caps
         Tippy("CapsLock is off")
         SetCapsLockState Off
     }
     else
     {
+        Sleep, 300    ; one has to sleep JUST BEFORE toggling caps
         Tippy("CapsLock is on")
         SetCapsLockState On
     }
