@@ -3,7 +3,7 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-#SingleInstance, force
+#SingleInstance force
 #MaxHotkeysPerInterval 500
 #WinActivateForce
 ; #InstallKeybdHook
@@ -116,13 +116,12 @@ ReloadAllAhkScripts() {
     DetectHiddenWindows, On
     SetTitleMatchMode, 2
 
-    thisScriptsHWND := WinExist("Ahk_PID " DllCall("GetCurrentProcessId"))
     allAhkExe := []
     WinGet, allAhkExe, List, ahk_class AutoHotkey
     Loop, % allAhkExe {
         hwnd := allAhkExe%A_Index%
 
-        if (hwnd = thisScriptsHWND)  ; ignore the current window for reloading
+        if (hwnd = A_ScriptHwnd)  ; ignore the current window for reloading
         {
             continue
         }
