@@ -1,12 +1,14 @@
 ﻿;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s::
+runSublimeText(){
     if !WinExist(ahk_sublime) {
       Run "C:\all\Sublime Text 3\sublime_text.exe"
       WinWait % ahk_sublime
     }
+    Sleep 499
     WinActivate % ahk_sublime
-Return
+}
 
 
 
