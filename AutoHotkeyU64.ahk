@@ -40,7 +40,7 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include Tippy.ahk
 #include PowerManager.ahk
 #include capsLockToggle.ahk
-
+#include GenericHotstrings.ahk
 
 
 
