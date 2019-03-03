@@ -116,7 +116,6 @@ ReloadAllAhkScripts() {
     DetectHiddenWindows, On
     SetTitleMatchMode, 2
 
-    allAhkExe := []
     WinGet, allAhkExe, List, ahk_class AutoHotkey
     Loop, % allAhkExe {
         hwnd := allAhkExe%A_Index%
