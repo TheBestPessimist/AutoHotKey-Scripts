@@ -126,7 +126,7 @@ ReloadAllAhkScripts() {
             continue
         }
 
-        PostMessage, 0x111, 65303,,, ahk_id %hwnd%
+        PostMessage, 0x111, 65303,,, % "ahk_id" . hwnd
     }
     Reload
 }
