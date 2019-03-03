@@ -10,3 +10,7 @@
 ;```
 ; Note: "O" deletes the ending character (the one which activates the hotstring)
 :O:``ahk::``````autoit`n`n``````{left 4}
+
+; ----- my autohotkey github -----------
+::gitahk::https://git.tbp.land/AutoHotKey-Scripts/
+
