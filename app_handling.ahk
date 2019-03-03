@@ -1,4 +1,4 @@
-﻿;-------------------------------------------------
+;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s::
 runSublimeText(){
@@ -21,8 +21,7 @@ runSublimeText(){
 ;
 ; SendInput is used so that i select the first chat :^)
 ;
-CapsLock & t::startAndResizeTelegram()
-
+CapsLock & t::
 startAndResizeTelegram()
 {
     if !WinExist(ahk_telegram) {
