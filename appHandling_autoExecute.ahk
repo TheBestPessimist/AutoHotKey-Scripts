@@ -11,6 +11,7 @@ global ahk_goland := "ahk_exe goland64.exe"
 global ahk_teamviewer_sponsoredsession := "Sponsored session ahk_exe TeamViewer.exe"
 global ahk_teamviewer := "TeamViewer ahk_exe TeamViewer.exe"
 global ahk_CorsairCUE := "ahk_class CUEBorderlessWindow ahk_exe iCUE.exe"
+global ahk_SC2 := "ahk_exe SC2_x64.exe"
 
 SetTimer, hideTeamviewerSponsoredsession, 5000
 

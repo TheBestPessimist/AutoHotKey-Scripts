@@ -1,4 +1,4 @@
-;-------------------------------------------------
+﻿;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s::
 runSublimeText(){
@@ -220,6 +220,46 @@ hideTeamviewerSponsoredsession() {
 F4:: SendInput !{F4}
 #If
 
+
+
+CapsLock & Numpad9::SetTimer, SC2PressT, % (pressT := !pressT) ? 8000 : "Off"
+
+SC2PressT()
+{
+    SetKeyDelay, -1, -1
+
+    if (WinActive(ahk_SC2)) {
+        Tippy("t")
+    }
+
+    ControlSend,, {2}{BackSpace}, % ahk_SC2
+    ControlSend,, {t}{BackSpace}, % ahk_SC2
+}
+
+
+CapsLock & Numpad8::SetTimer, SC2TemplarPlay, % (TemplarPlay := !TemplarPlay) ? 3500 : "Off"
+
+; camera lock MUST be on!
+; this is used when playing the templar and
+; we are all staying on the right of the map and
+; we are at the bottom of the "way" (eg where lategame position is)
+SC2TemplarPlay()
+{
+    SetControlDelay 200
+    ; SetKeyDelay 350
+    ; SetMouseDelay 350
+
+    if (WinActive(ahk_SC2)) {
+        Tippy("qq")
+    }
+
+    ControlSend,, 2, % ahk_SC2
+    ControlSend,, q, % ahk_SC2
+    ControlClick,, % ahk_SC2,, LEFT, 1, x1100 y139
+    ControlSend,, w, % ahk_SC2
+    ControlClick,, % ahk_SC2,, LEFT, 1, x1100 y139
+    ControlSend,, h, % ahk_SC2
+}
 
 
 ; #If WinActive(ahk_tf2)
