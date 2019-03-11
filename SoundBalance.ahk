@@ -26,10 +26,21 @@
 ;
 #include lib/VA.ahk
 
-; only run this on the desk PC
-if (A_ComputerName = "TBP-NUC") {
-    SetTimer, FixTheGoddamnVolumeBalance, 10000
-    ; SetTimer, SoundBalanceDebug, 1
+
+; There is no need for a standard ahk auto-execute area anymore because of this method.
+; This method is called automatically when the static variable autoExecute is instantiated,
+; and since it's a static, it will only be instantiated once!
+;
+; Idea provided by @nnnik#6686 on the AHK Discord Server: https://discord.gg/s3Fqygv
+SoundBalanceAutoExecute()
+{
+    static autoExecute := SoundBalanceAutoExecute()
+
+    ; only run this on the desk PC
+    if (A_ComputerName = "TBP-NUC") {
+        SetTimer, FixTheGoddamnVolumeBalance, 10000
+        ; SetTimer, SoundBalanceDebug, 1
+    }
 }
 
 FixTheGoddamnVolumeBalance() {

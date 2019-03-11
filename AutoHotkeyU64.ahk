@@ -28,7 +28,6 @@ Menu, Tray, Icon, resources/blueStar.ico
 ; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
 #include appHandling_autoExecute.ahk
 #include lidOff_autoExecute.ahk
-#include soundBalance_autoExecute.ahk
 
 
 
@@ -39,6 +38,8 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include PowerManager.ahk
 #include CapsLockToggle.ahk
 #include GenericHotstrings.ahk
+#include SoundBalance.ahk
+
 
 
 
