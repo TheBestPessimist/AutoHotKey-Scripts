@@ -26,7 +26,6 @@ Menu, Tray, Icon, resources/blueStar.ico
 
 
 ; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
-#Include test_autoExecute.ahk
 #include appHandling_autoExecute.ahk
 #include lidOff_autoExecute.ahk
 #include soundBalance_autoExecute.ahk
