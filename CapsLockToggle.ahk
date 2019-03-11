@@ -11,7 +11,7 @@ CapsLockToggleAutoExecute()
     SetTimer, keepCapsLockOff, 1000
 
     ; Sometimes i may want to use caps. This is a toggle to control that
-    global shouldKeepCapsLockOff := 1
+    global keepCapsLockOff := 1
 }
 
 ; disable normal CapsLock usage
@@ -22,9 +22,9 @@ CapsLock::return
 ; reset Caps state via CapsLock + Alt
 keepCapsLockOff()
 {
-    global shouldKeepCapsLockOff
+    global keepCapsLockOff
 
-    if(!shouldKeepCapsLockOff)
+    if(!keepCapsLockOff)
     {
         Sleep, 100
         SetCapsLockState On
@@ -37,11 +37,11 @@ keepCapsLockOff()
 CapsLock & Alt::
 ToggleCapsLockState()
 {
-    global shouldKeepCapsLockOff
-    shouldKeepCapsLockOff := !shouldKeepCapsLockOff
+    global keepCapsLockOff
+    keepCapsLockOff := !keepCapsLockOff
     Sleep, 100
 
-    if (shouldKeepCapsLockOff)
+    if (keepCapsLockOff)
     {
         Sleep, 300    ; one has to sleep JUST BEFORE toggling caps
         Tippy("CapsLock is off")
