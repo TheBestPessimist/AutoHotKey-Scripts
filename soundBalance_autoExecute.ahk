@@ -1,7 +1,7 @@
 ﻿; Windows sound controls are retarded. Yes, even in windows 10.
 ; You can set a custom sound balance for your speakers and the volume is adjusted proportionally. (good)
 ;
-; The problem is that as soon as you turn the volume to 0 (you want to mute the sound for some unknown reason), that balance is reset.
+; The problem is that as soon as you turn the volume to 0 (you want to mute the sound for some "unknown" reason), that balance is reset.
 ;       Yes, that means that left and right speakers have the same volume when you turn the volume up again.
 ;
 ; So for example if you need 20 times a day to turn the volume to 0 (remember this can be done by accident quite easily
@@ -28,13 +28,16 @@
 
 ; only run this on the desk PC
 if (A_ComputerName = "TBP-NUC") {
-    SetTimer, fixTheGoddamnVolumeBalance, 10000
+    SetTimer, FixTheGoddamnVolumeBalance, 10000
+    ; SetTimer, SoundBalanceDebug, 1
 }
 
-fixTheGoddamnVolumeBalance() {
+FixTheGoddamnVolumeBalance() {
     ; Bluetooth headphones don't have individually-controlled channels.
     ; In other words there's no balance control for bluetooth headphones
     ; Moreover, my bluetooth speakers don't do stereo properly even when on wired bypass.
+    ; Therefore i don't want to change anything when on bluetooth
+    ; (dell monitor bypasses sound to bluetooth headphones as well)
     device := VA_GetDevice("playback")
     device_name := ""
     If (device != 0) {
@@ -66,8 +69,7 @@ fixTheGoddamnVolumeBalance() {
 
 
 
-; SetTimer, debug, 1
-debug() {
+SoundBalanceDebug() {
     ; Get the master volume of the default playback device.
     volume := VA_GetMasterVolume()
 
