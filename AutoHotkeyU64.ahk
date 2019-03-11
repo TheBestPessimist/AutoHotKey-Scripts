@@ -30,7 +30,6 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include appHandling_autoExecute.ahk
 #include lidOff_autoExecute.ahk
 #include soundBalance_autoExecute.ahk
-#include capsLockToggle_autoExecute.ahk
 
 
 
@@ -39,7 +38,7 @@ Menu, Tray, Icon, resources/blueStar.ico
 #Include lidOff.ahk
 #include Tippy.ahk
 #include PowerManager.ahk
-#include capsLockToggle.ahk
+#include CapsLockToggle.ahk
 #include GenericHotstrings.ahk
 
 
