@@ -20,7 +20,6 @@ Tippy(Text = "", Duration = 3333) {
 }
 
 TippyOn() {
-    SetTimer, TippyOn, 10
     global TippyText
     ToolTipFM(TippyText)
 }
