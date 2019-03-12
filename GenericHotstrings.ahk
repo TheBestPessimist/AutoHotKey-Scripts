@@ -13,4 +13,4 @@
 
 ; ----- my autohotkey github -----------
 ::gitahk::https://git.tbp.land/AutoHotKey-Scripts/
-
+::gitahkl::https://git.tbp.land/AutoHotKey-Launcher/
