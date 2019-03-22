@@ -1,4 +1,4 @@
-﻿;-------------------------------------------------
+;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s::
 runSublimeText(){
@@ -166,7 +166,7 @@ Return
 CapsLock & w::
     SendInput ^+A
     Sleep 500
-    SendInput active editor use soft wraps
+    SendInput active editor soft wrap
     Sleep 500
     SendInput {Enter}
     Sleep 500
