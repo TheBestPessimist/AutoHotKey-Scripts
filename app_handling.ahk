@@ -1,4 +1,4 @@
-;-------------------------------------------------
+﻿;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s::
 runSublimeText(){
@@ -217,6 +217,7 @@ hideTeamviewerSponsoredsession() {
     || WinActive(ahk_modern_photos[1], ahk_modern_photos[2])
     || WinActive(ahk_teamviewer)
     || WinActive(ahk_CorsairCUE)
+    || WinActive(ahk_Skype)
 F4:: SendInput !{F4}
 #If
 
