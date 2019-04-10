@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #SingleInstance force
-#MaxHotkeysPerInterval 500
+#MaxHotkeysPerInterval 50
 #WinActivateForce
 ; #InstallKeybdHook
 ; #InstallMouseHook
