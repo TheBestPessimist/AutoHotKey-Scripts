@@ -17,5 +17,12 @@ global ahk_Skype := "ahk_exe Skype.exe"
 SetTimer, hideTeamviewerSponsoredsession, 5000
 
 
+
+ ; SetTimer, SC2SpectrePlay, % (spectreTimer := !spectreTimer) ? 1000 : "Off"
+ ; SetTimer, SC2PressT, % (pressT := !pressT) ? 15000 : "Off"
+ ; SetTimer, SC2TemplarPlay, % (TemplarPlay := !TemplarPlay) ? 2107 : "Off"
+
+
+
 ; 2018.09.07: no need for this as sublime text is licensed now!
 ; SetTimer, hideSublimeRegister, 1000

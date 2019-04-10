@@ -222,23 +222,41 @@ F4:: SendInput !{F4}
 #If
 
 
-
-CapsLock & Numpad9::SetTimer, SC2PressT, % (pressT := !pressT) ? 8000 : "Off"
+; autostim
+CapsLock & Numpad9::
+SC2PressTTimer()
+{
+    static pressT
+    SetTimer, SC2PressT, % (pressT := !pressT) ? 15000 : "Off"
+    if (pressT)
+    {
+        Tippy("t on")
+    }
+    else
+    {
+        Tippy("t off")
+    }
+}
 
 SC2PressT()
 {
-    SetKeyDelay, -1, -1
+    Critical
+
+    SetKeyDelay, 60, 5
 
     if (WinActive(ahk_SC2)) {
         Tippy("t")
     }
 
-    ControlSend,, {2}{BackSpace}, % ahk_SC2
-    ControlSend,, {t}{BackSpace}, % ahk_SC2
+    ; ControlSend,, 3t1{BackSpace 3}, % ahk_SC2
+
+    ; autoupgrade spectre
+    ControlSend,, 1uqwertsdfgzxc1hh, % ahk_SC2
+
 }
 
 
-CapsLock & Numpad8::SetTimer, SC2TemplarPlay, % (TemplarPlay := !TemplarPlay) ? 3500 : "Off"
+CapsLock & Numpad8::SetTimer, SC2TemplarPlay, % (TemplarPlay := !TemplarPlay) ? 2107 : "Off"
 
 ; camera lock MUST be on!
 ; this is used when playing the templar and
@@ -246,21 +264,96 @@ CapsLock & Numpad8::SetTimer, SC2TemplarPlay, % (TemplarPlay := !TemplarPlay) ? 
 ; we are at the bottom of the "way" (eg where lategame position is)
 SC2TemplarPlay()
 {
-    SetControlDelay 200
-    ; SetKeyDelay 350
-    ; SetMouseDelay 350
+    Critical
+
+    SetKeyDelay 105
+    SetMouseDelay 105
 
     if (WinActive(ahk_SC2)) {
         Tippy("qq")
+
+        ; save mouse pos to move it back here
+        MouseGetPos, x, y
+
+        Send 7
+        Sleep 100
+        Send q
+        Sleep 100
+        Click
+        ; Click, 1231, 300
+        Sleep 100
+        Send h
+
+        ;Sleep 100
+        ;Send w
+        ;Sleep 100
+        ;Click ; , 1200, 179
+        ; Send h
+
+        ; Sleep 100
+        ; Send 8
+        ; Sleep 100
+        ; Send q
+        ; Sleep 100
+        ; Click
+        ; ; Click, 1231, 300
+        ; Sleep 100
+        ; Send h
+
+        ; move mouse at the initial position
+        MouseMove, x, y
+    }
+}
+
+
+
+
+
+; Spectre
+CapsLock & Numpad7::
+SC2SpectreTimer()
+{
+    static spectreTimer
+    SetTimer, SC2SpectrePlay, % (spectreTimer := !spectreTimer) ? 1053 : "Off"
+    if (spectreTimer)
+    {
+        SC2SpectrePlay()
+        Tippy("spectre on")
+    }
+    else
+    {
+        Tippy("spectre off")
+    }
+}
+
+SC2SpectrePlay()
+{
+    Critical
+
+    SetKeyDelay, 60, 5
+
+    if (WinActive(ahk_SC2)) {
+        Tippy("spectre")
     }
 
-    ControlSend,, 2, % ahk_SC2
-    ControlSend,, q, % ahk_SC2
-    ControlClick,, % ahk_SC2,, LEFT, 1, x1100 y139
-    ControlSend,, w, % ahk_SC2
-    ControlClick,, % ahk_SC2,, LEFT, 1, x1100 y139
-    ControlSend,, h, % ahk_SC2
+    ; need "eee" because somehow it takes more time to switch from q to w guns
+    ControlSend,, 2weeqh{BackSpace 6}, % ahk_SC2
+
+    ; i'm lazy to make a new macro, so this one is for centurion: w and h
+    ; ControlSend,, 6whhh{BackSpace 5}, % ahk_SC2
+
 }
+
+; SC2 multipel clicks
+CapsLock & Lbutton::Click 123
+
+
+; ------------------------------------------------
+; ------------------------------------------------
+; ------------------------------------------------
+; ------------------------------------------------
+; ------------------------------------------------
+; ------------------------------------------------
 
 
 ; #If WinActive(ahk_tf2)
