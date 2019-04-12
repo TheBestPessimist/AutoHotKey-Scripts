@@ -34,7 +34,7 @@ Menu, Tray, Icon, resources/blueStar.ico
 ; rest of everything
 #Include app_handling.ahk
 #Include lidOff.ahk
-#include Tippy.ahk
+#include lib/Tippy.ahk
 #include PowerManager.ahk
 #include CapsLockToggle.ahk
 #include GenericHotstrings.ahk

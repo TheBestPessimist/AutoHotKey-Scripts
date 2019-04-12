@@ -1,6 +1,5 @@
-; #include Tippy.ahk
 #include lib/ToggleTimerAndShowTooltip.ahk
-#include Tippy.ahk
+#include lib/Tippy.ahk
 
 
 CapsLock & LButton::SC2.ClickAndSaveMousePosition()
