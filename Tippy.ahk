@@ -13,6 +13,7 @@
 ;           You have an example at the end of the script!
 ; The tooltip is beautifully shown using ToolTipFM (a fancier tooltip -- read it's own comments).
 Tippy(Text = "", Duration = 3333) {
+    Sleep 1         ; this sleep is needed else in some rare cases the tooltip will have a small delay to appear
     global TippyText := Text
 
     SetTimer, TippyOff, %Duration%
