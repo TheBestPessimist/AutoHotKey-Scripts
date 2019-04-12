@@ -38,7 +38,7 @@ ToggleTimerAndShowTooltip(functionName, interval, functionIdentifier := 0)
     if (toggle)
     {
         Tippy(functionName . " on")
-        %functionName%()
+        %Fn%()
     }
     else
     {
