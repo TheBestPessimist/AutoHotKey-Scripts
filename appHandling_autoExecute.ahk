@@ -11,16 +11,10 @@ global ahk_goland := "ahk_exe goland64.exe"
 global ahk_teamviewer_sponsoredsession := "Sponsored session ahk_exe TeamViewer.exe"
 global ahk_teamviewer := "TeamViewer ahk_exe TeamViewer.exe"
 global ahk_CorsairCUE := "ahk_class CUEBorderlessWindow ahk_exe iCUE.exe"
-global ahk_SC2 := "ahk_exe SC2_x64.exe"
 global ahk_Skype := "ahk_exe Skype.exe"
 
 SetTimer, hideTeamviewerSponsoredsession, 5000
 
-
-
- ; SetTimer, SC2SpectrePlay, % (spectreTimer := !spectreTimer) ? 1000 : "Off"
- ; SetTimer, SC2PressT, % (pressT := !pressT) ? 15000 : "Off"
- ; SetTimer, SC2TemplarPlay, % (TemplarPlay := !TemplarPlay) ? 2107 : "Off"
 
 
 

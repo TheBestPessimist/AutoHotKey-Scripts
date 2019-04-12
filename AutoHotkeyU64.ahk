@@ -39,7 +39,7 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include CapsLockToggle.ahk
 #include GenericHotstrings.ahk
 #include SoundBalance.ahk
-
+#include StarCraft2.ahk
 
 
 
