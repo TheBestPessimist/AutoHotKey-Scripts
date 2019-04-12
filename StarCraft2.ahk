@@ -1,4 +1,4 @@
-#include lib/ToggleTimerAndShowTooltip.ahk
+﻿#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 
 

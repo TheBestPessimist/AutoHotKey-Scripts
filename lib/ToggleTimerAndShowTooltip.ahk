@@ -1,4 +1,4 @@
-#include lib/Tippy.ahk
+﻿#include lib/Tippy.ahk
 
 ; Function which toggles a timer (using SetTimer) but also shows if it turned the timer on or off with a tooltip.
 ;
