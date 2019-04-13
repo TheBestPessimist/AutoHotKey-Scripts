@@ -1,4 +1,4 @@
-#include lib/ToggleTimerAndShowTooltip.ahk
+﻿#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 
 
@@ -6,8 +6,11 @@ CapsLock & LButton::SC2.ClickManyTimes()
 
 CapsLock & NumpadMult::SC2.SaveMousePosition()
 
-; Dragoons are always on group 8
+; Dragoon is always on group 8
 CapsLock & Numpad8::SC2.ToggleDragoonQ()
+
+; Medic is always on group 7
+CapsLock & Numpad7::SC2.ToggleMedic()
 
 ; Spectre is always in group 2
 CapsLock & Numpad2::SC2.ToggleSpectrePlay()
@@ -16,6 +19,8 @@ CapsLock & Numpad2::SC2.ToggleSpectrePlay()
 CapsLock & Numpad4::SC2.ToggleCenturionPlay()
 
 CapsLock & Numpad1::SC2.ToggleAutoupgrade()
+
+
 
 ; This contains all the stuff and timers and macros for SC2 (mostly Fallen World map)
 class SC2
@@ -30,8 +35,9 @@ class SC2
 
     static dragoonQMillis := 2000
     static spectrePlayMillis := 1053
-    static centurionPlayMillis := 1017
+    static centurionPlayMillis := 499
     static autoupgradeMillis := 15003
+    static medicMillis := 2000
 
     ; Save mouse position to use in SC2
     SaveMousePosition()
@@ -47,24 +53,25 @@ class SC2
         Click 123
     }
 
-    ; Dragoon is always in group 8
     ToggleDragoonQ()
     {
         ToggleTimerAndShowTooltip("SC2.DragoonQ", this.dragoonQMillis, SC2.DragoonQ.Bind(SC2))
     }
 
-    ; Spectre is always in group 2
+    ToggleMedic()
+    {
+        ToggleTimerAndShowTooltip("SC2.Medic", this.medicMillis, SC2.Medic.Bind(SC2))
+    }
+
     ToggleSpectrePlay()
     {
         ToggleTimerAndShowTooltip("SC2.SpectrePlay", this.spectrePlayMillis, SC2.SpectrePlay.Bind(SC2))
     }
 
-    ; Centurion is always in group 4
     ToggleCenturionPlay()
     {
         ToggleTimerAndShowTooltip("SC2.CenturionPlay", this.centurionPlayMillis, SC2.CenturionPlay.Bind(SC2))
     }
-
 
     ToggleAutoupgrade()
     {
@@ -72,16 +79,18 @@ class SC2
     }
 
 
-    ; Dragoons is always in group 8
     DragoonQ()
     {
         Critical
 
         SetKeyDelay, 60, 5
-        SetControlDelay 0
+        SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("DragoonQ")
+            if(this.xPos = 0){
+                this.SaveMousePosition()
+            }
         }
 
         ; use the saved position
@@ -97,7 +106,37 @@ class SC2
         ControlSend,, h, % this.ahk_SC2
     }
 
-    ; Spectre is always in group 2
+    Medic()
+    {
+        Critical
+
+        SetKeyDelay, 70, 5
+        SetControlDelay -1
+
+        if (WinActive(this.ahk_SC2)) {
+            Tippy("Medic")
+            if(this.xPos = 0){
+                this.SaveMousePosition()
+            }
+        }
+
+        ; use the saved position
+        x := this.xPos
+        y := this.yPos
+
+        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
+        x := "x" . x
+        y := "y" . y
+
+        ControlSend,, 7q, % this.ahk_SC2
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlSend,, w, % this.ahk_SC2
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlSend,, e, % this.ahk_SC2
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlSend,, h, % this.ahk_SC2
+    }
+
     SpectrePlay()
     {
         Critical
@@ -112,19 +151,35 @@ class SC2
         ControlSend,, 2weeqh, % this.ahk_SC2
     }
 
-
-    ; Centurion is always in group 4
     CenturionPlay()
     {
         Critical
 
-        SetKeyDelay, 60, 5
+        SetKeyDelay, 20, 5
+        SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("CenturionPlay")
+             if(this.xPos = 0){
+                this.SaveMousePosition()
+            }
         }
 
-        ControlSend,, 4whhh, % this.ahk_SC2
+        ; use the saved position
+        x := this.xPos
+        y := this.yPos
+
+        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
+        x := "x" . x
+        y := "y" . y
+
+        ControlSend,, 4, % this.ahk_SC2
+        ; ControlClick,, % this.ahk_SC2,, Right, 1, %  "NA" x y
+        ControlSend,, wh, % this.ahk_SC2
+            ; ControlSend,, eh, % this.ahk_SC2
+        ; ControlClick,, % this.ahk_SC2,, Right, 1, %  "NA" x y
+        ; ControlClick,, % this.ahk_SC2,, Right, 1, %  "NA" x y
+        ControlSend,, hh, % this.ahk_SC2
     }
 
     Autoupgrade()
@@ -139,6 +194,4 @@ class SC2
 
         ControlSend,, 1uqwertsdfgzxc1hh, % this.ahk_SC2
     }
-
-
 }
