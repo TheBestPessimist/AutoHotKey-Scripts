@@ -4,7 +4,7 @@
 
 CapsLock & LButton::SC2.ClickManyTimes()
 
-CapsLock & LButton::SC2.ClickAndSaveMousePosition()
+CapsLock & NumpadMult::SC2.SaveMousePosition()
 
 ; Dragoons are always on group 8
 CapsLock & Numpad8::SC2.ToggleDragoonQ()
@@ -34,12 +34,16 @@ class SC2
     static autoupgradeMillis := 15003
 
     ; Save mouse position to use in SC2
-    ClickAndSaveMousePosition()
+    SaveMousePosition()
     {
         MouseGetPos, xPos, yPos
         this.xPos := xPos
         this.yPos := yPos
         Tippy("Mouse position is: x:" this.xPos " y:" this.yPos)
+    }
+
+    ClickManyTimes()
+    {
         Click 123
     }
 
