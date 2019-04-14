@@ -1,4 +1,4 @@
-﻿#include lib/ToggleTimerAndShowTooltip.ahk
+#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 
 
@@ -83,7 +83,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5
+        SetKeyDelay, 60, 5, Play
         SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
@@ -110,8 +110,8 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 70, 5
-        SetControlDelay -1
+        SetKeyDelay,,, Play
+        SetControlDelay 120
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Medic")
@@ -141,7 +141,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5
+        SetKeyDelay, 60, 5, Play
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("SpectrePlay")
@@ -155,8 +155,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 20, 5
-        SetControlDelay -1
+        SetKeyDelay,,, Play
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("CenturionPlay")
@@ -186,7 +185,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5
+        SetKeyDelay, 60, 5, Play
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Autoupgrade")
