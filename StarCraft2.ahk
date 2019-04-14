@@ -130,11 +130,11 @@ class SC2
 
         ControlSend,, 7q, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, w, % this.ahk_SC2
+        ControlSend,, 7w, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, e, % this.ahk_SC2
+        ControlSend,, 7e, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, h, % this.ahk_SC2
+        ControlSend,, 7h, % this.ahk_SC2
     }
 
     SpectrePlay()
