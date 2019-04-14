@@ -12,6 +12,8 @@ global ahk_teamviewer_sponsoredsession := "Sponsored session ahk_exe TeamViewer.
 global ahk_teamviewer := "TeamViewer ahk_exe TeamViewer.exe"
 global ahk_CorsairCUE := "ahk_class CUEBorderlessWindow ahk_exe iCUE.exe"
 global ahk_Skype := "ahk_exe Skype.exe"
+global ahk_Battle_net := "ahk_exe Battle.net.exe"
+
 
 SetTimer, hideTeamviewerSponsoredsession, 5000
 

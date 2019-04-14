@@ -218,6 +218,7 @@ hideTeamviewerSponsoredsession() {
     || WinActive(ahk_teamviewer)
     || WinActive(ahk_CorsairCUE)
     || WinActive(ahk_Skype)
+    || WinActive(ahk_Battle_net)
 F4:: SendInput !{F4}
 #If
 
