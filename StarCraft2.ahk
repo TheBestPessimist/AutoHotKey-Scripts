@@ -1,4 +1,4 @@
-#include lib/ToggleTimerAndShowTooltip.ahk
+﻿#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 
 
@@ -35,7 +35,7 @@ class SC2
 
     static dragoonQMillis := 2000
     static spectrePlayMillis := 1053
-    static centurionPlayMillis := 499
+    static centurionPlayMillis := 19
     static autoupgradeMillis := 15003
     static medicMillis := 2000
 
@@ -159,9 +159,6 @@ class SC2
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("CenturionPlay")
-             if(this.xPos = 0){
-                this.SaveMousePosition()
-            }
         }
 
         ; use the saved position
@@ -172,13 +169,7 @@ class SC2
         x := "x" . x
         y := "y" . y
 
-        ControlSend,, 4, % this.ahk_SC2
-        ; ControlClick,, % this.ahk_SC2,, Right, 1, %  "NA" x y
-        ControlSend,, wh, % this.ahk_SC2
-            ; ControlSend,, eh, % this.ahk_SC2
-        ; ControlClick,, % this.ahk_SC2,, Right, 1, %  "NA" x y
-        ; ControlClick,, % this.ahk_SC2,, Right, 1, %  "NA" x y
-        ControlSend,, hh, % this.ahk_SC2
+        ControlSend,, 4wh, % this.ahk_SC2
     }
 
     Autoupgrade()
@@ -194,3 +185,4 @@ class SC2
         ControlSend,, 1uqwertsdfgzxc1hh, % this.ahk_SC2
     }
 }
+
