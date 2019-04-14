@@ -1,5 +1,6 @@
-﻿#include lib/ToggleTimerAndShowTooltip.ahk
+#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
+#include lib/ReloadScript.ahk
 
 
 CapsLock & LButton::SC2.ClickManyTimes()
