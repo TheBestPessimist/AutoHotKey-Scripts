@@ -1,5 +1,5 @@
 ﻿; Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
-; ----- @self ----------------
+; ----- @self --------------------------
 ::c@tbp::cristian@tbp.land
 ::c@gmail::cristian.nahsuc@gmail.com
 ::@tbp::TheBestPessimist
@@ -17,8 +17,13 @@
 ::gitahkl::https://git.tbp.land/AutoHotKey-Launcher/
 
 
-; ------ powershell -------------------
 
+; ------ metasfresh --------------------
+::gitmetas.::https://github.com/metasfresh/metasfresh/
+
+
+
+; ------ powershell --------------------
 ::pwsh::powershell
 
 #If WinActive("ahk_exe powershell.exe")
