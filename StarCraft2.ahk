@@ -36,7 +36,7 @@ class SC2
 
     static dragoonQMillis := 2000
     static spectrePlayMillis := 1053
-    static centurionPlayMillis := 19
+    static centurionPlayMillis := 219
     static autoupgradeMillis := 15003
     static medicMillis := 2000
 
@@ -84,7 +84,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5, Play
+        SetKeyDelay, 60, 5
         SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
@@ -111,8 +111,8 @@ class SC2
     {
         Critical
 
-        SetKeyDelay,,, Play
-        SetControlDelay 120
+        SetKeyDelay, 60, 5
+        SetControlDelay 58
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Medic")
@@ -142,7 +142,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5, Play
+        SetKeyDelay, 60, 5
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("SpectrePlay")
@@ -156,7 +156,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay,,, Play
+        SetKeyDelay,,
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("CenturionPlay")
