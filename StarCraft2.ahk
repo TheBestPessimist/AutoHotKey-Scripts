@@ -102,9 +102,9 @@ class SC2
         x := "x" . x
         y := "y" . y
 
-        ControlSend,, 8q, % this.ahk_SC2
+        ControlSend,, {Blind}8q, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, h, % this.ahk_SC2
+        ControlSend,, {Blind}h, % this.ahk_SC2
     }
 
     Medic()
@@ -129,13 +129,13 @@ class SC2
         x := "x" . x
         y := "y" . y
 
-        ControlSend,, 7q, % this.ahk_SC2
+        ControlSend,, {Blind}7q, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, 7w, % this.ahk_SC2
+        ControlSend,, {Blind}7w, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, 7e, % this.ahk_SC2
+        ControlSend,, {Blind}7e, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, 7h, % this.ahk_SC2
+        ControlSend,, {Blind}7h, % this.ahk_SC2
     }
 
     SpectrePlay()
@@ -149,7 +149,7 @@ class SC2
         }
 
         ; need "eee" because somehow it takes more time to switch from q to w guns
-        ControlSend,, 2weeqh, % this.ahk_SC2
+        ControlSend,, {Blind}2weeqh, % this.ahk_SC2
     }
 
     CenturionPlay()
@@ -170,20 +170,20 @@ class SC2
         x := "x" . x
         y := "y" . y
 
-        ControlSend,, 4wh, % this.ahk_SC2
+        ControlSend,, {Blind}4wh, % this.ahk_SC2
     }
 
     Autoupgrade()
     {
         Critical
 
-        SetKeyDelay, 60, 5, Play
+        SetKeyDelay, 60, 5
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Autoupgrade")
         }
 
-        ControlSend,, 1uqwertsdfgzxc1hh, % this.ahk_SC2
+        ControlSend,, {Blind}1uqwehrtsdfgzxc1hh, % this.ahk_SC2
     }
 }
 
