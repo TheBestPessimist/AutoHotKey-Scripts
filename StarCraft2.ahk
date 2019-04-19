@@ -1,6 +1,36 @@
-#include lib/ToggleTimerAndShowTooltip.ahk
+﻿#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
+
+; There is no need for a standard ahk auto-execute area anymore because of this method.
+; This method is called automatically when the static variable autoExecute is instantiated,
+; and since it's a static, it will only be instantiated once!
+;
+; Idea provided by @nnnik#6686 on the AHK Discord Server: https://discord.gg/s3Fqygv
+StarCraft2AutoExecute(){
+    static autoExecute := StarCraft2AutoExecute()
+
+    SetTimer, StarCraft2AutoExecuteOnTimer, 3000
+}
+
+
+; In this method you can add all the function calls you want to run
+; after autohotkey has started/reloaded
+StarCraft2AutoExecuteOnTimer()
+{
+    SetTimer, StarCraft2AutoExecuteOnTimer, Off
+
+    ; SC2.ToggleSpectrePlay()
+    ; SC2.ToggleDragoonQ()
+    ; SC2.ToggleMedic()
+    ; SC2.ToggleAutoupgrade()
+}
+
+
+
+
+
+
 
 
 CapsLock & LButton::SC2.ClickManyTimes()
