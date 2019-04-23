@@ -2,6 +2,17 @@
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 
+
+;       == HOW TO USE ==
+;
+; Press one of the key combos (CapsLock and NumpadX) after you saved that specific character(s) in the correct group.
+;
+; Starcraft 2 MUST be in _windowed fullscreen_ or _ _windowed_ mode.
+
+
+
+
+
 ; There is no need for a standard ahk auto-execute area anymore because of this method.
 ; This method is called automatically when the static variable autoExecute is instantiated,
 ; and since it's a static, it will only be instantiated once!
