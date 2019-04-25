@@ -7,6 +7,7 @@
 ;       == HOW TO USE ==
 ;
 ; Press one of the key combos (CapsLock and NumpadX) after you saved that specific character(s) in the correct group.
+; Read below what are the control groups.
 ;
 ; Starcraft 2 MUST be in **windowed fullscreen** or **windowed** mode.
 
