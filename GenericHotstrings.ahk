@@ -1,4 +1,6 @@
 ﻿; Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
+; Note: "O" deletes the ending character (the one which activates the hotstring)
+
 ; ----- @self --------------------------
 ::c@tbp::cristian@tbp.land
 ::c@gmail::cristian.nahsuc@gmail.com
@@ -9,7 +11,6 @@
 ;```autoit
 ;|<-cursor is left here
 ;```
-; Note: "O" deletes the ending character (the one which activates the hotstring)
 :O:``ahk::``````autoit`n`n``````{left 4}
 
 ; ----- my autohotkey github -----------
@@ -20,7 +21,7 @@
 
 ; ------ metasfresh --------------------
 ::gitmetas.::https://github.com/metasfresh/metasfresh/
-
+::cacher.::/rest/api/debug/cacheReset
 
 
 ; ------ powershell --------------------
