@@ -2,15 +2,13 @@
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 
-
+; This script contains all the stuff and timers and macros for SC2 (mostly the map Fallen World)
+;
 ;       == HOW TO USE ==
 ;
 ; Press one of the key combos (CapsLock and NumpadX) after you saved that specific character(s) in the correct group.
 ;
-; Starcraft 2 MUST be in _windowed fullscreen_ or _ _windowed_ mode.
-
-
-
+; Starcraft 2 MUST be in **windowed fullscreen** or **windowed** mode.
 
 
 ; There is no need for a standard ahk auto-execute area anymore because of this method.
@@ -37,13 +35,6 @@ StarCraft2AutoExecuteOnTimer()
     ; SC2.ToggleAutoupgrade()
 }
 
-
-
-
-
-
-
-
 CapsLock & LButton::SC2.ClickManyTimes()
 
 CapsLock & NumpadMult::SC2.SaveMousePosition()
@@ -60,11 +51,11 @@ CapsLock & Numpad2::SC2.ToggleSpectrePlay()
 ; Centurion is always in group 4
 CapsLock & Numpad4::SC2.ToggleCenturionPlay()
 
+; Upgrade whatever is selected in group 1
 CapsLock & Numpad1::SC2.ToggleAutoupgrade()
 
 
 
-; This contains all the stuff and timers and macros for SC2 (mostly Fallen World map)
 class SC2
 {
 ; ahk OOP is weird/stupid.
