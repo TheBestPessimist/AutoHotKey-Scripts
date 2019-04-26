@@ -91,8 +91,9 @@ class SC2
 ; It's kinda like JS with Prototype Object Inheritance
     static ahk_SC2 := "ahk_exe SC2_x64.exe"
 
-    static xPos := 0
-    static yPos := 0
+
+    static tankxPos := 0
+    static tankyPos := 0
 
     static secondaryxPos := 0
     static secondaryyPos := 0
@@ -110,15 +111,15 @@ class SC2
     SaveMousePosition()
     {
         MouseGetPos, xPos, yPos
-        this.xPos := xPos
-        this.yPos := yPos
-        this.secondaryxPos := xPos + 188    ; compared to the center: a little bit to the right
-        this.secondaryyPos := yPos - 120    ; compared to the center: a little bit upper
+        this.tankxPos := xPos
+        this.tankyPos := yPos
+        this.casterxPos := xPos + 188    ; compared to the center: a little bit to the right
+        this.casteryPos := yPos - 120    ; compared to the center: a little bit upper
 
         msg :=
         (Join
-            "Centurion position is:  x: " . this.xPos . " y: " . this.yPos . "`n" .
-            "Secondary position: x: " . this.secondaryxPos . " y: " . this.secondaryyPos
+            "Tank position is:  x: " . this.tankxPos . " y: " . this.tankyPos . "`n" .
+            "Secondary position: x: " . this.casterxPos . " y: " . this.casteryPos
         )
 
         Tippy(msg)
@@ -174,14 +175,14 @@ class SC2
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("DragoonQ")
-            if(this.xPos = 0){
+            if(this.tankxPos = 0){
                 this.SaveMousePosition()
             }
         }
 
         ; use the saved position
-        x := this.secondaryxPos
-        y := this.secondaryyPos
+        x := this.casterxPos
+        y := this.casteryPos
 
         ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
         x := "x" . x
@@ -202,14 +203,14 @@ class SC2
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Medic")
-            if(this.xPos = 0){
+            if(this.tankxPos = 0){
                 this.SaveMousePosition()
             }
         }
 
         ; use the saved position
-        x := this.xPos
-        y := this.yPos
+        x := this.tankxPos
+        y := this.tankyPos
 
         ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
         x := "x" . x
@@ -249,8 +250,8 @@ class SC2
         }
 
         ; use the saved position
-        x := this.xPos
-        y := this.yPos
+        x := this.tankxPos
+        y := this.tankyPos
 
         ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
         x := "x" . x
@@ -295,14 +296,14 @@ class SC2
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Templar")
-            if(this.xPos = 0){
+            if(this.tankxPos = 0){
                 this.SaveMousePosition()
             }
         }
 
         ; use the saved position
-        x := this.secondaryxPos
-        y := this.secondaryyPos
+        x := this.casterxPos
+        y := this.casteryPos
 
         ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
         x := "x" . x
