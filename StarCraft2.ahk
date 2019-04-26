@@ -55,6 +55,9 @@ CapsLock & Numpad4::SC2.ToggleCenturionPlay()
 ; Upgrade whatever is selected in group 1
 CapsLock & Numpad1::SC2.ToggleAutoupgrade()
 
+; Marine is always on group 9
+CapsLock & Numpad9::SC2.ToggleMarine()
+
 
 
 class SC2
@@ -72,6 +75,7 @@ class SC2
     static centurionPlayMillis := 219
     static autoupgradeMillis := 15003
     static medicMillis := 2000
+    static marineMillis := 15000
 
     ; Save mouse position to use in SC2
     SaveMousePosition()
@@ -112,6 +116,10 @@ class SC2
         ToggleTimerAndShowTooltip("SC2.Autoupgrade", this.autoupgradeMillis, SC2.Autoupgrade.Bind(SC2))
     }
 
+    ToggleMarine()
+    {
+        ToggleTimerAndShowTooltip("SC2.Marine", this.marineMillis, SC2.Marine.Bind(SC2))
+    }
 
     DragoonQ()
     {
@@ -218,6 +226,19 @@ class SC2
         }
 
         ControlSend,, {Blind}{Raw}1uqwehrtsdfgzxc1hh, % this.ahk_SC2
+    }
+
+    Marine()
+    {
+        Critical
+
+        ; ; SetKeyDelay, 60, 5
+
+        if (WinActive(this.ahk_SC2)) {
+            Tippy("Marine")
+        }
+
+        ControlSend,, {Blind}{Raw}9th, % this.ahk_SC2
     }
 }
 
