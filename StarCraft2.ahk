@@ -117,7 +117,7 @@ class SC2
 
         msg :=
         (Join
-            "Mouse position is:  x: " . this.xPos . " y: " . this.yPos . "`n" .
+            "Centurion position is:  x: " . this.xPos . " y: " . this.yPos . "`n" .
             "Secondary position: x: " . this.secondaryxPos . " y: " . this.secondaryyPos
         )
 
@@ -180,8 +180,8 @@ class SC2
         }
 
         ; use the saved position
-        x := this.xPos
-        y := this.yPos
+        x := this.secondaryxPos
+        y := this.secondaryyPos
 
         ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
         x := "x" . x
