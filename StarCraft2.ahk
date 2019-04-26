@@ -1,4 +1,4 @@
-#include lib/ToggleTimerAndShowTooltip.ahk
+﻿#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 
@@ -62,24 +62,26 @@ CapsLock & LButton::SC2.ClickManyTimes()
 
 CapsLock & NumpadMult::SC2.SaveMousePosition()
 
-; Dragoon is always on group 8
+; Dragoon is in group 8
 CapsLock & Numpad8::SC2.ToggleDragoonQ()
 
-; Medic is always on group 7
+; Medic is in group 7
 CapsLock & Numpad7::SC2.ToggleMedic()
 
-; Spectre is always in group 2
+; Spectre is in group 2
 CapsLock & Numpad2::SC2.ToggleSpectrePlay()
 
-; Centurion is always in group 4
+; Centurion is in group 4
 CapsLock & Numpad4::SC2.ToggleCenturionPlay()
 
 ; Upgrade whatever is selected in group 1
 CapsLock & Numpad1::SC2.ToggleAutoupgrade()
 
-; Marine is always on group 9
+; Marine is in group 9
 CapsLock & Numpad9::SC2.ToggleMarine()
 
+; Templar is in group 0
+CapsLock & Numpad0::SC2.ToggleTemplar()
 
 
 class SC2
@@ -92,12 +94,17 @@ class SC2
     static xPos := 0
     static yPos := 0
 
+    static secondaryxPos := 0
+    static secondaryyPos := 0
+
     static dragoonQMillis := 2000
     static spectrePlayMillis := 1053
     static centurionPlayMillis := 219
     static autoupgradeMillis := 15003
     static medicMillis := 2000
     static marineMillis := 15000
+    static templarMillis := 4000
+
 
     ; Save mouse position to use in SC2
     SaveMousePosition()
@@ -105,7 +112,17 @@ class SC2
         MouseGetPos, xPos, yPos
         this.xPos := xPos
         this.yPos := yPos
-        Tippy("Mouse position is: x:" this.xPos " y:" this.yPos)
+        this.secondaryxPos := xPos + 188    ; compared to the center: a little bit to the right
+        this.secondaryyPos := yPos - 120    ; compared to the center: a little bit upper
+
+        msg :=
+        (Join
+            "Mouse position is:  x: " . this.xPos . " y: " . this.yPos . "`n" .
+            "Secondary position: x: " . this.secondaryxPos . " y: " . this.secondaryyPos
+        )
+
+        Tippy(msg)
+
     }
 
     ClickManyTimes()
@@ -141,6 +158,11 @@ class SC2
     ToggleMarine()
     {
         ToggleTimerAndShowTooltip("SC2.Marine", this.marineMillis, SC2.Marine.Bind(SC2))
+    }
+
+    ToggleTemplar()
+    {
+        ToggleTimerAndShowTooltip("SC2.Templar", this.templarMillis, SC2.Templar.Bind(SC2))
     }
 
     DragoonQ()
@@ -261,6 +283,34 @@ class SC2
         }
 
         ControlSend,, {Blind}{Raw}9th, % this.ahk_SC2
+    }
+
+    Templar()
+    {
+        Critical
+
+        ; SetKeyDelay, 60, 5
+        SetControlDelay 100
+        ; SetControlDelay -1
+
+        if (WinActive(this.ahk_SC2)) {
+            Tippy("Templar")
+            if(this.xPos = 0){
+                this.SaveMousePosition()
+            }
+        }
+
+        ; use the saved position
+        x := this.secondaryxPos
+        y := this.secondaryyPos
+
+        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
+        x := "x" . x
+        y := "y" . y
+
+        ControlSend,, {Blind}{Raw}0q, % this.ahk_SC2
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlSend,, {Blind}{Raw}0h, % this.ahk_SC2
     }
 }
 
