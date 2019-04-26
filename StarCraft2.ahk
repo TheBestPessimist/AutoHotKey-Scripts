@@ -1,4 +1,4 @@
-#include lib/ToggleTimerAndShowTooltip.ahk
+﻿#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 
@@ -84,7 +84,7 @@ class SC2
 
     ClickManyTimes()
     {
-        Click 123
+        Click 151
     }
 
     ToggleDragoonQ()
@@ -117,7 +117,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5
+        ; SetKeyDelay, 60, 5
         SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
@@ -144,8 +144,9 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5
-        SetControlDelay 58
+        ; SetKeyDelay, 60, 5
+        SetControlDelay 100
+        ; SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Medic")
@@ -175,7 +176,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5
+        ; ; SetKeyDelay, 60, 5
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("SpectrePlay")
@@ -189,7 +190,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay,,
+        ; SetKeyDelay,,
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("CenturionPlay")
@@ -210,7 +211,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 60, 5
+        ; SetKeyDelay, 60, 5
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Autoupgrade")
