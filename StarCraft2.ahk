@@ -1,4 +1,4 @@
-﻿#include lib/ToggleTimerAndShowTooltip.ahk
+#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 
@@ -6,10 +6,32 @@
 ;
 ;       == HOW TO USE ==
 ;
-; Press one of the key combos (CapsLock and NumpadX) after you saved that specific character(s) in the correct group.
+; Press one of the key combos (CapsLock and NumpadX) after you saved that specific character(s) in the same control group.
+; (eg. CapsLock + Numpad2 always uses control group 2 which is assigned to Spectre)
 ; Read below what are the control groups.
 ;
 ; Starcraft 2 MUST be in **windowed fullscreen** or **windowed** mode.
+;
+;       == CURRENT HOTKEYS ==
+
+; Numpad0: toggle Templar
+
+; Numpad9: toggle Marine
+
+; Numpad8: toggle Dragoon
+
+; Numpad7: toggle Medic;
+
+; Numpad4: toggle Centurion
+
+; Numpad2: toggle Spectre
+
+; Numpad1: toggle upgrades
+
+; NumpadMult (the *): save new Mouse position
+
+; CapsLock & F5: stop all macros at once
+
 
 
 ; There is no need for a standard ahk auto-execute area anymore because of this method.
