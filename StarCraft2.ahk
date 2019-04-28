@@ -174,7 +174,7 @@ class SC2
         SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
-            Tippy("DragoonQ")
+            Tippy("DragoonQ",, 8)
             if(this.tankxPos = 0){
                 this.SaveMousePosition()
             }
@@ -202,7 +202,7 @@ class SC2
         ; SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
-            Tippy("Medic")
+            Tippy("Medic",, 7)
             if(this.tankxPos = 0){
                 this.SaveMousePosition()
             }
@@ -232,7 +232,7 @@ class SC2
         ; ; SetKeyDelay, 60, 5
 
         if (WinActive(this.ahk_SC2)) {
-            Tippy("SpectrePlay")
+            Tippy("SpectrePlay",, 2)
         }
 
         ; need "eee" because somehow it takes more time to switch from q to w guns
@@ -246,7 +246,7 @@ class SC2
         ; SetKeyDelay,,
 
         if (WinActive(this.ahk_SC2)) {
-            Tippy("CenturionPlay")
+            Tippy("CenturionPlay",, 4)
         }
 
         ; use the saved position
@@ -267,7 +267,7 @@ class SC2
         ; SetKeyDelay, 60, 5
 
         if (WinActive(this.ahk_SC2)) {
-            Tippy("Autoupgrade")
+            Tippy("Autoupgrade",, 1)
         }
 
         ControlSend,, {Blind}{Raw}1uqwehrtsdfgzxc1hh, % this.ahk_SC2
@@ -280,7 +280,7 @@ class SC2
         ; ; SetKeyDelay, 60, 5
 
         if (WinActive(this.ahk_SC2)) {
-            Tippy("Marine")
+            Tippy("Marine",, 9)
         }
 
         ControlSend,, {Blind}{Raw}9th, % this.ahk_SC2
@@ -295,7 +295,7 @@ class SC2
         ; SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
-            Tippy("Templar")
+            Tippy("Templar",, 0)
             if(this.tankxPos = 0){
                 this.SaveMousePosition()
             }
