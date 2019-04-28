@@ -198,7 +198,7 @@ class SC2
         Critical
 
         ; SetKeyDelay, 60, 5
-        SetControlDelay 100
+        SetControlDelay 150
         ; SetControlDelay -1
 
         if (WinActive(this.ahk_SC2)) {
