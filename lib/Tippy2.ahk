@@ -19,7 +19,7 @@ Tippy(text = "", duration := 3333, WhichToolTip := 16) {
     tippyOffFunction := Func("TippyOff").Bind(tippyOnFunction, WhichToolTip)
 
     SetTimer, % tippyOffFunction, % duration
-    SetTimer, % tippyOnFunction, 10
+    SetTimer, % tippyOnFunction, 1
     Sleep 1
 }
 
@@ -39,7 +39,8 @@ TippyOff(whichFunction, WhichToolTip) {
 ;
 ; Ref: https://autohotkey.com/board/topic/63640-tooltip-which-follows-the-mouse-is-flickering/#entry409383
 ToolTipFM(Text="", WhichToolTip=16, xOffset=16, yOffset=16) { ; ToolTip which Follows the Mouse
-    static LastText, hwnd, VirtualScreenWidth, VirtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
+    static LastText := [], hwnd :=[]
+    static VirtualScreenWidth, VirtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
 
     if (VirtualScreenWidth = "" or VirtualScreenHeight = "")
     {
@@ -47,46 +48,64 @@ ToolTipFM(Text="", WhichToolTip=16, xOffset=16, yOffset=16) { ; ToolTip which Fo
         SysGet, VirtualScreenHeight, 79
     }
 
-    if (Text = "") ; destroy tooltip
+    ; destroy tooltip
+    if (Text = "")
     {
         ToolTip,,,, % WhichToolTip
-        LastText := "", hwnd := ""
-        return
+        LastText.Delete(WhichToolTip)
+        hwnd.Delete(WhichToolTip)
+        Return
     }
-    else ; move or recreate tooltip
+
+    ; move or recreate tooltip
+    CoordMode, Mouse, Screen
+    MouseGetPos, x, y
+    x += xOffset
+    y += yOffset
+
+    WinGetPos,,,w,h, % "ahk_id " . hwnd[WhichToolTip]
+
+    ; if mouse is bottom right, adjust Tooltip position
+    if ((x+w) > VirtualScreenWidth)
     {
-        CoordMode, Mouse, Screen
-        MouseGetPos, x,y
-        x += xOffset, y += yOffset
-        WinGetPos,,,w,h, ahk_id %hwnd%
-
-        ; if necessary, adjust Tooltip position
-        if ((x+w) > VirtualScreenWidth)
         AdjustX := 1
-        if ((y+h) > VirtualScreenHeight)
-        AdjustY := 1
-
-        if (AdjustX and AdjustY)
-        x := x - xOffset*2 - w, y := y - yOffset*2 - h
-        else if AdjustX
-        x := VirtualScreenWidth - w
-        else if AdjustY
-        y := VirtualScreenHeight - h
-
-        if (Text = LastText) ; move tooltip
-        DllCall("MoveWindow", A_PtrSize ? "UPTR" : "UInt",hwnd,"Int",x,"Int",y,"Int",w,"Int",h,"Int",0)
-        else ; recreate tooltip
-        {
-            ; Perfect solution would be to update tooltip text (TTM_UPDATETIPTEXT), but must be compatible with all versions of AHK_L and AHK Basic.
-            ; My Ask For Help link: http://www.autohotkey.com/forum/post-421841.html#421841
-            CoordMode, ToolTip, Screen
-            ToolTip,,,, % WhichToolTip ; destroy old
-            ToolTip, % Text, x, y, % WhichToolTip ; show new
-            hwnd := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId")), LastText := Text
-            %A_ThisFunc%(Text, WhichToolTip, xOffset, yOffset) ; move new
-        }
-        Winset, AlwaysOnTop, on, ahk_id %hwnd%
     }
+    if ((y+h) > VirtualScreenHeight)
+    {
+        AdjustY := 1
+    }
+
+    if (AdjustX and AdjustY)
+    {
+        x := x - xOffset*2 - w
+        y := y - yOffset*2 - h
+    }
+    else if(AdjustX)
+    {
+        x := VirtualScreenWidth - w
+    }
+    else if(AdjustY)
+    {
+        y := VirtualScreenHeight - h
+    }
+
+    ; move tooltip
+    if (Text = LastText[WhichToolTip])
+    {
+        DllCall("MoveWindow", A_PtrSize ? "UPTR" : "UInt", hwnd[WhichToolTip], "Int", x, "Int", y, "Int", w, "Int", h, "Int", 0)
+    }
+    ; recreate tooltip
+    else
+    {
+        ; Perfect solution would be to update tooltip text (TTM_UPDATETIPTEXT), but must be compatible with all versions of AHK_L and AHK Basic.
+        ; My Ask For Help link: http://www.autohotkey.com/forum/post-421841.html#421841
+        CoordMode, ToolTip, Screen
+        ToolTip,,,, % WhichToolTip ; destroy old
+        ToolTip, % Text, x, y, % WhichToolTip ; show new
+        hwnd[WhichToolTip] := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId"))
+        LastText[WhichToolTip] := Text
+    }
+    ; Winset, AlwaysOnTop, on, % "ahk_id" . hwnd[WhichToolTip]
 }
 
 
