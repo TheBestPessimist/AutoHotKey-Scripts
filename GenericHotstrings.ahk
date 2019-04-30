@@ -9,7 +9,7 @@
 ; ----- autohotkey highlighter ---------
 ; it's supposed to write this:
 ;```autoit
-;|<-cursor is left here
+;|<-cursor is left here, so you can just paste what you want
 ;```
 :O:``ahk::``````autoit`n`n``````{left 4}
 
