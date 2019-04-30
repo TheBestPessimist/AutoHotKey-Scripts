@@ -1,4 +1,4 @@
-; i call this method
+﻿; i call this method
 Tippy(text = "", duration := 3333, whichToolTip := 16) {
     TT.ShowTooltip(text, duration, whichToolTip)
 }
@@ -57,7 +57,7 @@ class TT {
                     DllCall("QueryPerformanceCounter", "Int64*", CounterAfter)
                     elapsed :=  (CounterAfter-CounterBefore)/Freq * 1000
                     if (elapsed > 10)
-                        tooltip, % "time: " . elapsed . " milliseconds", , 17
+                        tooltip, % "performance: time: " . elapsed . " milliseconds", , 17
     }
 
     __TippyOff(whichTooltip) {
@@ -94,8 +94,7 @@ class TT {
             x += defaultxOffset
             y += defaultyOffset
             ; stack tooltips vertically
-            ; y += this.__MultipleToolTipsOffsetCalc(TT.MultipleToolTipsY, whichToolTip)
-            y += 50 * whichTooltip
+            y += this.__MultipleToolTipsOffsetCalc(whichToolTip)
 
             ; if mouse is bottom right, adjust Tooltip position
             if ((x+w) > virtualScreenWidth)
@@ -136,22 +135,22 @@ class TT {
                 ttData.LastText := ttData.CurrentText
 
                 WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
-                ttData.MultipleToolTipsY := h
+                ttData.ToolTipHeight := h
             }
         }
         ; Winset, AlwaysOnTop, on, % "ahk_id" . ttData.Hwnd
     }
 
 
-    __MultipleToolTipsOffsetCalc(arrr, lenn) {
+    __MultipleToolTipsOffsetCalc(maxWhichToolTip) {
         result := 0
-        For i, v in arrr
+        For whichToolTip, ttData in this.WhichToolTips
         {
-            if(i >= lenn)
+            if(whichToolTip >= maxWhichToolTip)
             {
                 break
             }
-            result += v + 2
+            result += ttData.ToolTipHeight + 2
         }
         return result
     }
