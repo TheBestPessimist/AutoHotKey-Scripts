@@ -1,4 +1,4 @@
-﻿; i call this method
+; i call this method
 Tippy(text = "", duration := 3333, whichToolTip := 16) {
     TT.ShowTooltip(text, duration, whichToolTip)
 }
@@ -8,29 +8,41 @@ class TT {
     static WhichToolTips := {}
 
     static __TippyOnFn := TT.__TippyOn.Bind(TT)
-    static __TippyOffFn := TT.__TippyOff.Bind(TT)
 
     ShowTooltip(text, duration, whichToolTip) {
-        ; ; rate limiting if ToolTip already exists
-        ; ttData := this.WhichToolTips[whichToolTip]
-        ; if(ttData && ttData.CurrentText = text)
-        ; {
-        ;     ttData.Duration := duration
-        ; }
+        fnOff := ""
+        ; rate limiting if ToolTip already exists
+        ttData := this.WhichToolTips[whichToolTip]
+        if(ttData)
+        {
+            fnOff := ttData.fnOff
+            if(text = "")
+            {
+                SetTimer, % fnOff, Off
+                this.__DestroyWhichTooltip(whichToolTip)
+                return
+            }
+            if(ttData.CurrentText = text)
+            {
+                ttData.Duration := duration
+            }
+        }
 
         ; sanitize whichToolTip
         whichToolTip := Max(1, Mod(whichToolTip, 20))
 
-        ; init the possibly new timer
-        this.WhichToolTips[whichToolTip] := {CurrentText: text, DestroyAtTime: A_TickCount + duration}
-
         ; call start and stop
-        fnOff := this.__TippyOffFn
-        SetTimer, % fnOff, 50
+        if(!fnOff)
+        {
+            fnOff := this.__TippyOff.Bind(this, whichToolTip)
+        }
+        SetTimer, % fnOff, % "-" duration
 
         fnOn := this.__TippyOnFn
         SetTimer, % fnOn, 10
 
+        ; init the possibly new timer
+        this.WhichToolTips[whichToolTip] := {CurrentText: text, Duration: duration, fnOff: fnOff}
 
         Sleep 2
     }
@@ -48,18 +60,16 @@ class TT {
                         tooltip, % "time: " . elapsed . " milliseconds", , 17
     }
 
-    __TippyOff() {
+    __TippyOff(whichTooltip) {
         ; MsgBox, % "which" toStr(this.WhichToolTips)
         ; msgbox % ttData.CurrentText = ttData.LastText
 
-        copy := this.WhichToolTips
+        this.__DestroyWhichTooltip(whichToolTip)
 
-        For whichToolTip, ttData in copy
+        if(this.WhichToolTips.Count() = 0)
         {
-            if (A_TickCount >= ttData.DestroyAtTime)
-            {
-                ttData.CurrentText := ""
-            }
+            fnOn := this.__TippyOnFn
+            SetTimer, % fnOn, Off
         }
     }
 
@@ -67,8 +77,6 @@ class TT {
     __ToolTipFM() { ; ToolTip which Follows the Mouse
         static defaultxOffset := 16, defaultyOffset := 16
         static virtualScreenWidth, virtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
-
-
 
         if (virtualScreenWidth = "" or virtualScreenHeight = "")
         {
@@ -79,12 +87,6 @@ class TT {
         copy := this.WhichToolTips
         For whichToolTip, ttData in copy
         {
-            ; destroy old
-            if(ttData.CurrentText = "")
-            {
-                this.__DestroyWhichTooltip(whichTooltip)
-            }
-
             ; move or recreate tooltip
             WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
             CoordMode, Mouse, Screen
