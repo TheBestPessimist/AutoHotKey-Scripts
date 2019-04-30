@@ -71,14 +71,7 @@ class TT {
             ; destroy old
             if(Text = "")
             {
-                ; MsgBox, % "delete" WhichToolTip
-
-                ToolTip,,,, % WhichToolTip
-                this.CurrentText.Delete(WhichToolTip)
-                this.LastText.Delete(WhichToolTip)
-                this.hwnd.Delete(WhichToolTip)
-                this.DestroyAtTime.Delete(WhichToolTip)
-                this.multipleToolTipsY.Delete(WhichToolTip)
+                this.__DestroyWhichTooltip(whichTooltip)
             }
 
             ; move or recreate tooltip
@@ -149,6 +142,16 @@ class TT {
             result += v + 2
         }
         return result
+    }
+
+    __DestroyWhichTooltip(whichTooltip)
+    {
+        ToolTip,,,, % WhichToolTip
+        this.CurrentText.Delete(WhichToolTip)
+        this.LastText.Delete(WhichToolTip)
+        this.hwnd.Delete(WhichToolTip)
+        this.DestroyAtTime.Delete(WhichToolTip)
+        this.multipleToolTipsY.Delete(WhichToolTip)
     }
 
 }
