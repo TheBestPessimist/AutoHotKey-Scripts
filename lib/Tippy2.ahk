@@ -1,56 +1,65 @@
-; i call this method
+﻿; i call this method
 Tippy(text = "", duration := 3333, whichToolTip := 16) {
-    TT.Tippy(text, duration, whichToolTip)
+    TT.ShowTooltip(text, duration, whichToolTip)
 }
 
 
 class TT {
-    static CurrentText := []
-    static LastText := []
-    static Hwnd := []
-    static DestroyAtTime := []
-    static MultipleToolTipsY := []
-
+    static WhichToolTips := {}
 
     static __TippyOnFn := TT.__TippyOn.Bind(TT)
     static __TippyOffFn := TT.__TippyOff.Bind(TT)
 
-    Tippy(text, duration, whichToolTip) {
+    ShowTooltip(text, duration, whichToolTip) {
+        ; ; rate limiting if ToolTip already exists
+        ; ttData := this.WhichToolTips[whichToolTip]
+        ; if(ttData && ttData.CurrentText = text)
+        ; {
+        ;     ttData.Duration := duration
+        ; }
+
         ; sanitize whichToolTip
         whichToolTip := Max(1, Mod(whichToolTip, 20))
 
         ; init the possibly new timer
-        TT.CurrentText[whichToolTip] := text
-        TT.DestroyAtTime[whichToolTip] := A_TickCount + duration
+        this.WhichToolTips[whichToolTip] := {CurrentText: text, DestroyAtTime: A_TickCount + duration}
 
         ; call start and stop
         fnOff := this.__TippyOffFn
-        SetTimer, % fnOff, % Abs(Min(TT.DestroyAtTime*)-A_TickCount)
+        SetTimer, % fnOff, 50
+
         fnOn := this.__TippyOnFn
         SetTimer, % fnOn, 10
+
 
         Sleep 2
     }
 
     __TippyOn() {
+
+                    DllCall("QueryPerformanceCounter", "Int64*", CounterBefore)
+                    DllCall("QueryPerformanceFrequency", "Int64*", Freq)
+
         this.__ToolTipFM()
+
+                    DllCall("QueryPerformanceCounter", "Int64*", CounterAfter)
+                    elapsed :=  (CounterAfter-CounterBefore)/Freq * 1000
+                    if (elapsed > 10)
+                        tooltip, % "time: " . elapsed . " milliseconds", , 17
     }
 
     __TippyOff() {
-        copy := TT.CurrentText.Clone()
+        ; MsgBox, % "which" toStr(this.WhichToolTips)
+        ; msgbox % ttData.CurrentText = ttData.LastText
 
-        For whichToolTip, Text in copy
+        copy := this.WhichToolTips
+
+        For whichToolTip, ttData in copy
         {
-            if (A_TickCount >= TT.DestroyAtTime[whichToolTip])
+            if (A_TickCount >= ttData.DestroyAtTime)
             {
-                TT.CurrentText[whichToolTip] := ""
+                ttData.CurrentText := ""
             }
-        }
-
-        ; no need to waste resources
-        if(!TT.CurrentText.Count())
-        {
-            SetTimer,, Off
         }
     }
 
@@ -59,30 +68,32 @@ class TT {
         static defaultxOffset := 16, defaultyOffset := 16
         static virtualScreenWidth, virtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
 
+
+
         if (virtualScreenWidth = "" or virtualScreenHeight = "")
         {
             SysGet, virtualScreenWidth, 78
             SysGet, virtualScreenHeight, 79
         }
 
-        copy := TT.CurrentText.Clone()
-        For whichToolTip, Text in copy
+        copy := this.WhichToolTips
+        For whichToolTip, ttData in copy
         {
             ; destroy old
-            if(Text = "")
+            if(ttData.CurrentText = "")
             {
                 this.__DestroyWhichTooltip(whichTooltip)
             }
 
             ; move or recreate tooltip
-            WinGetPos,,, w, h, % "ahk_id " . TT.Hwnd[whichToolTip]
+            WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
             CoordMode, Mouse, Screen
             MouseGetPos, x, y
             x += defaultxOffset
             y += defaultyOffset
             ; stack tooltips vertically
-            y += this.__MultipleToolTipsOffsetCalc(TT.MultipleToolTipsY, whichToolTip)
-
+            ; y += this.__MultipleToolTipsOffsetCalc(TT.MultipleToolTipsY, whichToolTip)
+            y += 50 * whichTooltip
 
             ; if mouse is bottom right, adjust Tooltip position
             if ((x+w) > virtualScreenWidth)
@@ -107,27 +118,26 @@ class TT {
                 y := virtualScreenHeight - h
             }
 
-
             ; move tooltip
-            if (Text = TT.LastText[whichToolTip])
+            if (ttData.CurrentText = ttData.LastText)
             {
-                DllCall("MoveWindow", A_PtrSize ? "UPTR" : "UInt", TT.Hwnd[whichToolTip], "Int", x, "Int", y, "Int", w, "Int", h, "Int", 0)
+                DllCall("MoveWindow", A_PtrSize ? "UPTR" : "UInt", ttData.Hwnd, "Int", x, "Int", y, "Int", w, "Int", h, "Int", 0)
             }
-            ; recreate tooltip
+            ; create tooltip
             else
             {
                 ; Perfect solution would be to update tooltip text (TTM_UPDATETIPTEXT), but must be compatible with all versions of AHK_L and AHK Basic.
                 ; My Ask For Help link: http://www.autohotkey.com/forum/post-421841.html#421841
                 CoordMode, ToolTip, Screen
-                ToolTip, % Text, x, y, % whichToolTip
-                TT.Hwnd[whichToolTip] := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId"))
-                TT.LastText[whichToolTip] := Text
+                ToolTip, % ttData.CurrentText, x, y, % whichToolTip
+                ttData.Hwnd := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId"))
+                ttData.LastText := ttData.CurrentText
 
-                WinGetPos,,, w, h, % "ahk_id " . TT.Hwnd[whichToolTip]
-                TT.MultipleToolTipsY[whichToolTip] := h
+                WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
+                ttData.MultipleToolTipsY := h
             }
         }
-        ; Winset, AlwaysOnTop, on, % "ahk_id" . TT.Hwnd[whichToolTip]
+        ; Winset, AlwaysOnTop, on, % "ahk_id" . ttData.Hwnd
     }
 
 
@@ -144,16 +154,10 @@ class TT {
         return result
     }
 
-    __DestroyWhichTooltip(whichTooltip)
-    {
+    __DestroyWhichTooltip(whichTooltip) {
         ToolTip,,,, % whichToolTip
-        this.CurrentText.Delete(whichToolTip)
-        this.LastText.Delete(whichToolTip)
-        this.Hwnd.Delete(whichToolTip)
-        this.DestroyAtTime.Delete(whichToolTip)
-        this.MultipleToolTipsY.Delete(whichToolTip)
+        this.WhichToolTips.Delete(whichToolTip)
     }
-
 }
 
 
