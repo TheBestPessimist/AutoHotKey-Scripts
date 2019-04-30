@@ -1,25 +1,24 @@
-﻿; i call this method
-Tippy(text = "", duration := 3333, whichToolTip := 16) {
+﻿; This is the main function for Tippy :^)
+Tippy(text = "", duration := 3333, whichToolTip := 1) {
     TT.ShowTooltip(text, duration, whichToolTip)
 }
 
 
 class TT {
-    static WhichToolTips := {}
+    static ToolTipData := {}
 
     static __TippyOnFn := TT.__TippyOn.Bind(TT)
 
     ShowTooltip(text, duration, whichToolTip) {
         fnOff := ""
         ; rate limiting if ToolTip already exists
-        ttData := this.WhichToolTips[whichToolTip]
+        ttData := this.ToolTipData[whichToolTip]
         if(ttData)
         {
             fnOff := ttData.fnOff
             if(text = "")
             {
-                SetTimer, % fnOff, Off
-                this.__DestroyWhichTooltip(whichToolTip)
+                this.__TippyOff(whichToolTip)
                 return
             }
             if(ttData.CurrentText = text)
@@ -27,46 +26,48 @@ class TT {
                 ttData.Duration := duration
             }
         }
+        else
+        {
+            ; this "hack" is needed because
+            ; a new object SHOULD ONLY BE CREATED IF IT DOES NOT EXIST
+            ; and if it exists, then we will only update the existing fields.
+            ; this prevents recreating the ToolTip sometimes
+            this.ToolTipData[whichToolTip] := {}
+        }
 
         ; sanitize whichToolTip
         whichToolTip := Max(1, Mod(whichToolTip, 20))
 
-        ; call start and stop
+        ; in this case we have a new ToolTip
         if(!fnOff)
         {
             fnOff := this.__TippyOff.Bind(this, whichToolTip)
         }
+        ; call start and stop
         SetTimer, % fnOff, % "-" duration
-
         fnOn := this.__TippyOnFn
         SetTimer, % fnOn, 10
 
-        ; init the possibly new timer
-        this.WhichToolTips[whichToolTip] := {CurrentText: text, Duration: duration, fnOff: fnOff}
+        ; init the ToolTipData
+        this.ToolTipData[whichToolTip].CurrentText := text
+        this.ToolTipData[whichToolTip].Duration := duration
+        this.ToolTipData[whichToolTip].fnOff := fnOff
+        this.ToolTipData[whichToolTip].WhichToolTip := whichToolTip
 
         Sleep 2
     }
 
+
     __TippyOn() {
-
-                    DllCall("QueryPerformanceCounter", "Int64*", CounterBefore)
-                    DllCall("QueryPerformanceFrequency", "Int64*", Freq)
-
         this.__ToolTipFM()
-
-                    DllCall("QueryPerformanceCounter", "Int64*", CounterAfter)
-                    elapsed :=  (CounterAfter-CounterBefore)/Freq * 1000
-                    if (elapsed > 10)
-                        tooltip, % "performance: time: " . elapsed . " milliseconds", , 17
     }
 
+
     __TippyOff(whichTooltip) {
-        ; MsgBox, % "which" toStr(this.WhichToolTips)
-        ; msgbox % ttData.CurrentText = ttData.LastText
-
         this.__DestroyWhichTooltip(whichToolTip)
+        this.__InvalidateToolTipYOffset()
 
-        if(this.WhichToolTips.Count() = 0)
+        if(this.ToolTipData.Count() = 0)
         {
             fnOn := this.__TippyOnFn
             SetTimer, % fnOn, Off
@@ -84,8 +85,7 @@ class TT {
             SysGet, virtualScreenHeight, 79
         }
 
-        copy := this.WhichToolTips
-        For whichToolTip, ttData in copy
+        For whichToolTip, ttData in this.ToolTipData
         {
             ; move or recreate tooltip
             WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
@@ -94,7 +94,7 @@ class TT {
             x += defaultxOffset
             y += defaultyOffset
             ; stack tooltips vertically
-            y += this.__MultipleToolTipsOffsetCalc(whichToolTip)
+            y += this.__MultipleToolTipsYOffsetCalc(whichToolTip)
 
             ; if mouse is bottom right, adjust Tooltip position
             if ((x+w) > virtualScreenWidth)
@@ -138,26 +138,55 @@ class TT {
                 ttData.ToolTipHeight := h
             }
         }
-        ; Winset, AlwaysOnTop, on, % "ahk_id" . ttData.Hwnd
     }
 
 
-    __MultipleToolTipsOffsetCalc(maxWhichToolTip) {
-        result := 0
-        For whichToolTip, ttData in this.WhichToolTips
+    __MultipleToolTipsYOffsetCalc(neededToolTip) {
+        ; check if it's the very first tooltip. there's no offset
+        isVeryFirst := 1
+        For whichToolTip, ttData in this.ToolTipData
         {
-            if(whichToolTip >= maxWhichToolTip)
+            if(neededToolTip = whichToolTip && isVeryFirst)
+            {
+                return 0
+            }
+            else
             {
                 break
             }
+            isVeryFirst := 0
+        }
+
+        ; if it's already calculated
+        if(this.ToolTipData[neededToolTip].YOffset != "" && this.ToolTipData[neededToolTip].YOffset != 0)
+        {
+            return this.ToolTipData[neededToolTip].YOffset
+        }
+
+        Debug("no cache hit" neededToolTip)
+
+        ; not precalculated, so recompute everything
+        result := 0
+        For whichToolTip, ttData in this.ToolTipData
+        {
+            ttData.YOffset := result
             result += ttData.ToolTipHeight + 2
         }
-        return result
+        return this.ToolTipData[neededToolTip].YOffset
     }
+
+
+    __InvalidateToolTipYOffset() {
+        For whichToolTip, ttData in this.ToolTipData
+        {
+           ttData.YOffset := 0
+        }
+    }
+
 
     __DestroyWhichTooltip(whichTooltip) {
         ToolTip,,,, % whichToolTip
-        this.WhichToolTips.Delete(whichToolTip)
+        this.ToolTipData.Delete(whichToolTip)
     }
 }
 
