@@ -45,6 +45,10 @@ Tippy(text := "", duration := 3333, whichToolTip := 10) {
 ;
 class TT {
     static ToolTipData := {}
+
+    static AllToolTipsHeightSum := 0
+    static WidestToolTip := 0
+
     static MaxWhichToolTip := 20
     static DefaultWhichToolTip := 10
 
@@ -146,33 +150,33 @@ class TT {
             WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
             CoordMode, Mouse, Screen
             MouseGetPos, x, y
+            ; stack tooltips vertically
+            multipleToolTipsYOffset := this.__ToolTipYOffsetCache(whichToolTip)
+
+            ; adjust ToolTip position if:
+            ; tooltip reaches bottom of screen
+            if ((y + this.AllToolTipsHeightSum + defaultyOffset*4) >= virtualScreenHeight)
+            {
+                ; if ToolTip reaches bottom of screen AND RIGHT
+                if ((x + this.WidestToolTip + defaultxOffset*2) >= virtualScreenWidth)
+                {
+                    y := y - (this.AllToolTipsHeightSum + defaultyOffset*4)
+                }
+                ; if ToolTip reaches bottom of screen ONLY
+                else
+                {
+                    y := virtualScreenHeight - (this.AllToolTipsHeightSum + defaultyOffset*4)
+                }
+            }
+            ; if ToolTip reaches right side of screen   (! no "else" here)
+            if ((x + w + defaultxOffset*2) >= virtualScreenWidth)
+            {
+                x := virtualScreenWidth - (w + defaultxOffset*2)
+            }
+
             x += defaultxOffset
             y += defaultyOffset
-            ; stack tooltips vertically
-            y += this.__ToolTipYOffsetCache(whichToolTip)
-
-            ; if mouse is bottom right, adjust Tooltip position
-            if ((x+w) > virtualScreenWidth)
-            {
-                AdjustX := 1
-            }
-            if ((y+h) > virtualScreenHeight)
-            {
-                AdjustY := 1
-            }
-            if (AdjustX and AdjustY)
-            {
-                x := x - defaultxOffset*2 - w
-                y := y - defaultyOffset*2 - h
-            }
-            else if(AdjustX)
-            {
-                x := virtualScreenWidth - w
-            }
-            else if(AdjustY)
-            {
-                y := virtualScreenHeight - h
-            }
+            y += multipleToolTipsYOffset
 
             ; move tooltip
             if (ttData.CurrentText == ttData.LastText)
@@ -191,6 +195,7 @@ class TT {
 
                 WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
                 ttData.ToolTipHeight := h
+                this.WidestToolTip := Max(this.WidestToolTip, w)
                 this.__InvalidateToolTipYOffsetCache()
             }
         }
@@ -232,6 +237,7 @@ class TT {
             ttData.YOffset := result
             result += ttData.ToolTipHeight + 2
         }
+        this.AllToolTipsHeightSum := result
         return this.ToolTipData[neededToolTip].YOffset
     }
 
