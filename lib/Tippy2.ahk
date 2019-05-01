@@ -163,7 +163,13 @@ class TT {
 
 
     __MultipleToolTipsYOffsetCalc(neededToolTip) {
-        ; check if it's the very first tooltip. there's no offset
+        ; if it's the only tooltip
+        if(this.ToolTipData.Count() == 1)
+        {
+            return 0
+        }
+
+        ; check if it's the very first tooltip
         isVeryFirst := 1
         For whichToolTip, ttData in this.ToolTipData
         {
