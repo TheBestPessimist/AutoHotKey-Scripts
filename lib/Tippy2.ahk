@@ -1,5 +1,5 @@
-﻿; This is the main function for Tippy :^)
-Tippy(text = "", duration := 3333, whichToolTip := 1) {
+; This is the main function for Tippy :^)
+Tippy(text := "", duration := 3333, whichToolTip := 1) {
     TT.ShowTooltip(text, duration, whichToolTip)
 }
 
@@ -16,12 +16,12 @@ class TT {
         if(ttData)
         {
             fnOff := ttData.fnOff
-            if(text = "")
+            if(text == "")
             {
                 this.__TippyOff(whichToolTip)
                 return
             }
-            if(ttData.CurrentText = text)
+            if(ttData.CurrentText == text)
             {
                 ttData.Duration := duration
             }
@@ -67,7 +67,7 @@ class TT {
         this.__DestroyWhichTooltip(whichToolTip)
         this.__InvalidateToolTipYOffset()
 
-        if(this.ToolTipData.Count() = 0)
+        if(this.ToolTipData.Count() == 0)
         {
             fnOn := this.__TippyOnFn
             SetTimer, % fnOn, Off
@@ -79,7 +79,7 @@ class TT {
         static defaultxOffset := 16, defaultyOffset := 16
         static virtualScreenWidth, virtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
 
-        if (virtualScreenWidth = "" or virtualScreenHeight = "")
+        if (virtualScreenWidth == "" or virtualScreenHeight == "")
         {
             SysGet, virtualScreenWidth, 78
             SysGet, virtualScreenHeight, 79
@@ -120,7 +120,7 @@ class TT {
             }
 
             ; move tooltip
-            if (ttData.CurrentText = ttData.LastText)
+            if (ttData.CurrentText == ttData.LastText)
             {
                 DllCall("MoveWindow", A_PtrSize ? "UPTR" : "UInt", ttData.Hwnd, "Int", x, "Int", y, "Int", w, "Int", h, "Int", 0)
             }
@@ -146,7 +146,7 @@ class TT {
         isVeryFirst := 1
         For whichToolTip, ttData in this.ToolTipData
         {
-            if(neededToolTip = whichToolTip && isVeryFirst)
+            if(neededToolTip == whichToolTip && isVeryFirst)
             {
                 return 0
             }
