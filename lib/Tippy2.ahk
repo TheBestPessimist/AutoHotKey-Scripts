@@ -251,3 +251,56 @@ class TT {
     }
 }
 
+
+
+
+
+
+
+; ; ================================
+; ; HERE IS HOW YOU TEST THE SCRIPT!
+
+; ; Uncomment the following code
+; ; Press and hold F1 then F2 hotkeys, and move mouse.
+; ; See the difference in CPU usage and smoothness
+
+
+; VeryLongText = ; Make a very long ToolTip text for testing purpose
+; (
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; If blank or omitted, the existing tooltip (if any) will be hidden.
+; Otherwise, this parameter is the text to display in the tooltip.
+; )
+
+
+; ; old system = flickers + high CPU load + slow moving
+; F1::
+; While, GetKeyState(A_ThisHotkey,"p")
+; {
+;     ToolTip, % VeryLongText
+;     Sleep, 10
+; }
+; ToolTip
+; return
+
+
+; ; new system = does not flicker + low CPU load + fast moving + multiple Tips
+; F2::
+; {
+;     Tippy(VeryLongText, 6000) ; you pass the text and the duration
+;     Tippy("second ToolTip", 4000, 1) ; text, duration and a unique tooltip number
+;     Tippy("third ToolTip", 10000, 2)
+
+; }
+; return
