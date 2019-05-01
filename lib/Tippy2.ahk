@@ -1,11 +1,18 @@
-; This is the main function for Tippy :^)
-Tippy(text := "", duration := 3333, whichToolTip := 1) {
+﻿; This is the main function for Tippy :^)
+Tippy(text := "", duration := 3333, whichToolTip := -1) {
+    if(whichToolTip == -1)
+    {
+        whichToolTip := TT.GetUnusedToolTip()
+    }
+
     TT.ShowTooltip(text, duration, whichToolTip)
 }
 
 
 class TT {
     static ToolTipData := {}
+    static MaxWhichToolTip := 20
+    static DefaultWhichToolTip := 10
 
     static __TippyOnFn := TT.__TippyOn.Bind(TT)
 
@@ -36,7 +43,7 @@ class TT {
         }
 
         ; sanitize whichToolTip
-        whichToolTip := Max(1, Mod(whichToolTip, 20))
+        whichToolTip := Max(1, Mod(whichToolTip, this.MaxWhichToolTip))
 
         ; in this case we have a new ToolTip
         if(!fnOff)
@@ -55,6 +62,20 @@ class TT {
         this.ToolTipData[whichToolTip].WhichToolTip := whichToolTip
 
         Sleep 2
+    }
+
+
+    GetUnusedToolTip() {
+        whichToolTip := this.MaxWhichToolTip
+        While (whichToolTip > 0)
+        {
+            if(!this.ToolTipData[whichToolTip])
+            {
+                return whichToolTip
+            }
+            whichToolTip--
+        }
+        Return this.DefaultWhichToolTip
     }
 
 
