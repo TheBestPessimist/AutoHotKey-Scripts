@@ -26,6 +26,7 @@ Tippy(text := "", duration := 3333, whichToolTip := 10) {
 ; Many thanks to @nnnik#6686 and @evilC#8858 on the AHK Discord Server: https://discord.gg/s3Fqygv
 ;       for putting up with all my lack of knowledge and understanding of
 ;       Object Oriented Programming in ahk.
+; I honestly think i would have kicked someone for being as stupid as I was at times.
 
 
 ;   ==  How it works ==
