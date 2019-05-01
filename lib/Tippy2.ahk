@@ -1,4 +1,13 @@
-﻿; This is the main function for Tippy :^)
+﻿; Show a ToolTip which follows the mouse for a specific duration.
+; Multiple ToolTips are stacked vertically, so no information is hidden.
+;
+; == How to use ==
+;
+; - At the top of your scripts include this ahk file:
+;           #include lib/Tippy.ahk
+; - Call the function Tippy("Text to show") with the text you want to show.
+;           You have an example at the end of the script (just uncomment it)!
+
 Tippy(text := "", duration := 3333, whichToolTip := -1) {
     if(whichToolTip == -1)
     {
@@ -8,7 +17,32 @@ Tippy(text := "", duration := 3333, whichToolTip := -1) {
     TT.ShowTooltip(text, duration, whichToolTip)
 }
 
+;   == Original idea ==
+;       - https://autohotkey.com/board/topic/63640-tooltip-which-follows-the-mouse-is-flickering/#entry409383
+;       - https://www.autohotkey.com/boards/viewtopic.php?f=6&t=12307
 
+
+;   == Thanks ==
+; Many thanks to @nnnik#6686 and @evilC#8858 on the AHK Discord Server: https://discord.gg/s3Fqygv
+;       for putting up with all my lack of knowledge and understanding of
+;       Object Oriented Programming in ahk.
+
+
+;   ==  How it works ==
+;
+; Function Tippy is the ToolTip launcher.
+;
+; All the details are stored into the class TT
+;
+; - Method ToolTipFM is called on a timer every 10 ms to update the tooltip position
+;       and uses MoveWindow dll call instead of recreating the ToolTip,
+;       that's why the tooltip movement is smooth!
+;
+; - TippyOff is called after %Duration% time to tur  off the timer for TippyOn so everything is clean
+;
+;  - MultipleToolTipsYOffsetCalc computes each ToolTip's stacking position and caches those values.
+;
+;
 class TT {
     static ToolTipData := {}
     static MaxWhichToolTip := 20
@@ -169,7 +203,7 @@ class TT {
             return 0
         }
 
-        ; check if it's the very first tooltip
+        ; if it's the very first tooltip
         isVeryFirst := 1
         For whichToolTip, ttData in this.ToolTipData
         {
@@ -190,7 +224,7 @@ class TT {
             return this.ToolTipData[neededToolTip].YOffset
         }
 
-        Debug("no cache hit" neededToolTip)
+        ; Debug("no cache hit => initialize cache. WhichToolTip: " neededToolTip)
 
         ; not precalculated, so recompute everything
         result := 0
@@ -216,5 +250,4 @@ class TT {
         this.ToolTipData.Delete(whichToolTip)
     }
 }
-
 
