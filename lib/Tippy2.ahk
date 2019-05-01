@@ -120,7 +120,7 @@ class TT {
 
     __TippyOff(whichTooltip) {
         this.__DestroyWhichTooltip(whichToolTip)
-        this.__InvalidateToolTipYOffset()
+        this.__InvalidateToolTipYOffsetCache()
 
         if(this.ToolTipData.Count() == 0)
         {
@@ -149,7 +149,7 @@ class TT {
             x += defaultxOffset
             y += defaultyOffset
             ; stack tooltips vertically
-            y += this.__MultipleToolTipsYOffsetCalc(whichToolTip)
+            y += this.__ToolTipYOffsetCache(whichToolTip)
 
             ; if mouse is bottom right, adjust Tooltip position
             if ((x+w) > virtualScreenWidth)
@@ -191,13 +191,13 @@ class TT {
 
                 WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
                 ttData.ToolTipHeight := h
-                this.__InvalidateToolTipYOffset()
+                this.__InvalidateToolTipYOffsetCache()
             }
         }
     }
 
 
-    __MultipleToolTipsYOffsetCalc(neededToolTip) {
+    __ToolTipYOffsetCache(neededToolTip) {
         ; if it's the only tooltip
         if(this.ToolTipData.Count() == 1)
         {
@@ -237,7 +237,7 @@ class TT {
 
 
     ; each time a new ToolTip is created or destroyed the offset has to be recomputed
-    __InvalidateToolTipYOffset() {
+    __InvalidateToolTipYOffsetCache() {
         For whichToolTip, ttData in this.ToolTipData
         {
            ttData.YOffset := 0
