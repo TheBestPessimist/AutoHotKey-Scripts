@@ -1,4 +1,4 @@
-; Show a ToolTip which follows the mouse for a specific duration.
+﻿; Show a ToolTip which follows the mouse for a specific duration.
 ; Multiple ToolTips are stacked vertically, so no information is hidden.
 ;
 ; == How to use ==
@@ -191,6 +191,7 @@ class TT {
 
                 WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
                 ttData.ToolTipHeight := h
+                this.__InvalidateToolTipYOffset()
             }
         }
     }
@@ -224,8 +225,6 @@ class TT {
             return this.ToolTipData[neededToolTip].YOffset
         }
 
-        ; Debug("no cache hit => initialize cache. WhichToolTip: " neededToolTip)
-
         ; not precalculated, so recompute everything
         result := 0
         For whichToolTip, ttData in this.ToolTipData
@@ -237,6 +236,7 @@ class TT {
     }
 
 
+    ; each time a new ToolTip is created or destroyed the offset has to be recomputed
     __InvalidateToolTipYOffset() {
         For whichToolTip, ttData in this.ToolTipData
         {
