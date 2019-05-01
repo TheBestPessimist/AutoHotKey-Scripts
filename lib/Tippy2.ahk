@@ -1,4 +1,4 @@
-﻿; Show a ToolTip which follows the mouse for a specific duration.
+; Show a ToolTip which follows the mouse for a specific duration.
 ; Multiple ToolTips are stacked vertically, so no information is hidden.
 ;
 ; == How to use ==
@@ -8,7 +8,7 @@
 ; - Call the function Tippy("Text to show") with the text you want to show.
 ;           You have an example at the end of the script (just uncomment it)!
 
-Tippy(text := "", duration := 3333, whichToolTip := -1) {
+Tippy(text := "", duration := 3333, whichToolTip := 10) {
     if(whichToolTip == -1)
     {
         whichToolTip := TT.GetUnusedToolTip()
