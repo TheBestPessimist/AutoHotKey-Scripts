@@ -77,7 +77,9 @@ class TT {
             ; a new object SHOULD ONLY BE CREATED IF IT DOES NOT EXIST
             ; and if it exists, then we will only update the existing fields.
             ; this prevents recreating the ToolTip sometimes
-            this.ToolTipData[whichToolTip] := {}
+            ; since doing `this.ToolTipData[whichToolTip] := {CurrentText: text, Duration: duration, fnOff: fnOff , WhichToolTip : whichToolTip }` would clear ttData.LastText
+            ttData := {}
+            this.ToolTipData[whichToolTip] := ttData
         }
 
         ; sanitize whichToolTip
@@ -94,10 +96,10 @@ class TT {
         SetTimer, % fnOn, 10
 
         ; init the ToolTipData
-        this.ToolTipData[whichToolTip].CurrentText := text
-        this.ToolTipData[whichToolTip].Duration := duration
-        this.ToolTipData[whichToolTip].fnOff := fnOff
-        this.ToolTipData[whichToolTip].WhichToolTip := whichToolTip
+        ttData.CurrentText := text
+        ttData.Duration := duration
+        ttData.fnOff := fnOff
+        ttData.WhichToolTip := whichToolTip
 
         Sleep 2
     }
