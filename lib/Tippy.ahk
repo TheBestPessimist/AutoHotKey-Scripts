@@ -1,105 +1,277 @@
-﻿; Show a ToolTip with a message for a specific duration while following the mouse
+﻿; Show a ToolTip which follows the mouse for a specific duration.
+; Multiple ToolTips are stacked vertically, so no information is hidden.
 ;
-; How it works:
-; Function Tippy acts as a launcher for the "show-tip" and "hide-tip-after-duration" functions
-; A global variable is used which saves The text to be showed in the tooltip
-; Function TippyOn is called on a timer every 10 ms to update the tooltip position (that function also calls itself)
-; To hide the tooltip the function TippyOff is called after %Duration% time which turns off the timer for TippyOn so everything is clean
+; == How to use ==
 ;
-; How to use:
-; - At the top of your script include this second script:
-;           #include Tippy.ahk
-; - Then just call Tippy() with the text and duration you want.
-;           You have an example at the end of the script!
-; The tooltip is beautifully shown using ToolTipFM (a fancier tooltip -- read it's own comments).
-Tippy(Text = "", Duration = 3333) {
-    global TippyText := Text
+; - At the top of your scripts include this ahk file:
+;           #include lib/Tippy.ahk
+; - Call the function Tippy("Text to show") with the text you want to show.
+;           You have an example at the end of the script (just uncomment it)!
 
-    SetTimer, TippyOff, %Duration%
-    SetTimer, TippyOn, 10
-    Sleep 1         ; this sleep is needed else in some rare cases the tooltip will have a small delay to appear
-}
-
-TippyOn() {
-    global TippyText
-    ToolTipFM(TippyText)
-}
-
-TippyOff() {
-    ToolTipFM()
-    SetTimer, Tippy, Off
-    SetTimer, TippyOn, Off
-    SetTimer, TippyOff, Off
-    global TippyText := ""
-}
-
-
-
-; ToolTip which follows the mouse without flickering
-; It uses MoveWindow dll call instead of recreating the ToolTip!
-;
-; Ref: https://autohotkey.com/board/topic/63640-tooltip-which-follows-the-mouse-is-flickering/#entry409383
-ToolTipFM(Text="", WhichToolTip=16, xOffset=16, yOffset=16) { ; ToolTip which Follows the Mouse
-    static LastText, hwnd, VirtualScreenWidth, VirtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
-
-    if (VirtualScreenWidth = "" or VirtualScreenHeight = "")
+Tippy(text := "", duration := 3333, whichToolTip := 10) {
+    if(whichToolTip == -1)
     {
-        SysGet, VirtualScreenWidth, 78
-        SysGet, VirtualScreenHeight, 79
+        whichToolTip := TT.GetUnusedToolTip()
     }
 
-    if (Text = "") ; destroy tooltip
-    {
-        ToolTip,,,, % WhichToolTip
-        LastText := "", hwnd := ""
-        return
-    }
-    else ; move or recreate tooltip
-    {
-        CoordMode, Mouse, Screen
-        MouseGetPos, x,y
-        x += xOffset, y += yOffset
-        WinGetPos,,,w,h, ahk_id %hwnd%
+    TT.ShowTooltip(text, duration, whichToolTip)
+}
 
-        ; if necessary, adjust Tooltip position
-        if ((x+w) > VirtualScreenWidth)
-        AdjustX := 1
-        if ((y+h) > VirtualScreenHeight)
-        AdjustY := 1
+;   == Original idea ==
+;       - https://autohotkey.com/board/topic/63640-tooltip-which-follows-the-mouse-is-flickering/#entry409383
+;       - https://www.autohotkey.com/boards/viewtopic.php?f=6&t=12307
 
-        if (AdjustX and AdjustY)
-        x := x - xOffset*2 - w, y := y - yOffset*2 - h
-        else if AdjustX
-        x := VirtualScreenWidth - w
-        else if AdjustY
-        y := VirtualScreenHeight - h
 
-        if (Text = LastText) ; move tooltip
-        DllCall("MoveWindow", A_PtrSize ? "UPTR" : "UInt",hwnd,"Int",x,"Int",y,"Int",w,"Int",h,"Int",0)
-        else ; recreate tooltip
+;   == Thanks ==
+; Many thanks to @nnnik#6686 and @evilC#8858 on the AHK Discord Server: https://discord.gg/s3Fqygv
+;       for putting up with all my lack of knowledge and understanding of
+;       Object Oriented Programming in ahk.
+
+
+;   ==  How it works ==
+;
+; Function Tippy is the ToolTip launcher.
+;
+; All the details are stored into the class TT
+;
+; - Method ToolTipFM is called on a timer every 10 ms to update the tooltip position
+;       and uses MoveWindow dll call instead of recreating the ToolTip,
+;       that's why the tooltip movement is smooth!
+;
+; - TippyOff is called after %Duration% time to tur  off the timer for TippyOn so everything is clean
+;
+;  - MultipleToolTipsYOffsetCalc computes each ToolTip's stacking position and caches those values.
+;
+;
+class TT {
+    static ToolTipData := {}
+
+    static AllToolTipsHeightSum := 0
+    static WidestToolTip := 0
+
+    static MaxWhichToolTip := 20
+    static DefaultWhichToolTip := 10
+
+    static __TippyOnFn := TT.__TippyOn.Bind(TT)
+
+    ShowTooltip(text, duration, whichToolTip) {
+        fnOff := ""
+        ; rate limiting if ToolTip already exists
+        ttData := this.ToolTipData[whichToolTip]
+        if(ttData)
         {
-            ; Perfect solution would be to update tooltip text (TTM_UPDATETIPTEXT), but must be compatible with all versions of AHK_L and AHK Basic.
-            ; My Ask For Help link: http://www.autohotkey.com/forum/post-421841.html#421841
-            CoordMode, ToolTip, Screen
-            ToolTip,,,, % WhichToolTip ; destroy old
-            ToolTip, % Text, x, y, % WhichToolTip ; show new
-            hwnd := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId")), LastText := Text
-            %A_ThisFunc%(Text, WhichToolTip, xOffset, yOffset) ; move new
+            fnOff := ttData.fnOff
+            if(text == "")
+            {
+                this.__TippyOff(whichToolTip)
+                return
+            }
+            if(ttData.CurrentText == text)
+            {
+                ttData.Duration := duration
+            }
         }
-        Winset, AlwaysOnTop, on, ahk_id %hwnd%
+        else
+        {
+            ; this "hack" is needed because
+            ; a new object SHOULD ONLY BE CREATED IF IT DOES NOT EXIST
+            ; and if it exists, then we will only update the existing fields.
+            ; this prevents recreating the ToolTip sometimes
+            this.ToolTipData[whichToolTip] := {}
+        }
+
+        ; sanitize whichToolTip
+        whichToolTip := Max(1, Mod(whichToolTip, this.MaxWhichToolTip))
+
+        ; in this case we have a new ToolTip
+        if(!fnOff)
+        {
+            fnOff := this.__TippyOff.Bind(this, whichToolTip)
+        }
+        ; call start and stop
+        SetTimer, % fnOff, % "-" duration
+        fnOn := this.__TippyOnFn
+        SetTimer, % fnOn, 10
+
+        ; init the ToolTipData
+        this.ToolTipData[whichToolTip].CurrentText := text
+        this.ToolTipData[whichToolTip].Duration := duration
+        this.ToolTipData[whichToolTip].fnOff := fnOff
+        this.ToolTipData[whichToolTip].WhichToolTip := whichToolTip
+
+        Sleep 2
+    }
+
+
+    GetUnusedToolTip() {
+        whichToolTip := this.MaxWhichToolTip
+        While (whichToolTip > 0)
+        {
+            if(!this.ToolTipData[whichToolTip])
+            {
+                return whichToolTip
+            }
+            whichToolTip--
+        }
+        Return this.DefaultWhichToolTip
+    }
+
+
+    __TippyOn() {
+        this.__ToolTipFM()
+    }
+
+
+    __TippyOff(whichTooltip) {
+        this.__DestroyWhichTooltip(whichToolTip)
+        this.__InvalidateToolTipYOffsetCache()
+
+        if(this.ToolTipData.Count() == 0)
+        {
+            fnOn := this.__TippyOnFn
+            SetTimer, % fnOn, Off
+        }
+    }
+
+
+    __ToolTipFM() { ; ToolTip which Follows the Mouse
+        static defaultxOffset := 16, defaultyOffset := 16
+        static virtualScreenWidth, virtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
+
+        if (virtualScreenWidth == "" or virtualScreenHeight == "")
+        {
+            SysGet, virtualScreenWidth, 78
+            SysGet, virtualScreenHeight, 79
+        }
+
+        For whichToolTip, ttData in this.ToolTipData
+        {
+            ; move or recreate tooltip
+            WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
+            CoordMode, Mouse, Screen
+            MouseGetPos, x, y
+            ; stack tooltips vertically
+            multipleToolTipsYOffset := this.__ToolTipYOffsetCache(whichToolTip)
+
+            ; adjust ToolTip position if:
+            ; tooltip reaches bottom of screen
+            if ((y + this.AllToolTipsHeightSum + defaultyOffset*4) >= virtualScreenHeight)
+            {
+                ; if ToolTip reaches bottom of screen AND RIGHT
+                if ((x + this.WidestToolTip + defaultxOffset*2) >= virtualScreenWidth)
+                {
+                    y := y - (this.AllToolTipsHeightSum + defaultyOffset*4)
+                }
+                ; if ToolTip reaches bottom of screen ONLY
+                else
+                {
+                    y := virtualScreenHeight - (this.AllToolTipsHeightSum + defaultyOffset*4)
+                }
+            }
+            ; if ToolTip reaches right side of screen   (! no "else" here)
+            if ((x + w + defaultxOffset*2) >= virtualScreenWidth)
+            {
+                x := virtualScreenWidth - (w + defaultxOffset*2)
+            }
+
+            x += defaultxOffset
+            y += defaultyOffset
+            y += multipleToolTipsYOffset
+
+            ; move tooltip
+            if (ttData.CurrentText == ttData.LastText)
+            {
+                DllCall("MoveWindow", A_PtrSize ? "UPTR" : "UInt", ttData.Hwnd, "Int", x, "Int", y, "Int", w, "Int", h, "Int", 0)
+            }
+            ; create tooltip
+            else
+            {
+                ; Perfect solution would be to update tooltip text (TTM_UPDATETIPTEXT), but must be compatible with all versions of AHK_L and AHK Basic.
+                ; My Ask For Help link: http://www.autohotkey.com/forum/post-421841.html#421841
+                CoordMode, ToolTip, Screen
+                ToolTip, % ttData.CurrentText, x, y, % whichToolTip
+                ttData.Hwnd := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId"))
+                ttData.LastText := ttData.CurrentText
+
+                WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
+                ttData.ToolTipHeight := h
+                this.WidestToolTip := Max(this.WidestToolTip, w)
+                this.__InvalidateToolTipYOffsetCache()
+            }
+        }
+    }
+
+
+    __ToolTipYOffsetCache(neededToolTip) {
+        ; if it's the only tooltip
+        if(this.ToolTipData.Count() == 1)
+        {
+            return 0
+        }
+
+        ; if it's the very first tooltip
+        isVeryFirst := 1
+        For whichToolTip, ttData in this.ToolTipData
+        {
+            if(neededToolTip == whichToolTip && isVeryFirst)
+            {
+                return 0
+            }
+            else
+            {
+                break
+            }
+            isVeryFirst := 0
+        }
+
+        ; if it's already calculated
+        if(this.ToolTipData[neededToolTip].YOffset != "" && this.ToolTipData[neededToolTip].YOffset != 0)
+        {
+            return this.ToolTipData[neededToolTip].YOffset
+        }
+
+        ; not precalculated, so recompute everything
+        result := 0
+        For whichToolTip, ttData in this.ToolTipData
+        {
+            ttData.YOffset := result
+            result += ttData.ToolTipHeight + 2
+        }
+        this.AllToolTipsHeightSum := result
+        return this.ToolTipData[neededToolTip].YOffset
+    }
+
+
+    ; each time a new ToolTip is created or destroyed the offset has to be recomputed
+    __InvalidateToolTipYOffsetCache() {
+        For whichToolTip, ttData in this.ToolTipData
+        {
+           ttData.YOffset := 0
+        }
+    }
+
+
+    __DestroyWhichTooltip(whichTooltip) {
+        ToolTip,,,, % whichToolTip
+        this.ToolTipData.Delete(whichToolTip)
     }
 }
 
 
 
 
-; ================================
-; HERE IS HOW YOU TEST THE SCRIPT!
-
-; Press and hold F1-F2 hotkeys, and move mouse.
 
 
-; Text = ; Make too long ToolTip text for testing purpose
+
+; ; ================================
+; ; HERE IS HOW YOU TEST THE SCRIPT!
+
+; ; Uncomment the following code
+; ; Press and hold F1 then F2 hotkeys, and move mouse.
+; ; See the difference in CPU usage and smoothness
+
+
+; VeryLongText = ; Make a very long ToolTip text for testing purpose
 ; (
 ; If blank or omitted, the existing tooltip (if any) will be hidden.
 ; Otherwise, this parameter is the text to display in the tooltip.
@@ -118,20 +290,23 @@ ToolTipFM(Text="", WhichToolTip=16, xOffset=16, yOffset=16) { ; ToolTip which Fo
 ; )
 
 
-; ;=== Test ToolTip mouse following ===
-; ; Just keep F1 or F2 pressed and see the difference!
-; F1:: ; old system = flickers + high CPU load + slow moving
+; ; old system = flickers + high CPU load + slow moving
+; F1::
 ; While, GetKeyState(A_ThisHotkey,"p")
 ; {
-;     ToolTip, % text
+;     ToolTip, % VeryLongText
 ;     Sleep, 10
 ; }
 ; ToolTip
 ; return
 
-; F2:: ; new system = does not flicker + low CPU load + fast moving
+
+; ; new system = does not flicker + low CPU load + fast moving + multiple Tips
+; F2::
 ; {
-;     Tippy(text, 2000) ; you pass the text and the duration
+;     Tippy(VeryLongText, 6000) ; you pass the text and the duration
+;     Tippy("second ToolTip", 4000, 1) ; text, duration and a unique tooltip number
+;     Tippy("third ToolTip", 10000, 2)
+
 ; }
 ; return
-
