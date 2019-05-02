@@ -11,7 +11,7 @@
 Tippy(text := "", duration := 3333, whichToolTip := 10) {
     if(whichToolTip == -1)
     {
-        whichToolTip := TT.GetUnusedToolTip()
+        whichToolTip := TT.GetUnusedToolTip(text)
     }
 
     TT.ShowTooltip(text, duration, whichToolTip)
@@ -106,15 +106,26 @@ class TT {
     }
 
 
-    GetUnusedToolTip() {
-        whichToolTip := this.MaxWhichToolTip
-        While (whichToolTip > 0)
+    GetUnusedToolTip(text) {
+        ; firstly go through all tooltips to check if this one is not already shown
+        For whichToolTip, ttData in this.ToolTipData
+        {
+            if(ttData.CurrentText == text)
+            {
+                return whichToolTip
+            }
+        }
+
+
+        ; if no tooltips with same text is shown, then return a new one
+        whichToolTip := 11
+        While (whichToolTip <= this.MaxWhichToolTip)
         {
             if(!this.ToolTipData[whichToolTip])
             {
                 return whichToolTip
             }
-            whichToolTip--
+            whichToolTip++
         }
         Return this.DefaultWhichToolTip
     }
