@@ -1,4 +1,4 @@
-﻿; Show a ToolTip which follows the mouse for a specific duration.
+; Show a ToolTip which follows the mouse for a specific duration.
 ; Multiple ToolTips are stacked vertically, so no information is hidden.
 ;
 ; == How to use ==
@@ -148,7 +148,7 @@ class TT {
         }
 
 
-        mousePos := __GetLocalMonitorMouseCoords()
+        mousePos := this.__GetLocalMonitorMouseCoords()
         mouseX := mousePos.x
         mouseY := mousePos.y
 
@@ -266,7 +266,7 @@ class TT {
 
 
     __GetLocalMonitorMouseCoords() {
-        monitors := __GetAllMonitorsDimensions()
+        monitors := this.__GetAllMonitorsDimensions()
 
         CoordMode, Mouse, Screen
         MouseGetPos, X, Y
