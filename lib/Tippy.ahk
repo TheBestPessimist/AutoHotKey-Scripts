@@ -147,12 +147,15 @@ class TT {
             SysGet, virtualScreenHeight, 79
         }
 
+        CoordMode, Mouse, Screen
+        MouseGetPos, mouseX, mouseY
+
         For whichToolTip, ttData in this.ToolTipData
         {
+            x := mouseX
+            y := mouseY
             ; move or recreate tooltip
             WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
-            CoordMode, Mouse, Screen
-            MouseGetPos, x, y
             ; stack tooltips vertically
             multipleToolTipsYOffset := this.__ToolTipYOffsetCache(whichToolTip)
 
