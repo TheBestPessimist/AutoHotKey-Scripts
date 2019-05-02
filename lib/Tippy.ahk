@@ -147,8 +147,10 @@ class TT {
             SysGet, virtualScreenHeight, 79
         }
 
-        CoordMode, Mouse, Screen
-        MouseGetPos, mouseX, mouseY
+
+        mousePos := __GetLocalMonitorMouseCoords()
+        mouseX := mousePos.x
+        mouseY := mousePos.y
 
         For whichToolTip, ttData in this.ToolTipData
         {
@@ -261,6 +263,44 @@ class TT {
         ToolTip,,,, % whichToolTip
         this.ToolTipData.Delete(whichToolTip)
     }
+
+
+    __GetLocalMonitorMouseCoords() {
+        monitors := __GetAllMonitorsDimensions()
+
+        CoordMode, Mouse, Screen
+        MouseGetPos, X, Y
+
+        for k, v in monitors {
+            if (X >= v.Left && X <= v.Right && Y <= v.Bottom && Y >= v.Top) {
+                return {"x": X - v.Left, "y": Y - v.Top}
+            }
+        }
+    }
+
+
+    __GetAllMonitorsDimensions() {
+        static monitorCount
+        static monitors
+
+        SysGet, newMonitorCount, MonitorCount
+        if (monitorCount != newMonitorCount)
+        {
+            monitorCount := newMonitorCount
+
+            monitors := []
+            loop, % MonitorCount
+            {
+                SysGet, BoundingBox, Monitor, % A_Index
+                monitors.Push({"Top": BoundingBoxTop, "Bottom": BoundingBoxBottom, "Left": BoundingBoxLeft, "Right": BoundingBoxRight})
+            }
+        }
+        return monitors
+    }
+
+
+
+
 }
 
 
