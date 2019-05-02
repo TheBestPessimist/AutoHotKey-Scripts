@@ -1,4 +1,4 @@
-; Show a ToolTip which follows the mouse for a specific duration.
+﻿; Show a ToolTip which follows the mouse for a specific duration.
 ; Multiple ToolTips are stacked vertically, so no information is hidden.
 ;
 ; == How to use ==
@@ -57,6 +57,8 @@ class TT {
 
     ShowTooltip(text, duration, whichToolTip) {
         fnOff := ""
+        ; sanitize whichToolTip
+        whichToolTip := Max(1, Mod(whichToolTip, this.MaxWhichToolTip))
         ; rate limiting if ToolTip already exists
         ttData := this.ToolTipData[whichToolTip]
         if(ttData)
@@ -83,8 +85,6 @@ class TT {
             this.ToolTipData[whichToolTip] := ttData
         }
 
-        ; sanitize whichToolTip
-        whichToolTip := Max(1, Mod(whichToolTip, this.MaxWhichToolTip))
 
         ; in this case we have a new ToolTip
         if(!fnOff)
