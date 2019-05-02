@@ -33,6 +33,7 @@ Menu, Tray, Icon, resources/blueStar.ico
 
 
 ; rest of everything
+#include <libdebug>
 #Include app_handling.ahk
 #Include lidOff.ahk
 #include lib/Tippy.ahk
@@ -42,7 +43,6 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include SoundBalance.ahk
 #include StarCraft2.ahk
 #include lib/ReloadScript.ahk
-
 
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
@@ -99,3 +99,8 @@ AppsKey::Send {AppsKey}
 ;------------------------------------------------
 ; CapsLock + P: Toggle between "Power saver" and "Balanced" powers schemes
 CapsLock & P::TogglePowerScheme()
+
+
+
+
+
