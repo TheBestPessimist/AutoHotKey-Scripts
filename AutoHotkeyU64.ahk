@@ -34,6 +34,7 @@ Menu, Tray, Icon, resources/blueStar.ico
 
 ; rest of everything
 #include <libdebug>
+#include MarkdownCodeHighlighter.ahk
 #Include app_handling.ahk
 #Include lidOff.ahk
 #include lib/Tippy.ahk

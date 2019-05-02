@@ -6,12 +6,7 @@
 ::c@gmail::cristian.nahsuc@gmail.com
 ::@tbp::TheBestPessimist
 
-; ----- autohotkey highlighter ---------
-; it's supposed to write this:
-;```autoit
-;|<-cursor is left here, so you can just paste what you want
-;```
-:O:``ahk::``````autoit`n`n``````{left 4}
+
 
 ; ----- my autohotkey github -----------
 ::gitahk::https://git.tbp.land/AutoHotKey-Scripts/
