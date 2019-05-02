@@ -21,12 +21,12 @@ MouseDebugging() {
     SysGet, virtualScreenHeight, 79
     Tippy("Screen Size: " virtualScreenWidth " x " virtualScreenHeight,, 18)
 
-    localPos := __GetLocalMonitorMouseCoords()
+    localPos := GetLocalMonitorMouseCoords()
     Tippy("Mouse Pos: " localPos.x " x " localPos.y " (local)",, 20)
 
 }
 
-__GetAllMonitorsDimensions() {
+GetAllMonitorsDimensions() {
     static monitorCount
     static monitors
 
@@ -46,8 +46,8 @@ __GetAllMonitorsDimensions() {
 }
 
 
-__GetLocalMonitorMouseCoords() {
-    monitors := __GetAllMonitorsDimensions()
+GetLocalMonitorMouseCoords() {
+    monitors := GetAllMonitorsDimensions()
 
     CoordMode, Mouse, Screen
     MouseGetPos, X, Y
