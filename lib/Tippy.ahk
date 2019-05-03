@@ -116,7 +116,6 @@ class TT {
             }
         }
 
-
         ; if no tooltips with same text is shown, then return a new one
         whichToolTip := 11
         While (whichToolTip <= this.MaxWhichToolTip)
@@ -150,47 +149,44 @@ class TT {
 
     __ToolTipFM() { ; ToolTip which Follows the Mouse
         static defaultxOffset := 16, defaultyOffset := 16
-        static virtualScreenWidth, virtualScreenHeight ; http://www.autohotkey.com/forum/post-430240.html#430240
 
-        if (virtualScreenWidth == "" or virtualScreenHeight == "")
-        {
-            SysGet, virtualScreenWidth, 78
-            SysGet, virtualScreenHeight, 79
-        }
+        localScreen := this.__GetLocalScreenMouseCoordsAndBounds()
+        localScreenMouseX := localScreen.x
+        localScreenMouseY := localScreen.y
+        localScreenHeight := localScreen.screenHeight
+        localScreenWidth := localScreen.screenWidth
 
-
-        mousePos := this.__GetLocalMonitorMouseCoords()
-        mouseX := mousePos.x
-        mouseY := mousePos.y
+        CoordMode, Mouse, Screen
+        MouseGetPos, realMouseX, realMouseY
 
         For whichToolTip, ttData in this.ToolTipData
         {
-            x := mouseX
-            y := mouseY
-            ; move or recreate tooltip
+            x := realMouseX
+            y := realMouseY
             WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
+
             ; stack tooltips vertically
             multipleToolTipsYOffset := this.__ToolTipYOffsetCache(whichToolTip)
 
             ; adjust ToolTip position if:
             ; tooltip reaches bottom of screen
-            if ((y + this.AllToolTipsHeightSum + defaultyOffset*4) >= virtualScreenHeight)
+            if ((y + this.AllToolTipsHeightSum + defaultyOffset*4) >= localScreenHeight)
             {
                 ; if ToolTip reaches bottom of screen AND RIGHT
-                if ((x + this.WidestToolTip + defaultxOffset*2) >= virtualScreenWidth)
+                if ((x + this.WidestToolTip + defaultxOffset*2) >= localScreenWidth)
                 {
                     y := y - (this.AllToolTipsHeightSum + defaultyOffset*4)
                 }
                 ; if ToolTip reaches bottom of screen ONLY
                 else
                 {
-                    y := virtualScreenHeight - (this.AllToolTipsHeightSum + defaultyOffset*4)
+                    y := localScreenHeight - (this.AllToolTipsHeightSum + defaultyOffset*4)
                 }
             }
             ; if ToolTip reaches right side of screen   (! no "else" here)
-            if ((x + w + defaultxOffset*2) >= virtualScreenWidth)
+            if ((x + w + defaultxOffset*2) >= localScreenWidth)
             {
-                x := virtualScreenWidth - (w + defaultxOffset*2)
+                x := localScreenWidth - (w + defaultxOffset*2)
             }
 
             x += defaultxOffset
@@ -276,37 +272,37 @@ class TT {
     }
 
 
-    __GetLocalMonitorMouseCoords() {
-        monitors := this.__GetAllMonitorsDimensions()
+    __GetLocalScreenMouseCoordsAndBounds() {
+        screens := this.__GetAllScreenDimensions()
 
         CoordMode, Mouse, Screen
         MouseGetPos, X, Y
 
-        for k, v in monitors {
+        for k, v in screens {
             if (X >= v.Left && X <= v.Right && Y <= v.Bottom && Y >= v.Top) {
-                return {"x": X - v.Left, "y": Y - v.Top}
+                return {"x": X - v.Left, "y": Y - v.Top, "screenHeight": v.Bottom, "screenWidth": v.Right}
             }
         }
     }
 
 
-    __GetAllMonitorsDimensions() {
+    __GetAllScreenDimensions() {
         static monitorCount
-        static monitors
+        static screens
 
         SysGet, newMonitorCount, MonitorCount
         if (monitorCount != newMonitorCount)
         {
             monitorCount := newMonitorCount
 
-            monitors := []
+            screens := []
             loop, % MonitorCount
             {
                 SysGet, BoundingBox, Monitor, % A_Index
-                monitors.Push({"Top": BoundingBoxTop, "Bottom": BoundingBoxBottom, "Left": BoundingBoxLeft, "Right": BoundingBoxRight})
+                screens.Push({"Top": BoundingBoxTop, "Bottom": BoundingBoxBottom, "Left": BoundingBoxLeft, "Right": BoundingBoxRight})
             }
         }
-        return monitors
+        return screens
     }
 
 
