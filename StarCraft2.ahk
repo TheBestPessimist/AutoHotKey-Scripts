@@ -28,7 +28,7 @@
 
 ; Numpad1: toggle upgrades
 
-; NumpadMult (the *): save new Mouse position
+; NumpadMult (the *): save new Mouse position (The mouse has to be OVER THE TANK when you run this)
 
 ; CapsLock & F5: stop all macros at once
 
@@ -52,8 +52,9 @@ StarCraft2AutoExecuteOnTimer()
 {
     SetTimer, StarCraft2AutoExecuteOnTimer, Off
 
-    ; SC2.ToggleSpectrePlay()
     ; SC2.ToggleDragoonQ()
+    ; SC2.ToggleSpectrePlay()
+    ; SC2.ToggleTemplar()
     ; SC2.ToggleMedic()
     ; SC2.ToggleAutoupgrade()
 }
@@ -95,8 +96,8 @@ class SC2
     static tankxPos := 0
     static tankyPos := 0
 
-    static secondaryxPos := 0
-    static secondaryyPos := 0
+    static casterxPos := 0
+    static casteryPos := 0
 
     static dragoonQMillis := 2000
     static spectrePlayMillis := 1053
@@ -119,10 +120,10 @@ class SC2
         msg :=
         (Join
             "Tank position is:  x: " . this.tankxPos . " y: " . this.tankyPos . "`n" .
-            "Secondary position: x: " . this.casterxPos . " y: " . this.casteryPos
+            "Caster position is: x: " . this.casterxPos . " y: " . this.casteryPos
         )
 
-        Tippy(msg)
+        Tippy(msg, 9000, -1)
 
     }
 
@@ -170,8 +171,8 @@ class SC2
     {
         Critical
 
-        ; SetKeyDelay, 60, 5
-        SetControlDelay -1
+        SetKeyDelay, 20, 10
+        SetControlDelay 30
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("DragoonQ",, 8)
@@ -190,16 +191,15 @@ class SC2
 
         ControlSend,, {Blind}{Raw}8q, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, {Blind}{Raw}h, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}8h, % this.ahk_SC2
     }
 
     Medic()
     {
         Critical
 
-        ; SetKeyDelay, 60, 5
-        SetControlDelay 150
-        ; SetControlDelay -1
+        SetKeyDelay, 20, 10
+        SetControlDelay 30
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Medic",, 7)
@@ -209,19 +209,29 @@ class SC2
         }
 
         ; use the saved position
-        x := this.tankxPos
-        y := this.tankyPos
+        defensiveX := this.tankxPos
+        defensiveY := this.tankyPos
 
-        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
-        x := "x" . x
-        y := "y" . y
+        ; ControlClick, must have the coordinates as "x100 defensiveY100", not just "100 100"
+        defensiveX := "x" . defensiveX
+        defensiveY := "y" . defensiveY
+
+        attackX := this.casterxPos
+        attackY := this.casteryPos
+
+        attackX := "x" . attackX
+        attackY := "y" . attackY
+
+
 
         ControlSend,, {Blind}{Raw}7q, % this.ahk_SC2
-        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" attackX attackY
         ControlSend,, {Blind}{Raw}7w, % this.ahk_SC2
-        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" defensiveX defensiveY
         ControlSend,, {Blind}{Raw}7e, % this.ahk_SC2
-        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" defensiveX defensiveY
+        ControlSend,, {Blind}{Raw}7r, % this.ahk_SC2
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" defensiveX defensiveY
         ControlSend,, {Blind}{Raw}7h, % this.ahk_SC2
     }
 
@@ -229,7 +239,7 @@ class SC2
     {
         Critical
 
-        ; ; SetKeyDelay, 60, 5
+        SetKeyDelay, 20, 10
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("SpectrePlay",, 2)
@@ -243,19 +253,11 @@ class SC2
     {
         Critical
 
-        ; SetKeyDelay,,
+        SetKeyDelay, 20, 10
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("CenturionPlay",, 4)
         }
-
-        ; use the saved position
-        x := this.tankxPos
-        y := this.tankyPos
-
-        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
-        x := "x" . x
-        y := "y" . y
 
         ControlSend,, {Blind}{Raw}4wh, % this.ahk_SC2
     }
@@ -264,7 +266,7 @@ class SC2
     {
         Critical
 
-        ; SetKeyDelay, 60, 5
+        SetKeyDelay, 20, 10
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Autoupgrade",, 1)
@@ -277,7 +279,7 @@ class SC2
     {
         Critical
 
-        ; ; SetKeyDelay, 60, 5
+        SetKeyDelay, 20, 10
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Marine",, 9)
@@ -290,9 +292,8 @@ class SC2
     {
         Critical
 
-        ; SetKeyDelay, 60, 5
-        SetControlDelay 100
-        ; SetControlDelay -1
+        SetKeyDelay, 20, 10
+        SetControlDelay 30
 
         if (WinActive(this.ahk_SC2)) {
             Tippy("Templar",, 0)
