@@ -12,6 +12,9 @@
     {
         ;A_ThisHotkey contains ":O:`" which is not needed
         hs := SubStr(A_ThisHotkey, 5)
+        if(hs == "ahk") {
+            hs := "autoit"
+        }
         Send % "``````" hs "`n`n" "``````" "{left 4}"
         ; ``````autoit`n`n``````{left 4}
     }
