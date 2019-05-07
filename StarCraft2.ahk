@@ -2,36 +2,51 @@
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 
-; This script contains all the stuff and timers and macros for SC2 (mostly the map Fallen World)
+; This script contains all the stuff and timers and macros for SC2 (mostly the map Fallen World: Last Stand)
+; This script is better than what you currently have.
+;
 ;
 ;       == HOW TO USE ==
 ;
-; Press one of the key combos (CapsLock and NumpadX) after you saved that specific character(s) in the same control group.
-; (eg. CapsLock + Numpad2 always uses control group 2 which is assigned to Spectre)
-; Read below what are the control groups.
+; - Run `AutoHotkeyU64.exe`
+; - Run Stacraft 64 bit version
+; - Start the map
+; - Select your character
+; - Add your character to its specific control group (read on to see which character goes in which control group)
+;               - Hint: Multiple characters of the same type can be controlled together (eg. multiple spectres)
+; - Press one of the key combos (CapsLock and NumpadX, where X is the control group)
+;       - eg. CapsLock + Numpad2 always uses control group 2 which is assigned to Spectre
+;               - Hint: Multiple macros(hotkeys) can run at the same time without interfering with each other
+; - Read below what the control groups are.
 ;
 ; Starcraft 2 MUST be in **windowed fullscreen** or **windowed** mode.
 ;
-;       == CURRENT HOTKEYS ==
+;       == CURRENT HOTKEYS (CONTROL GROUP HAS TO BE THE SAME) ==
 
-; Numpad0: toggle Templar
+; CapsLock & Numpad0: toggle Templar
 
-; Numpad9: toggle Marine
+; CapsLock & Numpad9: toggle Marine
 
-; Numpad8: toggle Dragoon
+; CapsLock & Numpad8: toggle Dragoon
 
-; Numpad7: toggle Medic;
+; CapsLock & Numpad7: toggle Medic
 
-; Numpad4: toggle Centurion
+; CapsLock & Numpad4: toggle Centurion
 
-; Numpad2: toggle Spectre
+; CapsLock & Numpad2: toggle Spectre
 
-; Numpad1: toggle upgrades
+; CapsLock & Numpad1: toggle upgrades (every 15 seconds)
 
-; NumpadMult (the *): save new Mouse position (The mouse has to be OVER THE TANK when you run this)
+; CapsLock & NumpadMult (the *): save new Mouse position (The mouse has to be OVER THE TANK when you run this)
+
+; CapsLock & Click: Send 100 clicks (useful for quick SP upgrades)
 
 ; CapsLock & F5: stop all macros at once
 
+;
+;       That's it. There's nothing more for you to read from this point on.
+;       Now go and play the game!
+;
 
 
 ; There is no need for a standard ahk auto-execute area anymore because of this method.
