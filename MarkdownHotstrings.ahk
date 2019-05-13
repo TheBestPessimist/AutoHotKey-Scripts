@@ -32,3 +32,9 @@
 :O:``````::```````n`n``````{left 4}
 :O:````::````{left 1}
 :O:<kbd>::<kbd></kbd>{left 6}
+
+; There is (imo) a bug in autohotkey:
+; the hotstring recognizer does not reset if i do `ctrl v`
+; So i need this workaround:
+; Ref: https://www.autohotkey.com/boards/viewtopic.php?p=276407
+~^v::Hotstring("Reset")
