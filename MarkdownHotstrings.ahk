@@ -27,7 +27,7 @@
 #If
 
 :OB0:__::{left 1}
-:OB0:**::**{left 2}
+:OB0:****::{left 2}
 :OB0:``````::`n`n``````{left 4}
 :OB0:````::{left 1}
 :OB0:<kbd::></kbd>{left 6}
