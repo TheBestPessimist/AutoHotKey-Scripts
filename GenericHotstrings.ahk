@@ -16,7 +16,7 @@
 
 ; ------ metasfresh --------------------
 ::gitmetas.::https://github.com/metasfresh/metasfresh/
-::cacher.::/rest/api/debug/cacheReset
+::cacher.::rest/api/debug/cacheReset
 
 
 ; ------ powershell --------------------
