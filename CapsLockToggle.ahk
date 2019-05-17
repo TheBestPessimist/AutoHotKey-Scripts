@@ -27,6 +27,7 @@ keepCapsLockOff()
     if(!keepCapsLockOff)
     {
         Sleep, 100
+        Tippy("CapsLock is on")
         SetCapsLockState On
         Return
     }
