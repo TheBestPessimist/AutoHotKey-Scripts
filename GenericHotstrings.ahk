@@ -27,3 +27,7 @@
     :O:pwshtop::while($true){{}$TheCommandOutput = `; clear; echo $TheCommandOutput; Date; sleep 1{}}{left 47}
     :O:pwshfind::Get-ChildItem -Force -Recurse -Include **{left 1}
 #If
+
+
+; ----- You tried :^) ------------------
+::youtried.::https://chat.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
