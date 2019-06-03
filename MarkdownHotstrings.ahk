@@ -8,6 +8,8 @@
 :O:``ahk::
 :O:``java::
 :O:``sql::
+:O:``css::
+:O:``json::
     MarkdownCodeHighlighter()
     {
         ;A_ThisHotkey contains ":O:`" which is not needed
@@ -16,7 +18,6 @@
             hs := "autoit"
         }
         Send % "``````" hs "`n`n" "``````" "{left 4}"
-        ; ``````autoit`n`n``````{left 4}
     }
 
 
