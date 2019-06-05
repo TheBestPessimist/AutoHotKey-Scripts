@@ -31,8 +31,6 @@
 
 ; CapsLock & Numpad8: toggle Dragoon
 
-; CapsLock & Numpad3: toggle DragoonE
-
 ; CapsLock & Numpad7: toggle Medic
 
 ; CapsLock & Numpad4: toggle Centurion
@@ -72,7 +70,6 @@ StarCraft2AutoExecuteOnTimer()
     SetTimer, StarCraft2AutoExecuteOnTimer, Off
 
     ; SC2.ToggleDragoonQ()
-    ; SC2.ToggleDragoonEQ()
     ; SC2.ToggleSpectrePlay()
     ; SC2.ToggleTemplar()
     ; SC2.ToggleMedic()
@@ -86,9 +83,6 @@ CapsLock & NumpadMult::SC2.SaveMousePosition()
 
 ; Dragoon is in group 8
 CapsLock & Numpad8::SC2.ToggleDragoonQ()
-
-; Dragoon is in group 3
-CapsLock & Numpad3::SC2.ToggleDragoonEQ()
 
 ; Medic is in group 7
 CapsLock & Numpad7::SC2.ToggleMedic()
@@ -127,7 +121,6 @@ class SC2
     static casteryPos := 0
 
     static dragoonQMillis := 2000
-    static dragoonEQMillis := 2000
     static spectrePlayMillis := 1053
     static centurionPlayMillis := 219
     static autoupgradeMillis := 15003
@@ -164,11 +157,6 @@ class SC2
     ToggleDragoonQ()
     {
         ToggleTimerAndShowTooltip("SC2.DragoonQ", this.dragoonQMillis, SC2.DragoonQ.Bind(SC2))
-    }
-
-    ToggleDragoonEQ()
-    {
-        ToggleTimerAndShowTooltip("SC2.DragoonEQ", this.dragoonEQMillis, SC2.DragoonEQ.Bind(SC2))
     }
 
     ToggleMedic()
@@ -231,33 +219,6 @@ class SC2
         ControlSend,, {Blind}{Raw}8q, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
         ControlSend,, {Blind}{Raw}8h, % this.ahk_SC2
-    }
-
-DragoonEQ()
-    {
-        Critical
-
-        SetKeyDelay, 20, 10
-        SetControlDelay 30
-
-        if (WinActive(this.ahk_SC2)) {
-            Tippy("DragoonEQ",, 3)
-            if(this.tankxPos = 0){
-                this.SaveMousePosition()
-            }
-        }
-
-        ; use the saved position
-        x := this.casterxPos
-        y := this.casteryPos
-
-        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
-        x := "x" . x
-        y := "y" . y
-
-        ControlSend,, {Blind}{Raw}3eq, % this.ahk_SC2
-        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, {Blind}{Raw}3h, % this.ahk_SC2
     }
 
     Cyro()
