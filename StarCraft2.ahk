@@ -1,4 +1,4 @@
-﻿#include lib/ToggleTimerAndShowTooltip.ahk
+#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 
@@ -25,9 +25,13 @@
 
 ; CapsLock & Numpad0: toggle Templar
 
+; CapsLock & Numpad6: toggle Cyro
+
 ; CapsLock & Numpad9: toggle Marine
 
 ; CapsLock & Numpad8: toggle Dragoon
+
+; CapsLock & Numpad3: toggle DragoonE
 
 ; CapsLock & Numpad7: toggle Medic
 
@@ -68,10 +72,12 @@ StarCraft2AutoExecuteOnTimer()
     SetTimer, StarCraft2AutoExecuteOnTimer, Off
 
     ; SC2.ToggleDragoonQ()
+    ; SC2.ToggleDragoonEQ()
     ; SC2.ToggleSpectrePlay()
     ; SC2.ToggleTemplar()
     ; SC2.ToggleMedic()
     ; SC2.ToggleAutoupgrade()
+    ; SC2.ToggleCyro()
 }
 
 CapsLock & LButton::SC2.ClickManyTimes()
@@ -80,6 +86,9 @@ CapsLock & NumpadMult::SC2.SaveMousePosition()
 
 ; Dragoon is in group 8
 CapsLock & Numpad8::SC2.ToggleDragoonQ()
+
+; Dragoon is in group 3
+CapsLock & Numpad3::SC2.ToggleDragoonEQ()
 
 ; Medic is in group 7
 CapsLock & Numpad7::SC2.ToggleMedic()
@@ -99,6 +108,9 @@ CapsLock & Numpad9::SC2.ToggleMarine()
 ; Templar is in group 0
 CapsLock & Numpad0::SC2.ToggleTemplar()
 
+; Cyro is in group 6
+CapsLock & Numpad6::SC2.ToggleCyro()
+
 
 class SC2
 {
@@ -115,12 +127,14 @@ class SC2
     static casteryPos := 0
 
     static dragoonQMillis := 2000
+    static dragoonEQMillis := 2000
     static spectrePlayMillis := 1053
     static centurionPlayMillis := 219
     static autoupgradeMillis := 15003
     static medicMillis := 2000
     static marineMillis := 15000
     static templarMillis := 4000
+    static cyroMillis := 5000
 
 
     ; Save mouse position to use in SC2
@@ -130,7 +144,7 @@ class SC2
         this.tankxPos := xPos
         this.tankyPos := yPos
         this.casterxPos := xPos + 188    ; compared to the center: a little bit to the right
-        this.casteryPos := yPos - 120    ; compared to the center: a little bit upper
+        this.casteryPos := yPos - 25    ; compared to the center: a little bit upper
 
         msg :=
         (Join
@@ -150,6 +164,11 @@ class SC2
     ToggleDragoonQ()
     {
         ToggleTimerAndShowTooltip("SC2.DragoonQ", this.dragoonQMillis, SC2.DragoonQ.Bind(SC2))
+    }
+
+    ToggleDragoonEQ()
+    {
+        ToggleTimerAndShowTooltip("SC2.DragoonEQ", this.dragoonEQMillis, SC2.DragoonEQ.Bind(SC2))
     }
 
     ToggleMedic()
@@ -182,6 +201,11 @@ class SC2
         ToggleTimerAndShowTooltip("SC2.Templar", this.templarMillis, SC2.Templar.Bind(SC2))
     }
 
+    ToggleCyro()
+    {
+        ToggleTimerAndShowTooltip("SC2.Cyro", this.cyroMillis, SC2.Cyro.Bind(SC2))
+    }
+
     DragoonQ()
     {
         Critical
@@ -207,6 +231,61 @@ class SC2
         ControlSend,, {Blind}{Raw}8q, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
         ControlSend,, {Blind}{Raw}8h, % this.ahk_SC2
+    }
+
+DragoonEQ()
+    {
+        Critical
+
+        SetKeyDelay, 20, 10
+        SetControlDelay 30
+
+        if (WinActive(this.ahk_SC2)) {
+            Tippy("DragoonEQ",, 3)
+            if(this.tankxPos = 0){
+                this.SaveMousePosition()
+            }
+        }
+
+        ; use the saved position
+        x := this.casterxPos
+        y := this.casteryPos
+
+        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
+        x := "x" . x
+        y := "y" . y
+
+        ControlSend,, {Blind}{Raw}3eq, % this.ahk_SC2
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlSend,, {Blind}{Raw}3h, % this.ahk_SC2
+    }
+
+    Cyro()
+    {
+        Critical
+
+        SetKeyDelay, 20, 10
+        SetControlDelay 30
+
+        if (WinActive(this.ahk_SC2)) {
+            Tippy("Cyro",, 6)
+            if(this.tankxPos = 0){
+                this.SaveMousePosition()
+            }
+        }
+
+        ; use the saved position
+        x := this.casterxPos
+        y := this.casteryPos
+
+        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
+        x := "x" . x
+        y := "y" . y
+
+        ControlSend,, {Blind}{Raw}6eh, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}6w, % this.ahk_SC2
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlSend,, {Blind}{Raw}6h, % this.ahk_SC2
     }
 
     Medic()
