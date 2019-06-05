@@ -229,7 +229,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 20, 10
+        SetKeyDelay, 30, 10
         SetControlDelay 30
 
         if (WinActive(this.ahk_SC2)) {
@@ -247,10 +247,10 @@ class SC2
         x := "x" . x
         y := "y" . y
 
-        ControlSend,, {Blind}{Raw}6eh, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}6ehh, % this.ahk_SC2
         ControlSend,, {Blind}{Raw}6w, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, {Blind}{Raw}6h, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}6hh, % this.ahk_SC2
     }
 
     Medic()
