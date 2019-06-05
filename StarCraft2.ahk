@@ -121,10 +121,11 @@ class SC2
     static casteryPos := 0
 
     static dragoonQMillis := 2000
+    static dragoonEQMillis := 2000
     static spectrePlayMillis := 1053
     static centurionPlayMillis := 219
     static autoupgradeMillis := 15003
-    static medicMillis := 2000
+    static medicMillis := 8000
     static marineMillis := 15000
     static templarMillis := 4000
     static cyroMillis := 5000
@@ -137,12 +138,15 @@ class SC2
         this.tankxPos := xPos
         this.tankyPos := yPos
         this.casterxPos := xPos + 188    ; compared to the center: a little bit to the right
-        this.casteryPos := yPos - 25    ; compared to the center: a little bit upper
+        this.casteryPos := yPos - 120    ; compared to the center: a little bit upper
+        this.cryoxPos := xPos - 20    ; compared to the center: a little bit to the right
+        this.cryoyPos := yPos - 35    ; compared to the center: a little bit upper
 
         msg :=
         (Join
             "Tank position is:  x: " . this.tankxPos . " y: " . this.tankyPos . "`n" .
             "Caster position is: x: " . this.casterxPos . " y: " . this.casteryPos
+            "Cyro cast is: x: " . this.cyroxPos . " y: " . this.cyroyPos
         )
 
         Tippy(msg, 9000, -1)
@@ -236,8 +240,8 @@ class SC2
         }
 
         ; use the saved position
-        x := this.casterxPos
-        y := this.casteryPos
+        x := this.cryoxPos
+        y := this.cryoyPos
 
         ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
         x := "x" . x
