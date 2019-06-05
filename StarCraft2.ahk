@@ -25,13 +25,13 @@
 
 ; CapsLock & Numpad0: toggle Templar
 
-; CapsLock & Numpad6: toggle Cyro
-
 ; CapsLock & Numpad9: toggle Marine
 
 ; CapsLock & Numpad8: toggle Dragoon
 
 ; CapsLock & Numpad7: toggle Medic
+
+; CapsLock & Numpad6: toggle Cyro
 
 ; CapsLock & Numpad4: toggle Centurion
 
