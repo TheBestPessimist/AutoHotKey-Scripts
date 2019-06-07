@@ -1,4 +1,4 @@
-﻿#include lib/ToggleTimerAndShowTooltip.ahk
+#include lib/ToggleTimerAndShowTooltip.ahk
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 
@@ -30,6 +30,8 @@
 ; CapsLock & Numpad8: toggle Dragoon
 
 ; CapsLock & Numpad7: toggle Medic
+
+; CapsLock & Numpad6: toggle Cyro
 
 ; CapsLock & Numpad4: toggle Centurion
 
@@ -72,6 +74,7 @@ StarCraft2AutoExecuteOnTimer()
     ; SC2.ToggleTemplar()
     ; SC2.ToggleMedic()
     ; SC2.ToggleAutoupgrade()
+    ; SC2.ToggleCyro()
 }
 
 CapsLock & LButton::SC2.ClickManyTimes()
@@ -99,6 +102,9 @@ CapsLock & Numpad9::SC2.ToggleMarine()
 ; Templar is in group 0
 CapsLock & Numpad0::SC2.ToggleTemplar()
 
+; Cyro is in group 6
+CapsLock & Numpad6::SC2.ToggleCyro()
+
 
 class SC2
 {
@@ -121,6 +127,7 @@ class SC2
     static medicMillis := 2000
     static marineMillis := 15000
     static templarMillis := 4000
+    static cyroMillis := 5000
 
 
     ; Save mouse position to use in SC2
@@ -131,11 +138,14 @@ class SC2
         this.tankyPos := yPos
         this.casterxPos := xPos + 188    ; compared to the center: a little bit to the right
         this.casteryPos := yPos - 120    ; compared to the center: a little bit upper
+        this.cryoxPos := xPos - 20    ; compared to the center: a little bit to the left
+        this.cryoyPos := yPos - 35    ; compared to the center: a little bit upper
 
         msg :=
         (Join
             "Tank position is:  x: " . this.tankxPos . " y: " . this.tankyPos . "`n" .
             "Caster position is: x: " . this.casterxPos . " y: " . this.casteryPos
+            "Cyro cast is: x: " . this.cyroxPos . " y: " . this.cyroyPos
         )
 
         Tippy(msg, 9000, -1)
@@ -151,7 +161,7 @@ class SC2
     {
         ToggleTimerAndShowTooltip("SC2.DragoonQ", this.dragoonQMillis, SC2.DragoonQ.Bind(SC2))
     }
-
+    
     ToggleMedic()
     {
         ToggleTimerAndShowTooltip("SC2.Medic", this.medicMillis, SC2.Medic.Bind(SC2))
@@ -182,6 +192,11 @@ class SC2
         ToggleTimerAndShowTooltip("SC2.Templar", this.templarMillis, SC2.Templar.Bind(SC2))
     }
 
+    ToggleCyro()
+    {
+        ToggleTimerAndShowTooltip("SC2.Cyro", this.cyroMillis, SC2.Cyro.Bind(SC2))
+    }
+
     DragoonQ()
     {
         Critical
@@ -207,6 +222,34 @@ class SC2
         ControlSend,, {Blind}{Raw}8q, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
         ControlSend,, {Blind}{Raw}8h, % this.ahk_SC2
+    }
+
+    Cyro()
+    {
+        Critical
+
+        SetKeyDelay, 30, 10
+        SetControlDelay 30
+
+        if (WinActive(this.ahk_SC2)) {
+            Tippy("Cyro",, 6)
+            if(this.tankxPos = 0){
+                this.SaveMousePosition()
+            }
+        }
+
+        ; use the saved position
+        x := this.cryoxPos
+        y := this.cryoyPos
+
+        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
+        x := "x" . x
+        y := "y" . y
+
+        ControlSend,, {Blind}{Raw}6ehh, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}6w, % this.ahk_SC2
+        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ControlSend,, {Blind}{Raw}6hh, % this.ahk_SC2
     }
 
     Medic()
