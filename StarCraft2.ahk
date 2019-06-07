@@ -139,7 +139,7 @@ class SC2
         this.casterxPos := xPos + 188    ; compared to the center: a little bit to the right
         this.casteryPos := yPos - 120    ; compared to the center: a little bit upper
         this.cryoxPos := xPos - 20    ; compared to the center: a little bit to the left
-        this.cryoyPos := yPos - 35    ; compared to the center: a little bit down
+        this.cryoyPos := yPos - 35    ; compared to the center: a little bit upper
 
         msg :=
         (Join
