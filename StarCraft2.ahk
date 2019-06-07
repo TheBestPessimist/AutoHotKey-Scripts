@@ -121,7 +121,6 @@ class SC2
     static casteryPos := 0
 
     static dragoonQMillis := 2000
-    static dragoonEQMillis := 2000
     static spectrePlayMillis := 1053
     static centurionPlayMillis := 219
     static autoupgradeMillis := 15003
