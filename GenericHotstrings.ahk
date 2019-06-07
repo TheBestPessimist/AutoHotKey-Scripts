@@ -1,4 +1,4 @@
-; Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
+﻿; Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
 ; Note: "O" deletes the ending character (the one which activates the hotstring)
 
 ; ----- @self --------------------------
