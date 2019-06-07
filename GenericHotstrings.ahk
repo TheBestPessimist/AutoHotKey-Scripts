@@ -1,10 +1,10 @@
-﻿; Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
+; Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
 ; Note: "O" deletes the ending character (the one which activates the hotstring)
 
 ; ----- @self --------------------------
-::c@tbp::cristian@tbp.land
-::c@gmail::cristian.nahsuc@gmail.com
-::@tbp::TheBestPessimist
+:O:c@tbp::cristian@tbp.land
+:O:c@gmail::cristian.nahsuc@gmail.com
+:O:@tbp::TheBestPessimist
 
 
 
