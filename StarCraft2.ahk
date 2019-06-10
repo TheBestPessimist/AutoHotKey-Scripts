@@ -122,7 +122,7 @@ class SC2
 
     static dragoonQMillis := 2000
     static spectrePlayMillis := 1053
-    static centurionPlayMillis := 219
+    static centurionPlayMillis := 319
     static autoupgradeMillis := 15003
     static medicMillis := 2000
     static marineMillis := 15000
@@ -260,7 +260,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 20, 10
+        SetKeyDelay, 30, 10
         SetControlDelay 30
 
         if (WinActive(this.ahk_SC2)) {
@@ -286,13 +286,13 @@ class SC2
 
 
 
-        ControlSend,, {Blind}{Raw}7q, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}7hq, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" attackX attackY
-        ControlSend,, {Blind}{Raw}7w, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}7hw, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" defensiveX defensiveY
-        ControlSend,, {Blind}{Raw}7e, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}7he, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" defensiveX defensiveY
-        ControlSend,, {Blind}{Raw}7r, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}7hr, % this.ahk_SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" defensiveX defensiveY
         ControlSend,, {Blind}{Raw}7h, % this.ahk_SC2
     }
@@ -354,7 +354,7 @@ class SC2
     {
         Critical
 
-        SetKeyDelay, 20, 10
+        SetKeyDelay, 30, 10
         SetControlDelay 30
 
         if (WinActive(this.ahk_SC2)) {
