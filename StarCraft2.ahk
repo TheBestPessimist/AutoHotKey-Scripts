@@ -154,7 +154,11 @@ class SC2
 
     ClickManyTimes()
     {
-        Click 151
+        Loop, % 20
+        {
+            Click, % 5
+            Sleep 1
+        }
     }
 
     ToggleDragoonQ()
