@@ -334,7 +334,7 @@ class SC2
             Tippy("Autoupgrade",, 1)
         }
 
-        ControlSend,, {Blind}{Raw}1uqwehrtsdfgzxc1hh, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}{f2}uvqwehrtsdfgzxc{f2}hh, % this.ahk_SC2
     }
 
     Marine()
