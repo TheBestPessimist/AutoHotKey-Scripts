@@ -376,5 +376,121 @@ class SC2
         ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
         ControlSend,, {Blind}{Raw}0h, % this.ahk_SC2
     }
-}
 
+
+    ; Sc2 Scaling is non-linear so this doesn't work properly
+    ; Ref: https://docs.google.com/spreadsheets/d/1STwquGGrOA0wobRG8ltlgDoU3IqV5GzP8r0WQuFwokM/edit#gid=0
+    ; __ClickScaled(x, y, ClickCount)
+    ; {
+    ;     orx := x
+    ;     ory := y
+    ;    if (WinActive(this.ahk_SC2)) {
+    ;         CoordMode, Mouse, Client
+
+    ;         noOfClicks := 5
+    ;         ClickCount := Max(ClickCount / noOfClicks, 1)
+
+    ;         this.GetWindowClientSize(this.ahk_SC2, wWidth, wHeight)
+    ;         ; calculate coordinates relative to current screen
+    ;         x := x * wWidth  / 1920
+    ;         y := y * wHeight / 1137
+
+
+
+    ;         MouseMove, x, y
+
+    ;         Tippy("x: " x " y: " y
+    ;             . " orx: " orx " ory: " ory
+    ;             . " wWidth: " wWidth " wHeight: " wHeight
+    ;             , 500000, 11)
+    ;         ; MouseDebugging()
+    ;         ; ToggleMouseDebugging()
+
+    ;         ; KeyWait, a, D
+
+    ;         Loop, % ClickCount
+    ;         {
+    ;             Click, % noOfClicks
+    ;             Sleep 2
+    ;         }
+    ;     }
+    ; }
+
+    ; __Upgrades()
+    ; {
+
+    ;     this.__ClickScaled(337, 186, 1) ; Specialty
+
+
+
+    ;     ; sleepBetweenUpgrades := 50
+    ;     ; this.__ClickScaled(50, 165, 1) ; Skill Points open
+
+    ;     ; this.__UpgradeFullPage(400, 210, sleepBetweenUpgrades) ; Recruit
+    ;     ; this.__UpgradeFullPage(400, 250, sleepBetweenUpgrades) ; Corporal
+    ;     ; this.__UpgradeFullPage(400, 290, sleepBetweenUpgrades) ; Sergeant
+    ;     ; this.__UpgradeFullPage(400, 330, sleepBetweenUpgrades) ; Capitain
+    ;     ; this.__UpgradeFullPage(400, 370, sleepBetweenUpgrades) ; Major
+
+    ;     ; Sleep, % s
+    ;     ; this.__ClickScaled(400, 670, 1) ; Specialty
+    ;     ; Sleep, % s
+
+    ;     ; this.__ClickScaled(73, 275, 100) ; Skill 1
+    ;     ; this.__ClickScaled(73, 425, 100) ; Skill 3
+    ;     ; this.__ClickScaled(73, 500, 100) ; Skill 4
+
+    ;     ; this.__ClickScaled(50, 165, 1) ; Skill Points close
+    ; }
+
+    ; __UpgradeFullPage(x, y, s)
+    ; {
+    ;     Sleep, % s
+    ;     this.__ClickScaled(x, y, 1) ; Skill Rank
+    ;     Sleep, % s
+
+    ;     this.__ClickScaled(73, 275, 100) ; Skill 1
+    ;     this.__ClickScaled(73, 350, 100) ; Skill 2
+    ;     this.__ClickScaled(73, 425, 100) ; Skill 3
+    ;     this.__ClickScaled(73, 500, 100) ; Skill 4
+    ;     this.__ClickScaled(73, 575, 100) ; Skill 5
+
+    ;     this.__ClickScaled(300, 650, 1) ; Next page
+    ;     Sleep, % s
+
+    ;     this.__ClickScaled(73, 275, 100) ; Skill 1
+    ;     this.__ClickScaled(73, 350, 100) ; Skill 2
+    ;     this.__ClickScaled(73, 425, 100) ; Skill 3
+    ;     this.__ClickScaled(73, 500, 100) ; Skill 4
+    ;     this.__ClickScaled(73, 575, 100) ; Skill 5
+    ; }
+
+    ; ; get the size of the window w/o titlebar and shadows and all that shit
+    ; GetWindowClientSize(winTitle, ByRef w := "", ByRef h := "")
+    ; {
+    ;     WinGet, hWnd, ID , % winTitle
+    ;     VarSetCapacity(rect, 16)
+    ;     DllCall("GetClientRect", "ptr", hWnd, "ptr", &rect)
+    ;     w := NumGet(rect, 8, "int")
+    ;     h := NumGet(rect, 12, "int")
+    ; }
+
+    ; __GetAllScreenDimensions() {
+    ;     static monitorCount
+    ;     static screens
+
+    ;     SysGet, monitorCount, MonitorCount
+    ;     if (monitorCount != newMonitorCount)
+    ;     {
+    ;         monitorCount := newMonitorCount
+
+    ;         screens := []
+    ;         loop, % MonitorCount
+    ;         {
+    ;             SysGet, BoundingBox, Monitor, % A_Index
+    ;             screens.Push({"Top": BoundingBoxTop, "Bottom": BoundingBoxBottom, "Left": BoundingBoxLeft, "Right": BoundingBoxRight})
+    ;         }
+    ;     }
+    ;     return screens
+    ; }
+}
