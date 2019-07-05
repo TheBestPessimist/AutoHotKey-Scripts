@@ -10,12 +10,20 @@
 :O:``sql::
 :O:``css::
 :O:``json::
+:O:``js::
     MarkdownCodeHighlighter()
     {
         ;A_ThisHotkey contains ":O:`" which is not needed
         hs := SubStr(A_ThisHotkey, 5)
-        if(hs == "ahk") {
+
+        if (false)
+        {}
+        else if (hs == "ahk")
+        {
             hs := "autoit"
+        } else if (hs == "js")
+        {
+            hs := "javascript"
         }
         Send % "``````" hs "`n`n" "``````" "{left 4}"
     }
