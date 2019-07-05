@@ -96,7 +96,6 @@ AppsKey::Send {AppsKey}
 
 
 
-
 ;------------------------------------------------
 ; CapsLock + P: Toggle between "Power saver" and "Balanced" powers schemes
 CapsLock & P::TogglePowerScheme()
@@ -104,4 +103,21 @@ CapsLock & P::TogglePowerScheme()
 
 
 
+
+;------------------------------------------------
+; Disable faulty multiple "i" key presses
+;
+; Explanation: my 1st gen many-years-old-spilled-with-tea Corsair K70 RGB a has faulty "i" key.
+;   When pressed once, it may register 1, none, or even 3 presses.
+;   Kinda annoying, yes.
+;
+; Ref: http://leo.steamr.com/2012/08/fixing-mouse-buttonwheel-from-unintended-double-clicking/
+
+$*i::
+    If (A_TimeSincePriorHotkey < 90 && A_TimeSincePriorHotkey > 1) {
+        Tippy("i doublePress " . A_Now)
+        Return
+    }
+    Send % "{Blind}i"       ; use Blind mode so that Shift and CapsLock work
+Return
 

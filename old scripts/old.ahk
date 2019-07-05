@@ -63,21 +63,3 @@
 ;     KeyWait, MButton
 ;     Send {MButton Up}
 ; Return
-
-
-
-
-
-
-; close Digsby when Esc key is pressed
-; #IfWinActive Digsby "Buddy List"
-;   WinGetActiveTitle, Title
-;   MsgBox, The active window is "%Title%"
-
-;#IfWinActive, Buddy List
-;Esc::
-; #c::
-;{
-;   WinClose
-;   ; msgbox tibi
-;}
