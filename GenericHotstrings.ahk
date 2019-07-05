@@ -31,3 +31,10 @@
 
 ; ----- You tried :^) ------------------
 ::youtried.::https://chat.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
+
+
+
+; ----- Robocopy -----------------------
+::rbcpy::robocopy /E /Z /R:5 /W:5 /TBD /unicode /V /ETA /MT:32       'source' 'destination'
+
+
