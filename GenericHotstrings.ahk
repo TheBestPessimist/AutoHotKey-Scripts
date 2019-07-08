@@ -35,6 +35,6 @@
 
 
 ; ----- Robocopy -----------------------
-::rbcpy::robocopy /E /Z /R:5 /W:5 /TBD /unicode /V /ETA /MT:32       'source' 'destination'
+::rbcpy::robocopy /E /Z /R:5 /W:5 /TBD /unicode /V /XJ /ETA /MT:32       'source' 'destination'
 
 
