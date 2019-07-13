@@ -111,13 +111,30 @@ CapsLock & P::TogglePowerScheme()
 ;   When pressed once, it may register 1, none, or even 3 presses.
 ;   Kinda annoying, yes.
 ;
-; Ref: http://leo.steamr.com/2012/08/fixing-mouse-buttonwheel-from-unintended-double-clicking/
+;
+; The commented hotkey below is the legacy way which even if works, has the issue that it breaks all hotstrings containing "i"
+;           since keyboard "i" is blocked, and ahk sends a "fake i"
+; $*i::
+;     If (A_TimeSincePriorHotkey < 90 && A_TimeSincePriorHotkey > 1) {
+;         Tippy("i doublePress " . A_Now)
+;         Return
+;     }
+;     Send % "{Blind}i"       ; use Blind mode so that Shift and CapsLock work
+; Return
+;
+;
+; This is a suggestion from @CloakerSmoker#2459 on the ahk discord: https://discord.gg/eKEX7AG
+;
+; Bind "i" key to nothing (`~*i::Return`), just so that A_TimeSincePriorHotkey updates and don't block the key on a normal press.
+; Otherwise if it was a double press, show the tooltip and block the OS from getting the key press
+; By using #if we have the original key presses getting sent, instead of AHK sending them
+;       which should fix hotstrings/hotkeys that were messing up
 
-$*i::
-    If (A_TimeSincePriorHotkey < 90 && A_TimeSincePriorHotkey > 1) {
-        Tippy("i doublePress " . A_Now)
-        Return
-    }
-    Send % "{Blind}i"       ; use Blind mode so that Shift and CapsLock work
+#if (A_TimeSincePriorHotkey < 90 && A_TimeSincePriorHotkey > 1)
+*i::
+    Tippy("Double press at " A_Now)
 Return
+#if
+
+~*i::Return
 
