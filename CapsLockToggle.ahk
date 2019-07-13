@@ -40,17 +40,19 @@ ToggleCapsLockState()
 {
     global keepCapsLockOff
     keepCapsLockOff := !keepCapsLockOff
-    Sleep, 100
+    ; Sleep, 100
 
     if (keepCapsLockOff)
     {
-        Sleep, 300    ; one has to sleep JUST BEFORE toggling caps
+        SetCapsLockState Off
+        Sleep, 100    ; one has to sleep JUST BEFORE toggling caps
         Tippy("CapsLock is off")
         SetCapsLockState Off
     }
     else
     {
-        Sleep, 300    ; one has to sleep JUST BEFORE toggling caps
+        SetCapsLockState On
+        Sleep, 100    ; one has to sleep JUST BEFORE toggling caps
         Tippy("CapsLock is on")
         SetCapsLockState On
     }
