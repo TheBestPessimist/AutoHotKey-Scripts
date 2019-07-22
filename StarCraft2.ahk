@@ -77,7 +77,8 @@ StarCraft2AutoExecuteOnTimer()
     ; SC2.ToggleCyro()
 }
 
-CapsLock & LButton::SC2.ClickManyTimes()
+; disabled
+; CapsLock & LButton::SC2.ClickManyTimes()
 
 CapsLock & NumpadMult::SC2.SaveMousePosition()
 
