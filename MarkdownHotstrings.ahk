@@ -13,7 +13,7 @@
 :O:``js::
     MarkdownCodeHighlighter()
     {
-        ;A_ThisHotkey contains ":O:`" which is not needed
+        ; A_ThisHotkey contains ":O:`" which is not needed
         hs := SubStr(A_ThisHotkey, 5)
 
         if (false)
@@ -41,8 +41,21 @@
 :OB0:````::{left 1}
 :OB0:<kbd::></kbd>{left 6}
 
+
 ; There is (imo) a bug in autohotkey:
 ; the hotstring recognizer does not reset if i do `ctrl v`
 ; So i need this workaround:
 ; Ref: https://www.autohotkey.com/boards/viewtopic.php?p=276407
 ~^v::Hotstring("Reset")
+
+
+; emoji helper
+:O::ok::
+    sendOK(){
+        Send % ":white_check_mark:"
+    }
+
+:O::nok::
+    sendNOK(){
+        Send % ":x:"
+    }
