@@ -8,6 +8,7 @@
 ;
 ;       == HOW TO USE ==
 ;
+; - Download this whole repository
 ; - Run `AutoHotkeyU64.exe`
 ; - Run Stacraft 64 bit version
 ; - Start the map
