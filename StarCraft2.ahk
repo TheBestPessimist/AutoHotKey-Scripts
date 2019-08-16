@@ -8,7 +8,7 @@
 ;
 ;       == HOW TO USE ==
 ;
-; - Download this whole repository (  https://lmgtfy.com/?q=github+how+to+download+whole+repository  )
+; - Download this whole repository (  https://www.google.com/search?q=how+to+download+github+repository  )
 ; - Run `AutoHotkeyU64.exe`
 ; - Run Stacraft 64 bit version
 ; - Start the map
