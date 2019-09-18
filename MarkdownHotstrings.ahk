@@ -59,3 +59,8 @@
     sendNOK(){
         Send % ":x:"
     }
+
+:O:.tias::
+    tagTias() {
+        Send % "https://i.imgur.com/VkRzeQJ.png"
+    }
