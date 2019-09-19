@@ -138,3 +138,12 @@ Return
 
 ~*i::Return
 
+; let's try the same fix for LMB
+
+#if (A_TimeSincePriorHotkey < 90 && A_TimeSincePriorHotkey > 1)
+*LButton::
+    Tippy("Double press at " A_Now)
+Return
+#if
+
+~*LButton::Return
