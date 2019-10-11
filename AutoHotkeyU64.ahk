@@ -138,12 +138,12 @@ Return
 
 ~*i::Return
 
-; ; let's try the same fix for LMB
+; let's try the same fix for LMB
 ;       -- later edit, not working properly
 ;
-; #if (A_TimeSincePriorHotkey < 110 && A_TimeSincePriorHotkey > 1)
+; #if (A_TimeSincePriorHotkey < 100 && A_TimeSincePriorHotkey > 0)
 ; *LButton::
-;     Tippy("Double press at " A_Now "`nTime since prior hotkey " A_TimeSincePriorHotkey "`nPrior hokey " A_PriorHotkey, , -1)
+;     Tippy("Double press at " A_Now "`nTime since prior hotkey " A_TimeSincePriorHotkey "`n`nThis hotkey " A_ThisHotkey "`nPrior hokey " A_PriorHotkey, , -1)
 ; Return
 ; #if
 ;
@@ -151,13 +151,15 @@ Return
 
 
 
-
+; ; this version doesn't work either
 LButton::
-    If (A_TimeSincePriorHotkey < 110 && A_TimeSincePriorHotkey > 1) {
-        Tippy("Double press at " A_Now "`nTime since prior hotkey " A_TimeSincePriorHotkey "`nPrior hokey " A_PriorHotkey, , -1)
+    If (A_TimeSincePriorHotkey < 100 && A_TimeSincePriorHotkey > 0) {
+        Tippy("Double press at " A_Now "`nTime since prior hotkey " A_TimeSincePriorHotkey "`n`nThis hotkey " A_ThisHotkey "`nPrior hokey " A_PriorHotkey, , -1)
         Return
     }
     Send {LButton Down}
+    Sleep, 10
     KeyWait, LButton
     Send {LButton Up}
 Return
+
