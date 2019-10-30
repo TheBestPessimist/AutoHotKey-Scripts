@@ -60,7 +60,7 @@
 StarCraft2AutoExecute(){
     static autoExecute := StarCraft2AutoExecute()
 
-    SetTimer, StarCraft2AutoExecuteOnTimer, 3000
+    SetTimer, StarCraft2AutoExecuteOnTimer, -3000
 }
 
 
@@ -68,8 +68,6 @@ StarCraft2AutoExecute(){
 ; after autohotkey has started/reloaded
 StarCraft2AutoExecuteOnTimer()
 {
-    SetTimer, StarCraft2AutoExecuteOnTimer, Off
-
     ; SC2.ToggleDragoonQ()
     ; SC2.ToggleSpectrePlay()
     ; SC2.ToggleTemplar()
