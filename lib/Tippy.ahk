@@ -1,4 +1,4 @@
-﻿; Show a ToolTip which follows the mouse for a specific duration.
+; Show a ToolTip which follows the mouse for a specific duration.
 ; Multiple ToolTips are stacked vertically, so no information is hidden.
 ;
 ; == How to use ==
@@ -8,13 +8,13 @@
 ; - Call the function Tippy("Text to show") with the text you want to show.
 ;           You have an example at the end of the script (just uncomment it)!
 
-Tippy(text := "", duration := 3333, whichToolTip := 10) {
+Tippy(text := "", duration := 3333, whichToolTip := 10, extraOffsetY := 0) {
     if(whichToolTip == -1)
     {
         whichToolTip := TT.GetUnusedToolTip(text)
     }
 
-    TT.ShowTooltip(text, duration, whichToolTip)
+    TT.ShowTooltip(text, duration, whichToolTip, extraOffsetY)
 }
 
 ;   == Original idea ==
@@ -55,7 +55,7 @@ class TT {
 
     static __TippyOnFn := TT.__TippyOn.Bind(TT)
 
-    ShowTooltip(text, duration, whichToolTip) {
+    ShowTooltip(text, duration, whichToolTip, extraOffsetY) {
         fnOff := ""
         ; sanitize whichToolTip
         whichToolTip := Max(1, Mod(whichToolTip, this.MaxWhichToolTip))
@@ -101,6 +101,7 @@ class TT {
         ttData.Duration := duration
         ttData.fnOff := fnOff
         ttData.WhichToolTip := whichToolTip
+        ttData.extraOffsetY := extraOffsetY
 
         Sleep 2
     }
@@ -148,7 +149,7 @@ class TT {
 
 
     __ToolTipFM() { ; ToolTip which Follows the Mouse
-        static defaultxOffset := 16, defaultyOffset := 16
+        static defaultxOffset := 32, defaultyOffset := 32
 
         localScreen := this.__GetLocalScreenMouseCoordsAndBounds()
         localScreenMouseX := localScreen.x
@@ -170,17 +171,20 @@ class TT {
 
             ; adjust ToolTip position if:
             ; tooltip reaches bottom of screen
-            if ((y + this.AllToolTipsHeightSum + defaultyOffset*4) >= localScreenHeight)
+            if ((y + this.AllToolTipsHeightSum + ttData.extraOffsetY + defaultyOffset*4) >= localScreenHeight)
             {
                 ; if ToolTip reaches bottom of screen AND RIGHT
+                ; in this case tooltip must move up with the mouse more than in normal case
+                ; since we want to be able to see the bottom right part of the screen.
+                ; to see what this achieves, just copy the else's "y" assignment here
                 if ((x + this.WidestToolTip + defaultxOffset*2) >= localScreenWidth)
                 {
-                    y := y - (this.AllToolTipsHeightSum + defaultyOffset*4)
+                    y := y - (this.AllToolTipsHeightSum + ttData.extraOffsetY + defaultyOffset*4)
                 }
                 ; if ToolTip reaches bottom of screen ONLY
                 else
                 {
-                    y := localScreenHeight - (this.AllToolTipsHeightSum + defaultyOffset*4)
+                   y := localScreenHeight - (this.AllToolTipsHeightSum + ttData.extraOffsetY + defaultyOffset*4)
                 }
             }
             ; if ToolTip reaches right side of screen   (! no "else" here)
@@ -221,7 +225,7 @@ class TT {
         ; if it's the only tooltip
         if(this.ToolTipData.Count() == 1)
         {
-            return 0
+            return this.ToolTipData[1].extraOffsetY
         }
 
         ; if it's the very first tooltip
@@ -230,7 +234,7 @@ class TT {
         {
             if(neededToolTip == whichToolTip && isVeryFirst)
             {
-                return 0
+                return ttData.extraOffsetY
             }
             else
             {
@@ -249,7 +253,7 @@ class TT {
         result := 0
         For whichToolTip, ttData in this.ToolTipData
         {
-            ttData.YOffset := result
+            ttData.YOffset := result + ttData.extraOffsetY
             result += ttData.ToolTipHeight + 2
         }
         this.AllToolTipsHeightSum := result
