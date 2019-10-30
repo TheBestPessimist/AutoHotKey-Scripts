@@ -4,6 +4,7 @@
 ; ----- @self --------------------------
 :O:c@tbp::cristian@tbp.land
 :O:c@gmail::cristian.nahsuc@gmail.com
+:O:c@metas::cristian.pasat@metasfresh.com
 :O:@tbp::TheBestPessimist
 
 
@@ -18,7 +19,6 @@
 ::gitmetas.::https://github.com/metasfresh/metasfresh/
 ::cacher.::rest/api/debug/cacheReset
 
-
 ; ------ powershell --------------------
 ::pwsh::powershell
 
@@ -29,12 +29,13 @@
 #If
 
 
-; ----- You tried :^) ------------------
-::youtried.::https://chat.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
-
 
 
 ; ----- Robocopy -----------------------
 ::rbcpy::robocopy /E /Z /R:5 /W:5 /TBD /unicode /V /XJ /ETA /MT:32       'source' 'destination'
 
+
+; ---- Misc ----------------------------
+::(giggle).::__(giggle)__
+::youtried.::https://chat.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
 
