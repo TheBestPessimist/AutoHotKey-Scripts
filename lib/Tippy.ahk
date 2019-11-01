@@ -8,7 +8,7 @@
 ; - Call the function Tippy("Text to show") with the text you want to show.
 ;           You have an example at the end of the script (just uncomment it)!
 
-Tippy(text := "", duration := 3333, whichToolTip := 10, extraOffsetY := 0) {
+Tippy(text := "", duration := 3333, whichToolTip := 1, extraOffsetY := 0) {
     if(whichToolTip == -1)
     {
         whichToolTip := TT.GetUnusedToolTip(text)
@@ -51,7 +51,7 @@ class TT {
     static WidestToolTip := 0
 
     static MaxWhichToolTip := 20
-    static DefaultWhichToolTip := 10
+    static DefaultWhichToolTip := 1
 
     static __TippyOnFn := TT.__TippyOn.Bind(TT)
 
@@ -118,7 +118,7 @@ class TT {
         }
 
         ; if no tooltips with same text is shown, then return a new one
-        whichToolTip := 11
+        whichToolTip := 2
         While (whichToolTip <= this.MaxWhichToolTip)
         {
             if(!this.ToolTipData[whichToolTip])
