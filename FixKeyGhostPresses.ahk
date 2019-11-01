@@ -15,10 +15,12 @@ FixKeyGhostPressesAutoExecute()
 
 class Ghosty
 {
-    static lastUpTime := 0
-    static minTime := 60 ; millis - anything key down->up or up->down less than this value is an unwanted ghost click.
-    static tooltipMillis := 10000
+    static lastUpTime := A_TickCount
+    static lastDownTime := A_TickCount
+    static minTime := 40 ; millis - anything key down->up or up->down less than this value is an unwanted ghost click.
+    static tooltipMillis := 5000
     static tooltipExtraOffsetY := 80
+    static counter := 0
 }
 
 
@@ -77,25 +79,25 @@ Return
 ;
 ; ~*LButton::Return
 
-; --------------------------------------
+; ; --------------------------------------
 
-;; this version doesn't work either
-;LButton up::Return
-;
-;LButton::
+; ; this version doesn't work either
+; LButton up::Return
+
+; LButton::
 ;    Ghosty.minTime := 30 ; millis - anything key down->up or up->down less than this value is an unwanted ghost click.
-;
+
 ;    ; If (A_ThisHotkey = "LButton up")
 ;    ; {
 ;    ;     Return
 ;    ; }
-;
+
 ;    If (A_TimeSincePriorHotkey < Ghosty.minTime && A_TimeSincePriorHotkey > 0)
 ;    {
 ;        Tippy("Double press at " A_Now "`nTime since prior hotkey " A_TimeSincePriorHotkey "`n`nThis hotkey " A_ThisHotkey "`nPrior hokey " A_PriorHotkey, , -1)
 ;        Return
 ;    }
-;
+
 ;    ; loop KeyWait until Ghosty.minTime millis pass between mouse clicks
 ;    Send {LButton Down}
 ;    ticksKeyDown := A_TickCount
@@ -110,7 +112,7 @@ Return
 ;        difference := ticksKeyUp - ticksKeyDown
 ;    }
 ;    Send {LButton Up}
-;Return
+; Return
 
 
 
@@ -118,32 +120,47 @@ Return
 LButton up::
     Ghosty.lastUpTime := A_TickCount
     ;                         Tippy("up    " A_TickCount, Ghosty.tooltipMillis, -1, Ghosty.tooltipExtraOffsetY)
-    SetTimer, sendUp, % -1 * Ghosty.minTime * 1.3
+
+    SetTimer, sendUp, % -1 * Ghosty.minTime * 1.6
 Return
 
 LButton::
-    delta := A_TickCount - Ghosty.lastUpTime
-    if ( delta <= Ghosty.minTime )
+    delta := Min(A_TickCount - Ghosty.lastUpTime, A_TickCount - Ghosty.lastDownTime)
+    if ( GetKeyState(LButton , P) || delta <= Ghosty.minTime )
     {
-        Tippy(A_TickCount " down " A_TickCount "`n                  delta " delta, Ghosty.tooltipMillis, -1, Ghosty.tooltipExtraOffsetY)
         SetTimer, sendUp, Off
+        ; Tippy(A_TickCount " ↓ X ↑ X            delta " delta,, -1, Ghosty.tooltipExtraOffsetY)
         Return
     }
-    else
+
+    if (Ghosty.counter >= 1)
     {
-        ; Tippy(A_TickCount " nwod " A_TickCount "`n                  delta " delta, Ghosty.tooltipMillis, -1, Ghosty.tooltipExtraOffsetY)
+        Tippy(A_TickCount " ↓ X ↑ X            counter " counter,, -1, Ghosty.tooltipExtraOffsetY)
+        Return
     }
+
     Send {LButton Down}
-    Ghosty.lastUpTime := A_TickCount
+    Tippy(A_TickCount " ↓↓↓↓                  delta " delta, Ghosty.tooltipMillis, -1, Ghosty.tooltipExtraOffsetY)
+    Ghosty.lastDownTime := A_TickCount
+    Ghosty.counter++
 Return
 
 sendUp() {
-    delta := A_TickCount - Ghosty.lastUpTime
-    KeyWait, LButton
-    if( !GetKeyState(LButton , P) && delta > Ghosty.minTime )
+    delta := Min(A_TickCount - Ghosty.lastUpTime, A_TickCount - Ghosty.lastDownTime)
+
+    if( GetKeyState(LButton , P) || delta <= Ghosty.minTime )
     {
-        Tippy(A_TickCount " Send UP " delta, Ghosty.tooltipMillis, -1, Ghosty.tooltipExtraOffsetY)
-        Send {LButton up}
-        Ghosty.lastUpTime := A_TickCount
+        Return
     }
+
+    if (Ghosty.counter <= -1)
+    {
+        Tippy(A_TickCount " ↓ X ↑ X            counter " counter,, -1, Ghosty.tooltipExtraOffsetY)
+        Return
+    }
+
+    Send {LButton up}
+    Tippy(A_TickCount " Send UP " delta, Ghosty.tooltipMillis, -1, Ghosty.tooltipExtraOffsetY)
+    Ghosty.lastUpTime := A_TickCount
+    Ghosty.counter--
 }
