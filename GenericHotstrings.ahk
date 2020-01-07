@@ -18,6 +18,12 @@
 ; ------ metasfresh --------------------
 ::gitmetas.::https://github.com/metasfresh/metasfresh/
 ::cacher.::rest/api/debug/cacheReset
+::date.::
+    FormatDateyyyyMMdd()
+    {
+        FormatTime, CurrentDate,, yyyy-MM-dd
+        SendInput %CurrentDate%
+    }
 
 ; ------ powershell --------------------
 ::pwsh::powershell
