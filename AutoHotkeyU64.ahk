@@ -68,6 +68,11 @@ CapsLock & 3::SendInput {Volume_Down 1}
 CapsLock & 4::SendInput {Volume_Up 1}
 
 
+;-------------------------------------------------
+;       Mouse buttons Volume
+XButton1::SendInput {Volume_Down 1}
+XBUtton2::SendInput {Volume_Up 1}
+
 
 ;------------------------------------------------
 ; caps lock + space => always on top
