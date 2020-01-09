@@ -51,13 +51,18 @@
 
 ; emoji helper
 :O::ok::
-    sendOK(){
+    sendOK() {
         Send % ":white_check_mark:"
     }
 
 :O::nok::
-    sendNOK(){
+    sendNOK() {
         Send % ":x:"
+    }
+
+:O::!::
+    sendExclamation() {
+        Send % ":exclamation:"
     }
 
 :O:.tias::
