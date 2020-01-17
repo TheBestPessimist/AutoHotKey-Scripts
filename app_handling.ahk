@@ -197,12 +197,19 @@ hideTeamviewerSponsoredsession() {
         SetControlDelay 0
         ControlClick, OK
 
-        ; It seems that simply Winclose, ahk_teamviewer doesnt work.
-        ; I have to actually search for the window and then WinClose the automatically filled variable.
-        ; Weird...
-        if WinExist(ahk_teamviewer) {
-            WinClose
+        ; Looping a few times here, because TeamViewer sometimes shows multiple windows after dismissing the first
+       loop, 5
+       {
+            ; It seems that simply Winclose, ahk_teamviewer doesnt work.
+            ; I have to actually search for the window and then WinClose the automatically filled variable.
+            ; Weird...
+            if WinExist(ahk_teamviewer)
+            {
+                WinClose
+            }
+            Sleep, 300
         }
+
     }
 }
 
