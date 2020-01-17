@@ -1,4 +1,4 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
@@ -40,12 +40,12 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include lib/ReloadScript.ahk
 #include PowerManager.ahk
 #include CapsLockToggle.ahk
-#include GenericHotstrings.ahk
 #include SoundBalance.ahk
 #include StarCraft2.ahk
 #include FixKeyGhostPresses.ahk
 
 #include hotstrings/MarkdownEmoji.ahk
+#include hotstrings/GenericHotstrings.ahk
 #include hotstrings/MarkdownHotstrings.ahk
 #include hotstrings/ResetHotstrings.ahk
 
