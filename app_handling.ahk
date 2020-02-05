@@ -166,7 +166,7 @@ Return
 
 ;-------------------------------------------------
 ; Intellij Idea/goland: CapsLock & w to toggle word wrap
-#If WinActive(ahk_intellij_idea) || WinActive(ahk_goland)
+#If WinActive(WinTitles.IntellijIdea) || WinActive(WinTitles.Goland)
 CapsLock & w::
     SendInput ^+A
     Sleep 500
@@ -225,13 +225,13 @@ hideTeamviewerSponsoredsession() {
     || WinActive(ahk_telegram)
     ; || WinActive(ahk_chrome)
     ; || WinActive(ahk_firefox)
-    || WinActive(ahk_vlc)
+    || WinActive(WinTitles.Vlc)
     || WinActive(WinTitles.ModernPhotos*)
     || WinActive(WinTitles.ModernSkype*)
     || WinActive(ahk_teamviewer)
-    || WinActive(ahk_CorsairCUE)
+    || WinActive(WinTitles.CorsairCUE)
     || WinActive(ahk_Skype)
-    || WinActive(ahk_Battle_net)
+    || WinActive(WinTitles.BattleNet)
 F4:: SendInput !{F4}
 #If
 
