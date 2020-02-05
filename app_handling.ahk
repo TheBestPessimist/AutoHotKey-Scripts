@@ -197,17 +197,17 @@ Return
 ; hide the TeamViewer message for sponsored session
 ; and also close the TeamViewer window afterwards
 hideTeamviewerSponsoredsession() {
-    if WinExist(ahk_teamviewer_sponsoredsession) {
+    if WinExist(WinTitles.TeamViewerSponsoredSession) {
         SetControlDelay 0
         ControlClick, OK
 
         ; Looping a few times here, because TeamViewer sometimes shows multiple windows after dismissing the first
        loop, 5
        {
-            ; It seems that simply Winclose, ahk_teamviewer doesnt work.
+            ; It seems that simply Winclose, WinTitles.TeamViewer doesnt work.
             ; I have to actually search for the window and then WinClose the automatically filled variable.
             ; Weird...
-            if WinExist(ahk_teamviewer)
+            if WinExist(WinTitles.TeamViewer)
             {
                 WinClose
             }
@@ -228,9 +228,9 @@ hideTeamviewerSponsoredsession() {
     || WinActive(WinTitles.Vlc)
     || WinActive(WinTitles.ModernPhotos*)
     || WinActive(WinTitles.ModernSkype*)
-    || WinActive(ahk_teamviewer)
+    || WinActive(WinTitles.TeamViewer)
     || WinActive(WinTitles.CorsairCUE)
-    || WinActive(ahk_Skype)
+    || WinActive(WinTitles.Skype)
     || WinActive(WinTitles.BattleNet)
 F4:: SendInput !{F4}
 #If
