@@ -1,4 +1,8 @@
-﻿;-------------------------------------------------
+﻿#Include WinTitles.ahk
+
+
+
+;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s::
 runSublimeText(){
@@ -217,11 +221,13 @@ hideTeamviewerSponsoredsession() {
 
 ;-------------------------------------------------
 ; use just F4 to close some windows
-#If WinActive(ahk_telegram)
+#If false
+    || WinActive(ahk_telegram)
     ; || WinActive(ahk_chrome)
     ; || WinActive(ahk_firefox)
     || WinActive(ahk_vlc)
-    || WinActive(ahk_modern_photos[1], ahk_modern_photos[2])
+    || WinActive(WinTitles.ModernPhotos*)
+    || WinActive(WinTitles.ModernSkype*)
     || WinActive(ahk_teamviewer)
     || WinActive(ahk_CorsairCUE)
     || WinActive(ahk_Skype)

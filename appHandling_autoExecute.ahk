@@ -5,7 +5,6 @@ global ahk_sublime := "ahk_exe sublime_text.exe"
 global ahk_telegram := "ahk_exe telegram.exe ahk_class Qt5QWindowIcon"
 global ahk_vlc := "ahk_exe vlc.exe"
 global ahk_tf2 := "ahk_exe hl2.exe"
-global ahk_modern_photos := ["ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe", "Photos"]
 global ahk_intellij_idea := "ahk_exe idea64.exe"
 global ahk_goland := "ahk_exe goland64.exe"
 global ahk_teamviewer_sponsoredsession := "Sponsored session ahk_exe TeamViewer.exe"
@@ -16,6 +15,9 @@ global ahk_Battle_net := "ahk_exe Battle.net.exe"
 
 
 SetTimer, hideTeamviewerSponsoredsession, 5000
+
+
+
 
 
 
