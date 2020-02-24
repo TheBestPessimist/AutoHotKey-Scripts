@@ -24,6 +24,12 @@
         FormatTime, CurrentDate,, yyyy-MM-dd
         SendInput %CurrentDate%
     }
+::.@date::
+    DateAndUser()
+    {
+       FormatDateyyyyMMdd()
+       Send % " - @TheBestPessimist"
+    }
 
 
 ; ------ powershell --------------------
