@@ -4,14 +4,14 @@
 ; The hotstrings should be written as ":ok<space>", or ":!<space" and they will be expanded.
 ; ";" is used to trigger the emoji as I want to reflect that this is an emoji.
 
-:O::ok:::white_check_mark:
+:O::ok:::white_check_mark: `
 
-:O::nok:::x:
+:O::nok:::x: `
 
-:O::!:::exclamation:
+:O::!:::exclamation: `
 
-:O::deny:::no_entry_sign:
+:O::deny:::no_entry_sign: `
 
-:O::est:::hourglass:
+:O::est:::hourglass: est: `
 
-:O::?:::question:
+:O::?:::question: `
