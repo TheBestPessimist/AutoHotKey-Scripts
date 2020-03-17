@@ -10,15 +10,15 @@
 
 
 ; ----- my autohotkey github -----------
-::gitahk::https://git.tbp.land/AutoHotKey-Scripts/
-::gitahkl::https://git.tbp.land/AutoHotKey-Launcher/
+::.gitahk::https://git.tbp.land/AutoHotKey-Scripts/
+::.gitahkl::https://git.tbp.land/AutoHotKey-Launcher/
 
 
 
 ; ------ metasfresh --------------------
-::gitmetas.::https://github.com/metasfresh/metasfresh/
-::cacher.::rest/api/debug/cacheReset
-::date.::
+::.gitmetas::https://github.com/metasfresh/metasfresh/
+::.cacher::rest/api/debug/cacheReset
+::.date::
     FormatDateyyyyMMdd()
     {
         FormatTime, CurrentDate,, yyyy-MM-dd
@@ -33,7 +33,7 @@
 
 
 ; ------ powershell --------------------
-::pwsh::powershell
+::.pwsh::powershell
 
 #If WinActive("ahk_exe powershell.exe")
     ::pwshtranscript::Start-Transcript -NoClobber -OutputDirectory $(Join-Path $(Resolve-Path "~") "\Desktop\PowershellTranscripts\")
@@ -45,14 +45,14 @@
 
 
 ; ----- Robocopy -----------------------
-::robocopy::robocopy /E /Z /R:5 /W:5 /TBD /unicode /V /XJ /ETA /MT:32       'source' 'destination'
+::.robocopy::robocopy /E /Z /R:5 /W:5 /TBD /unicode /V /XJ /ETA /MT:32       'source' 'destination'
 
 
 
 ; ---- Misc ----------------------------
-::(giggle).::__(giggle)__
+::.(giggle)::__(giggle)__
 
-::youtried.::https://chat.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
+::.youtried::https://chat.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
 
 :O:.tias::
     tagTias() {
