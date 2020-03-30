@@ -13,13 +13,14 @@
 
 
 
+/*
+   == Markdown Code Highlighter ==
 
-;   == Markdown Code Highlighter ==
-;
-; it's supposed to write this:
-;```<your language>
-;|<-cursor is left here, so you can just paste what you want
-;```
+ it's supposed to write this:
+```<your language>
+|<-cursor is left here, so you can just paste what you want
+```
+*/
 
 :O:``ahk::
 :O:``java::
