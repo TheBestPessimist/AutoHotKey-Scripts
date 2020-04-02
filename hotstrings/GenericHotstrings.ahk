@@ -22,14 +22,17 @@
     FormatDateyyyyMMdd()
     {
         FormatTime, CurrentDate,, yyyy-MM-dd
-        SendInput %CurrentDate%
+        Send %CurrentDate%
     }
 ::.@date::
     DateAndUser()
     {
-       FormatDateyyyyMMdd()
-       Send % " - @TheBestPessimist"
+        Send % "- "
+        FormatDateyyyyMMdd()
+        Send % " - @TheBestPessimist"
     }
+
+
 
 
 ; ------ powershell --------------------
