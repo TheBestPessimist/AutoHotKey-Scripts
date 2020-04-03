@@ -38,7 +38,7 @@
         {}
         else if (hs == "ahk")
         {
-            hs := "autoit"
+            hs := "autoit" ; using `autoit` instead of `autohotkey` because HighlightJS, the library that everyone uses had bad syntax for autohotkey
         } else if (hs == "js")
         {
             hs := "javascript"
