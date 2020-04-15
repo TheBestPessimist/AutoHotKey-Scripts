@@ -29,6 +29,7 @@
 :O:``json::
 :O:``js::
 :O:``xml::
+:O:``kt::
     MarkdownCodeHighlighter()
     {
         ; A_ThisHotkey contains ":O:`" which is not needed
@@ -39,9 +40,14 @@
         else if (hs == "ahk")
         {
             hs := "autoit" ; using `autoit` instead of `autohotkey` because HighlightJS, the library that everyone uses had bad syntax for autohotkey
-        } else if (hs == "js")
+        }
+        else if (hs == "js")
         {
             hs := "javascript"
+        }
+        else if (hs == "kt")
+        {
+            hs := "kotlin"
         }
         Send % "``````" hs "`n`n" "``````" "{left 4}"
     }
