@@ -37,12 +37,9 @@
 
 ; ------ powershell --------------------
 ::.pwsh::powershell
-
-#If WinActive("ahk_exe powershell.exe")
-    ::pwshtranscript::Start-Transcript -NoClobber -OutputDirectory $(Join-Path $(Resolve-Path "~") "\Desktop\PowershellTranscripts\")
-    :O:pwshtop::while($true){{}$TheCommandOutput = `; clear; echo $TheCommandOutput; Date; sleep 1{}}{left 47}
-    :O:pwshfind::Get-ChildItem -Force -Recurse -Include **{left 1}
-#If
+::.pwshtranscript::Start-Transcript -NoClobber -OutputDirectory $(Join-Path $(Resolve-Path "~") "\Desktop\PowershellTranscripts\")
+:O:.pwshtop::while($true){{}$TheCommandOutput = `; clear; echo $TheCommandOutput; Date; sleep 1{}}{left 47}
+:O:.pwshfind::Get-ChildItem -Force -Recurse -Include **{left 1}
 
 
 
