@@ -1,4 +1,4 @@
-﻿#Include WinTitles.ahk
+#Include WinTitles.ahk
 
 
 
@@ -232,6 +232,7 @@ hideTeamviewerSponsoredsession() {
     || WinActive(WinTitles.CorsairCUE)
     || WinActive(WinTitles.Skype)
     || WinActive(WinTitles.BattleNet)
+    || WinActive(WinTitles.ACDSee)
 F4:: SendInput !{F4}
 #If
 
