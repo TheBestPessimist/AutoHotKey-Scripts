@@ -22,6 +22,7 @@
 ```
 */
 
+:O:``pwsh::
 :O:``ahk::
 :O:``java::
 :O:``sql::
@@ -48,6 +49,10 @@
         else if (hs == "kt")
         {
             hs := "kotlin"
+        }
+        else if (hs == "pwsh")
+        {
+            hs := "powershell"
         }
         Send % "``````" hs "`n`n" "``````" "{left 4}"
     }
