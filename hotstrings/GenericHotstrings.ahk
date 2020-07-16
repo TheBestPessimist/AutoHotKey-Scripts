@@ -50,7 +50,7 @@
 
 
 ; ---- Misc ----------------------------
-::.(giggle)::__(giggle)__
+::.giggle::__(giggle)__
 
 ::.youtried::https://chat.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
 
