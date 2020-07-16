@@ -10,3 +10,6 @@ Ref: https://www.autohotkey.com/boards/viewtopic.php?p=276407
 ~Left::Hotstring("Reset")
 ~Right::Hotstring("Reset")
 ~^BackSpace::Hotstring("Reset")
+~^::Hotstring("Reset")
+
+
