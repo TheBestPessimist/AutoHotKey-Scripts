@@ -40,3 +40,10 @@ sc178 & Right::End
 ; ==== Fn Lock
 ;
 ; still todo
+
+
+; ====
+; ==== Disable insert key
+;
+
+Insert::Return
