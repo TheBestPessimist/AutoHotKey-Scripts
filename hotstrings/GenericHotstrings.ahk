@@ -31,7 +31,12 @@
         FormatDateyyyyMMdd()
         Send % " - @TheBestPessimist"
     }
-
+::.datet::
+    FormatDateyyyyMMddHHmmss()
+    {
+        FormatTime, CurrentDate,, yyyy-MM-dd--HH-mm-ss
+        Send %CurrentDate%
+    }
 
 
 
