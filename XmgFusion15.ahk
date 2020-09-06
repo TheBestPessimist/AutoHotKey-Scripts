@@ -3,11 +3,31 @@
 ; The Fn key has Scan Code 178
 
 
+#include lib\AutoHotInterception\AutoHotInterception.ahk
+
+global AHIContextManager
+
+; There is no need for a standard ahk auto-execute area anymore because of this method.
+; This method is called automatically when the static variable autoExecute is instantiated,
+; and since it's a static, it will only be instantiated once!
+;
+; Idea provided by @nnnik#6686 on the AHK Discord Server: https://discord.gg/s3Fqygv
+XmgFusion15AutoExecute()
+{
+    static autoExecute := XmgFusion15AutoExecute()
+
+    AHI := new AutoHotInterception()
+    Fusion15KeyboardId := AHI.GetKeyboardIdFromHandle("ACPI\VEN_MSFT&DEV_0001", 1)
+    AHIContextManager := AHI.CreateContextManager(Fusion15KeyboardId)
+}
+
+
+
+
 ; ====
 ; ==== PageUp, PageDown, Home, End
 
 ; Note: Fusion already has dedicated keys for this, but I also find useful to have these Fn shortcuts.
-
 
 ; PageUp = Fn + Up
 sc178 & Up::PgUp
@@ -20,6 +40,25 @@ sc178 & Left::Home
 
 ; End = Fn + Right
 sc178 & Right::End
+
+
+; ====
+; ==== Change order of keys to PgUp, PgDown, Home, End
+;
+; Initial order: Home, PgUp, PgDown, End (like, WTF Intel?)
+; Correct order: PgUp, PgDown, Home, End (duuuh)
+;
+; This is done  using AutoHotInterception library, so that only the keys from the laptop are changed,
+;   and not the keys from other connected keyboards
+#if AHIContextManager.IsActive
+    PgUp::PgDn
+
+    PgDn::Home
+
+    Home::PgUp
+#if
+
+
 
 
 ; ====
