@@ -60,6 +60,18 @@ sc178 & Right::End
 
 
 
+; ====
+; ==== Fn + 1, 2, 3, 4, etc. work as Num1, Num2, etc.
+sc178 & 0::NumPad0
+sc178 & 1::NumPad1
+sc178 & 2::NumPad2
+sc178 & 3::NumPad3
+sc178 & 4::NumPad4
+sc178 & 5::NumPad5
+sc178 & 6::NumPad6
+sc178 & 7::NumPad7
+sc178 & 8::NumPad8
+sc178 & 9::NumPad9
 
 ; ====
 ; ==== Disable some Fn Shortcuts which I do not like
