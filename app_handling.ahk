@@ -1,4 +1,4 @@
-#Include WinTitles.ahk
+﻿#Include WinTitles.ahk
 
 
 
@@ -278,3 +278,22 @@ F4:: SendInput !{F4}
 ;         SendInput {LButton}
 ;     }
 ; }
+
+
+CapsLock & v::
+    openInMpv() {
+        ClipSaved := ClipboardAll   ; Backup Clipboard
+        clipboard := ""
+
+        Send ^l
+        Sleep 100
+        Send ^a
+        Sleep 100
+        Send ^c
+        ClipWait 1
+
+        Tippy("Opening mpv with: " Clipboard)
+        Run % "mpvnet.exe " Clipboard
+
+        Clipboard := ClipSaved   ; Restore Clipboard
+    }
