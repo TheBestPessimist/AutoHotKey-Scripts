@@ -7,53 +7,46 @@ CapsLockToggleAutoExecute()
 {
     static autoExecute := CapsLockToggleAutoExecute()
 
-    ; Check every second if CapsLock is off
-    SetTimer, keepCapsLockOff, 1000
+    ; Every second enforce the correct CapsLock state
+    SetTimer, enforceCapsLockState, 1000
 
-    ; Sometimes i may want to use caps. This is a toggle to control that
-    global keepCapsLockOff := 1
+    ; Sometimes i may want to use caps. This is a toggle to control that.
+    global CapsLockState := "off"
 }
 
 ; disable normal CapsLock usage
 CapsLock::return
 
-;-------------------------------------------------
-; Keep CapsLock off at (almost) all times!
-; reset Caps state via CapsLock + Alt
-keepCapsLockOff()
+enforceCapsLockState()
 {
-    global keepCapsLockOff
+    global CapsLockState
 
-    if(!keepCapsLockOff)
+    if (CapsLockState = "on")
     {
-        Sleep, 100
-        Tippy("CapsLock is on")
         SetCapsLockState On
-        Return
+        Tippy("CapsLock is: ON")
     }
-    SetCapsLockState Off
+    else if(CapsLockState = "off")
+    {
+        SetCapsLockState Off
+    }
 }
 
-; Sometimes i may want to use caps. This is a toggle to control that
+
 CapsLock & Alt::
 ToggleCapsLockState()
 {
-    global keepCapsLockOff
-    keepCapsLockOff := !keepCapsLockOff
-    ; Sleep, 100
+    Critical
+    global CapsLockState
 
-    if (keepCapsLockOff)
+    if (CapsLockState = "on")
     {
-        SetCapsLockState Off
-        Sleep, 100    ; one has to sleep JUST BEFORE toggling caps
-        Tippy("CapsLock is off")
-        SetCapsLockState Off
+        CapsLockState := "off"
+        Tippy("CapsLock is: off")
     }
-    else
+    else if(CapsLockState = "off")
     {
-        SetCapsLockState On
-        Sleep, 100    ; one has to sleep JUST BEFORE toggling caps
-        Tippy("CapsLock is on")
-        SetCapsLockState On
+        CapsLockState := "on"
     }
+    enforceCapsLockState()
 }
