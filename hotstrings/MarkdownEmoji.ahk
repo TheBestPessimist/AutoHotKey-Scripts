@@ -1,4 +1,4 @@
-/*
+﻿/*
 Emoji helper
 
 Some emoji names don't make much sense to me.
@@ -6,22 +6,34 @@ The hotstrings should be written as ":ok<space>", or ":!<space>" and they will b
 ":" is used to trigger the emoji as I want to reflect that this is an emoji.
 
 Example:
-`:ok<space>` produces `:white_check_mark:<space>`
-
-`:est<space>` produces `:hourglass: est: `
+Typing ":ok<space>"  will produce ":white_check_mark:<space>"
 */
 
-:O::ok:::white_check_mark: `
+; :white_check_mark:
+:O::ok::✅ `
 
-:O::nok:::x: `
-:O::x:::x: `
+; :x:
+:O::nok::❌ `
+:O::x::❌ `
 
-:O::!:::exclamation: `
 
-:O::deny:::no_entry_sign: `
 
-:O::est:::hourglass: est: `
+; :exclamation:
+:O::!::❗ `
 
-:O::?:::question: `
 
-:O::cp:::cherries: `
+; :no_entry_sign:
+:O::deny::🚫 `
+
+
+; :hourglass:
+:O::est::⌛ est: `
+
+
+; :question:
+:O::?::❓ `
+
+
+; :cherries:
+:O::cp::🍒 `
+
