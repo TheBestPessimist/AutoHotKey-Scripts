@@ -16,10 +16,39 @@ XmgFusion15AutoExecute()
 {
     static autoExecute := XmgFusion15AutoExecute()
 
+    changeKeyOrder()
+}
+
+
+; ====
+; ==== Change order of keys to PgUp, PgDown, Home, End
+;
+; Initial order: Home, PgUp, PgDown, End (like, WTF Intel?)
+; Correct order: PgUp, PgDown, Home, End (duuuh)
+;
+; This is done  using AutoHotInterception library, so that only the keys from the laptop are changed,
+;   and not the keys from other connected keyboards
+;
+; PROBLEM: this doesn't always block the original key therefore I have to use "subscription" mechanism instead of the easier to use "context"
+changeKeyOrder()
+{
     AHI := new AutoHotInterception()
     Fusion15KeyboardId := AHI.GetKeyboardIdFromHandle("ACPI\VEN_MSFT&DEV_0001", 1)
-    AHIContextManager := AHI.CreateContextManager(Fusion15KeyboardId)
+
+    AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgUp"), true, Func("XmgKeyEventHandler").Bind("PgDn"))
+    AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgDn"), true, Func("XmgKeyEventHandler").Bind("Home"))
+    AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("Home"), true, Func("XmgKeyEventHandler").Bind("PgUp"))
+
 }
+
+XmgKeyEventHandler(newKey, state)
+{
+    if(state)
+        Send % "{" newKey " down}"
+    else
+        Send % "{" newKey " up}"
+}
+
 
 
 
@@ -41,22 +70,6 @@ sc178 & Left::Home
 ; End = Fn + Right
 sc178 & Right::End
 
-
-; ====
-; ==== Change order of keys to PgUp, PgDown, Home, End
-;
-; Initial order: Home, PgUp, PgDown, End (like, WTF Intel?)
-; Correct order: PgUp, PgDown, Home, End (duuuh)
-;
-; This is done  using AutoHotInterception library, so that only the keys from the laptop are changed,
-;   and not the keys from other connected keyboards
-#if AHIContextManager.IsActive
-    PgUp::PgDn
-
-    PgDn::Home
-
-    Home::PgUp
-#if
 
 
 
