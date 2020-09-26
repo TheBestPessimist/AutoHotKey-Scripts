@@ -44,9 +44,9 @@ changeKeyOrder()
 XmgKeyEventHandler(newKey, state)
 {
     if(state)
-        Send % "{" newKey " down}"
+        Send % "{Blind}{" newKey " down}"
     else
-        Send % "{" newKey " up}"
+        Send % "{Blind}{" newKey " up}"
 }
 
 
