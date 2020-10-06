@@ -28,7 +28,7 @@
     DateAndUser()
     {
         Send % "- "
-        FormatDateyyyyMMdd()
+       FormatTime, CurrentDate,, yyyy-MM-dd
         Send % " - @TheBestPessimist"
     }
 ::.datet::
@@ -36,6 +36,22 @@
     {
         FormatTime, CurrentDate,, yyyy-MM-dd--HH-mm-ss
         Send %CurrentDate%
+    }
+
+::.collapsed::
+::.hidden::
+    CollapsedForBrevity()
+    {
+    text =
+    ( LTrim
+    <details>
+    <summary>Collapsed for Brevity  </summary>
+
+
+
+    </details>
+    )
+    Send, % text
     }
 
 
