@@ -45,7 +45,7 @@
     text =
     ( LTrim
     <details>
-    <summary>Collapsed for Brevity  </summary>
+    <summary>Collapsed for Brevity</summary>
 
 
 
