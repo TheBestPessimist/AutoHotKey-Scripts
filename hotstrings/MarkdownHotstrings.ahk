@@ -8,7 +8,7 @@
 :OB0:****::{left 2}
 :O:````````::```````n`n``````{left 4}             ; write 4 backticks!
 :OB0:````::{left 1}
-:OB0:<kbd::></kbd>{left 6}
+:O:.kbd::<kbd></kbd>{left 6}
 
 
 
