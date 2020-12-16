@@ -297,3 +297,23 @@ CapsLock & v::
 
         Clipboard := ClipSaved   ; Restore Clipboard
     }
+
+
+
+
+;-------------------------------------------------
+;   Fix Vivaldi Gestures
+;
+; The problem with Vivaldi is that on "3 finger swipe" left and right touchpad gestures,
+;   Vivaldi executes the Browser_Forward and Browser_Back actions both on key up and on key down.
+;   Therefore the solution is simple: don't send key down events to Vivaldi
+
+; Browser_Back via 3 finger swipe to right
+sc16A::Return
+sc16A Up::SendInput !{Left} ; This sends Alt+Left
+sc06A::Return
+sc06A Up::SendInput !{Left} ; This sends Alt+Left
+
+; Browser_Forward via 3 finger swipe to left
+sc069::Return
+sc069 Up::SendInput !{Right} ; This sends Alt+Right
