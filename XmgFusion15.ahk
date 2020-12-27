@@ -5,8 +5,6 @@
 
 #include lib\AutoHotInterception\AutoHotInterception.ahk
 
-global AHIContextManager
-
 ; There is no need for a standard ahk auto-execute area anymore because of this method.
 ; This method is called automatically when the static variable autoExecute is instantiated,
 ; and since it's a static, it will only be instantiated once!
@@ -39,6 +37,7 @@ changeKeyOrder()
     AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgDn"), true, Func("XmgKeyEventHandler").Bind("Home"))
     AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("Home"), true, Func("XmgKeyEventHandler").Bind("PgUp"))
 
+    Tippy("inside changeKeyOrder")
 }
 
 XmgKeyEventHandler(newKey, state)
@@ -111,3 +110,6 @@ sc178 & 9::NumPad9
 ;
 
 Insert::Return
+
+
+
