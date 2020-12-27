@@ -14,7 +14,7 @@
     static Skype := "ahk_exe Skype.exe"
     static TeamViewerSponsoredSession := "Sponsored session ahk_exe TeamViewer.exe"
     static TeamViewer := "TeamViewer ahk_exe TeamViewer.exe"
-    static ACDSee := "ahk_exe ACDSeeQVPro11.exe"
+    static ACDSee := "ahk_exe ACDSeeProfessional2018.exe"
 
 
 
