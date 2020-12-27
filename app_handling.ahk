@@ -2,6 +2,15 @@
 
 
 
+#If WinActive("ahk_class SDL_app")
+
+j::Space
+k::PgUp
+
+#If
+
+
+
 ;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s::
@@ -50,7 +59,7 @@ startAndResizeTelegram()
         ; NOTE: THIS DOES NOT WORK. SOMETIMES TELEGRAM JUST WONT FUCKING RESIZE.
         ;                   RUUUUUUDE!
         getTaskbarDimensions(tw, th)
-        w := A_ScreenWidth/3
+        w := A_ScreenWidth/2.5
         h := A_ScreenHeight - th
         x := A_ScreenWidth - w
         y := 0
@@ -237,6 +246,12 @@ F4:: SendInput !{F4}
 #If
 
 
+
+;-------------------------------------------------
+; disable End in AcdSee
+#If  WinActive(WinTitles.ACDSee)
+End::Return
+#If
 
 ; ------------------------------------------------
 ; ------------------------------------------------
