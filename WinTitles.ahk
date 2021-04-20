@@ -15,7 +15,7 @@
     static TeamViewerSponsoredSession := "Sponsored session ahk_exe TeamViewer.exe"
     static TeamViewer := "TeamViewer ahk_exe TeamViewer.exe"
     static ACDSee := "ahk_exe ACDSeeProfessional2018.exe"
-
+    static MsTeams := "ahk_exe Teams.exe"
 
 
 

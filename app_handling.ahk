@@ -315,6 +315,24 @@ CapsLock & v::
 
 
 
+;-----------------------
+; Microshitsoft Teams is fucking retarded
+;
+; Replace "Fancy Paste" with Plain text Copy-Pasta
+#If WinActive(WinTitles.MsTeams)
+^V::
+disableFancyPasteOnText(){
+    if DllCall("IsClipboardFormatAvailable", "uint", 1)
+    {
+        Send ^+v
+    }
+    else
+    {
+        Send ^v
+    }
+}
+#If
+
 
 ;-------------------------------------------------
 ;   Fix Vivaldi Gestures
