@@ -1,4 +1,4 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
@@ -101,18 +101,9 @@ CapsLock & 1::
 
 
 
-;------------------------------------------------
-; Eve V: alt + menu => ctrl
-!AppsKey::Ctrl
-AppsKey & Alt::Ctrl
-AppsKey::Send {AppsKey}
 
 
 
 ;------------------------------------------------
 ; CapsLock + P: Toggle between "Power saver" and "Balanced" powers schemes
-CapsLock & P::TogglePowerScheme()
-
-
-
-
+;CapsLock & P::TogglePowerScheme()
