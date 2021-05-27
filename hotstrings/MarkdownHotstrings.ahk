@@ -31,6 +31,7 @@
 :O:``js::
 :O:``xml::
 :O:``kt::
+:O:``yaml::
     MarkdownCodeHighlighter()
     {
         ; A_ThisHotkey contains ":O:`" which is not needed
