@@ -10,6 +10,7 @@ range(startx, endx, stepsize := 1) {
     return range_a
 }
 
+:X:.scmacro:: SetTimer, cc, % (togglem := !togglem) ? 1000: "Off"
 
 CapsLock & m:: SetTimer, cc, % (togglem := !togglem) ? 1000: "Off"
 cc() {
