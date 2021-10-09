@@ -5,6 +5,8 @@
 
 #include lib\AutoHotInterception\AutoHotInterception.ahk
 
+
+
 ; There is no need for a standard ahk auto-execute area anymore because of this method.
 ; This method is called automatically when the static variable autoExecute is instantiated,
 ; and since it's a static, it will only be instantiated once!
@@ -12,6 +14,10 @@
 ; Idea provided by @nnnik#6686 on the AHK Discord Server: https://discord.gg/s3Fqygv
 XmgFusion15AutoExecute()
 {
+    if (A_ComputerName != "tbp-fusion") {
+        return
+    }
+
     static autoExecute := XmgFusion15AutoExecute()
 
     changeKeyOrder()
@@ -110,6 +116,3 @@ sc178 & 9::NumPad9
 ;
 
 Insert::Return
-
-
-
