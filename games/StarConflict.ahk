@@ -39,8 +39,7 @@ cc() {
                 {
                     MouseMove, x, y
                     ; Sleep 100
-                    ; ImageSearch, FoundX, FoundY, oldX, oldY, x, y, *140 C:\Users\crist\Documents\My games\StarConflict\Screenshots\3.jpg
-                    ImageSearch, FoundX, FoundY, oldX, oldY, x, y, *8 C:\Users\crist\Documents\My games\StarConflict\Screenshots\DOT1.jpg
+                    ImageSearch, FoundX, FoundY, oldX, oldY, x, y, *8 games/DOT1.jpg
                     if (ErrorLevel = 0)
                     {
                         Tippy("Mouse Pos: " FoundX " " FoundY)
@@ -68,9 +67,11 @@ cc() {
     ; next game
     if (WinActive("ahk_exe game.exe"))
     {
-        MouseClick, left, 1250, 880,,,D
+        ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *80 games/to_battle.jpg
+
+        MouseClick, left, FoundX, FoundY,,,D
         Sleep 100
-        MouseClick, left, 1250, 880,,,U
+        MouseClick, left, FoundX, FoundY,,,U
     }
 
 }
