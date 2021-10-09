@@ -24,24 +24,21 @@ Menu, Tray, Icon, resources/blueStar.ico
 
 
 
-
-
 ; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
 #include appHandling_autoExecute.ahk
-#include lidOff_autoExecute.ahk
 
 
 
 ; rest of everything
 #include lib/libdebug.ahk
 #Include app_handling.ahk
-#Include lidOff.ahk
 #include lib/Tippy.ahk
 #include lib/ReloadScript.ahk
 #include PowerManager.ahk
 #include CapsLockToggle.ahk
 #include SoundBalance.ahk
-#include StarCraft2.ahk
+; #include games/StarCraft2.ahk
+#include games/StarConflict.ahk
 #include FixKeyGhostPresses.ahk
 #include XmgFusion15.ahk
 
@@ -49,8 +46,6 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include hotstrings/GenericHotstrings.ahk
 #include hotstrings/MarkdownHotstrings.ahk
 #include hotstrings/ResetHotstrings.ahk
-
-
 
 
 ;-------------------------------------------------
