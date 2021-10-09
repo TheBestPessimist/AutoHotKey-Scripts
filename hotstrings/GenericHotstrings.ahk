@@ -5,6 +5,7 @@
 :O:c@tbp::cristian@tbp.land
 :O:c@gmail::cristian.nahsuc@gmail.com
 :O:c@metas::cristian.pasat@metasfresh.com
+:O:c@nagarro::cristian.pasat@nagarro.com
 :O:@tbp::TheBestPessimist
 
 
@@ -77,6 +78,6 @@
 
 :O:.tias::
     tagTias() {
-        Send % "https://i.imgur.com/VkRzeQJ.png"
+        Send % "https://chat.tbp.land/uploads/default/original/1X/e741730b2b41b7ecd3672f986951038ca43af531.jpeg"
     }
 
