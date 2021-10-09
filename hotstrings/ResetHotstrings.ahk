@@ -13,3 +13,4 @@ Ref: https://www.autohotkey.com/boards/viewtopic.php?p=276407
 ~^BackSpace::Hotstring("Reset")
 ~^a::Hotstring("Reset")
 ~^::Hotstring("Reset")
+~Enter::Hotstring("Reset")
