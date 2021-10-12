@@ -55,12 +55,17 @@ cc() {
         }
     }
 
+
     ; cancel any "unwelcomed goodies" + reconnect
-    ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
-    ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
-    ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
-    ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
-    ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
+    ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *8 games/DOT1.jpg
+    if (ErrorLevel != 0)
+    {
+        ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
+        ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
+        ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
+        ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
+        ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
+    }
 
 
 
