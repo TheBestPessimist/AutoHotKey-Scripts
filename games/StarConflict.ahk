@@ -14,7 +14,7 @@ range(startx, endx, stepsize := 1) {
 
 CapsLock & m:: SetTimer, cc, % (togglem := !togglem) ? 1000: "Off"
 cc() {
-    SetKeyDelay, 50, 1000
+    SetKeyDelay, 200, 1000
 
     ; idle breaker
     ControlSend,, {Blind}{w down}, % "ahk_exe game.exe"
