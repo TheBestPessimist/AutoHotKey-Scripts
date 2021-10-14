@@ -19,6 +19,8 @@ cc() {
     ; idle breaker
     ControlSend,, {Blind}{w down}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{w up}, % "ahk_exe game.exe"
+    ControlSend,, {Blind}{s down}, % "ahk_exe game.exe"
+    ControlSend,, {Blind}{s up}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{1}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{4}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{2}, % "ahk_exe game.exe"
@@ -69,10 +71,12 @@ cc() {
     if (WinActive("ahk_exe game.exe"))
     {
         ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *80 games/to_battle.jpg
-
-        MouseClick, left, FoundX, FoundY,,,D
-        Sleep 100
-        MouseClick, left, FoundX, FoundY,,,U
+        if (ErrorLevel = 0)
+        {
+            MouseClick, left, FoundX, FoundY,,,D
+            Sleep 100
+            MouseClick, left, FoundX, FoundY,,,U
+    }
     }
 
 }
