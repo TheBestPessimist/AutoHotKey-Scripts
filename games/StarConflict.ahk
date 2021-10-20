@@ -16,7 +16,30 @@ CapsLock & m:: SetTimer, cc, % (togglem := !togglem) ? 1000: "Off"
 cc() {
     SetKeyDelay, 200, 1000
 
-    ; idle breaker
+    sc_idle_breaker()
+
+    sc_next_game()
+
+    sc_ok()
+    sc_yes()
+    sc_ok()
+    sc_yes()
+
+    ; i think i might get rid of these lines
+
+    ; ; cancel any "unwelcomed goodies" + reconnect
+    ; ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
+    ; ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
+    ; ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
+    ; ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
+    ; ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
+
+    sc_game_end_bonus()
+
+    sc_next_game()
+}
+
+sc_idle_breaker() {
     ControlSend,, {Blind}{w down}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{w up}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{s down}, % "ahk_exe game.exe"
@@ -24,10 +47,14 @@ cc() {
     ControlSend,, {Blind}{1}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{4}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{2}, % "ahk_exe game.exe"
-    ; used for Waz'Got Battle Station
+    ; up/down is used for Waz'Got Battle Station
     ControlSend,, {Blind}{3 down}{3 up}, % "ahk_exe game.exe"
+    ControlSend,, {Blind}{f}, % "ahk_exe game.exe"
+    ControlSend,, {Blind}{a}{d}, % "ahk_exe game.exe"
+}
 
-    ; Autoselect bonuses at game end
+; Autoselect bonuses at game end
+sc_game_end_bonus() {
     if (WinActive("ahk_exe game.exe") || WinActive("ahk_exe ACDSeeProfessional2018.exe"))
     {
     ; search for goodies
@@ -56,18 +83,35 @@ cc() {
             oldX = % x
         }
     }
+}
 
+sc_ok() {
+    if (WinActive("ahk_exe game.exe"))
+    {
+        ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *80 games/ok.jpg
+        if (ErrorLevel = 0)
+        {
+            MouseClick, left, FoundX, FoundY,,,D
+            Sleep 100
+            MouseClick, left, FoundX, FoundY,,,U
+        }
+    }
+}
 
-    ; cancel any "unwelcomed goodies" + reconnect
-    ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
-    ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
-    ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
-    ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
-    ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
+sc_yes() {
+    if (WinActive("ahk_exe game.exe"))
+    {
+        ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *80 games/yes.jpg
+        if (ErrorLevel = 0)
+        {
+            MouseClick, left, FoundX, FoundY,,,D
+            Sleep 100
+            MouseClick, left, FoundX, FoundY,,,U
+        }
+    }
+}
 
-
-
-    ; next game
+sc_next_game() {
     if (WinActive("ahk_exe game.exe"))
     {
         ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *80 games/to_battle.jpg
@@ -76,7 +120,6 @@ cc() {
             MouseClick, left, FoundX, FoundY,,,D
             Sleep 100
             MouseClick, left, FoundX, FoundY,,,U
+        }
     }
-    }
-
 }
