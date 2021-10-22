@@ -52,10 +52,11 @@ sc_idle_breaker() {
     ControlSend,, {Blind}{1}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{4}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{2}, % "ahk_exe game.exe"
-    ; up/down is used for Waz'Got Battle Station
-    ControlSend,, {Blind}{3 down}{3 up}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{f}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{a}{d}, % "ahk_exe game.exe"
+    ControlSend,, {Blind}{space}, % "ahk_exe game.exe"
+    ; up/down is used for Waz'Got Battle Station
+    ControlSend,, {Blind}{3 down}{3 up}, % "ahk_exe game.exe"
 }
 
 ; Autoselect bonuses at game end
