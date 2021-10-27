@@ -34,17 +34,6 @@ cc() {
     sc_next_game()
 }
 
-
-    ; i think i might get rid of these lines
-
-    ; ; cancel any "unwelcomed goodies" + reconnect
-    ; ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
-    ; ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
-    ; ControlSend,, {Blind}{Esc}, % "ahk_exe game.exe"
-    ; ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
-    ; ControlSend,, {Blind}{Enter}, % "ahk_exe game.exe"
-
-
 sc_idle_breaker() {
     ControlSend,, {Blind}{w down}, % "ahk_exe game.exe"
     ControlSend,, {Blind}{w up}, % "ahk_exe game.exe"
