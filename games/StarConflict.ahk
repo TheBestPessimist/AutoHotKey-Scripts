@@ -17,7 +17,7 @@ cc() {
     SetKeyDelay, 200, 500
 
     ; debug
-    ControlSend,, {Blind}{PrintScreen}, % "ahk_exe game.exe"
+;    ControlSend,, {Blind}{PrintScreen}, % "ahk_exe game.exe"
 
     sc_close_chat()
     sc_idle_breaker()
