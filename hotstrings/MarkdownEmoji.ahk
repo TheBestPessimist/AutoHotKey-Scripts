@@ -47,8 +47,8 @@ In order to debug try running the hotstring with these options:
 :O::tada::🎉 `
 
 
-; :❓❓❓❓❓ - https://emojipedia.org/high-voltage/
-:O::todo::⚡ `
+;
+:O::todo::🚧 `
 
 
 ; customer is our king - https://emojipedia.org/crown/
@@ -63,5 +63,13 @@ In order to debug try running the hotstring with these options:
 :0::thup::👍 `
 
 
-; :pp: - https://emojis.wiki/pause-button/
+; :thumbsdown - https://emojipedia.org/thumbs-down/
+:O::`-1::👎 `
+:0::thdn::👎 `
+:0::thdown::👎 `
+
+
+
+; Pause - https://emojis.wiki/pause-button/
 :O::pp::⏸ `
+:O::pause::⏸ `
