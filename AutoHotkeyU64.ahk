@@ -38,7 +38,6 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include CapsLockToggle.ahk
 #include SoundBalance.ahk
 ; #include games/StarCraft2.ahk
-#include games/StarConflict.ahk
 #include FixKeyGhostPresses.ahk
 #include XmgFusion15.ahk
 

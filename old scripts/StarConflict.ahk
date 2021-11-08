@@ -1,4 +1,6 @@
-﻿
+﻿; Apparently I've been at it for years :^).
+; https://www.youtube.com/watch?v=78_-NiADUzs
+
 range(startx, endx, stepsize := 1) {
     stepsize := stepsize * (startx < endx ? 1 : -1)
     range_a := Array()
@@ -10,7 +12,7 @@ range(startx, endx, stepsize := 1) {
     return range_a
 }
 
-:X:.scmacro:: SetTimer, cc, % (togglem := !togglem) ? 1000: "Off"
+;:X:.scmacro:: SetTimer, cc, % (togglem := !togglem) ? 1000: "Off"
 
 CapsLock & m:: SetTimer, cc, % (togglem := !togglem) ? 1000: "Off"
 cc() {
