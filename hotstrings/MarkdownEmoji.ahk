@@ -58,6 +58,7 @@ In order to debug try running the hotstring with these options:
 :O::(tm)::™
 :O::tm::™
 
+
 ; :thumbsup - https://emojipedia.org/thumbs-up/
 :O::`+1::👍 `
 :0::thup::👍 `
@@ -69,7 +70,10 @@ In order to debug try running the hotstring with these options:
 :0::thdown::👎 `
 
 
-
 ; Pause - https://emojis.wiki/pause-button/
 :O::pp::⏸ `
 :O::pause::⏸ `
+
+
+; bocked by
+:O::block::⛔ `
