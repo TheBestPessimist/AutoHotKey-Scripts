@@ -1,5 +1,4 @@
-﻿global ahk_tf2 := "ahk_exe hl2.exe"
-
+﻿
 
 SetTimer, hideTeamviewerSponsoredsession, 5000
 

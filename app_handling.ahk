@@ -3,10 +3,8 @@
 
 
 #If WinActive("ahk_class SDL_app")
-
 j::Space
 k::PgUp
-
 #If
 
 
@@ -261,7 +259,7 @@ End::Return
 ; ------------------------------------------------
 
 
-; #If WinActive(ahk_tf2)
+; #If WinActive(WinTitles.tf2)
 ; ;-------------------------------------------------
 ; ; tf2: press reload and autoclick
 ; CapsLock & R::
@@ -272,7 +270,7 @@ End::Return
 
 ; ; ; stop autoclicking (for example if scoped -> stop scope and autoclicking)
 ; ; ~RButton::
-; ;     if (WinActive(ahk_tf2)
+; ;     if (WinActive(WinTitles.tf2)
 ; ;         && IsToggleOn("pressR")
 ; ;         && IsToggleOn("clickLMouse")) {
 ; ;             CallMethodWithTimer("pressR", 1)
@@ -283,13 +281,13 @@ End::Return
 ; #If
 
 ; ; pressR() {
-; ;      if (WinActive(ahk_tf2)) {
+; ;      if (WinActive(WinTitles.tf2)) {
 ; ;         SendInput {r}
 ; ;     }
 ; ; }
 
 ; clickLMouse(){
-;      if (WinActive(ahk_tf2)) {
+;      if (WinActive(WinTitles.tf2)) {
 ;         SendInput {LButton}
 ;     }
 ; }

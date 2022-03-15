@@ -1,5 +1,4 @@
 ﻿; WinTitle reference: https://autohotkey.com/docs/misc/WinTitle.htm#multi
-
 class WinTitles
 {
     static ModernApp := "ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe"
@@ -20,7 +19,5 @@ class WinTitles
     static MsTeams := "ahk_exe Teams.exe"
     static Telegram := "ahk_exe telegram.exe ahk_class Qt5153QWindowIcon"
     static SublimeText := "ahk_exe sublime_text.exe"
-
-
-
+    static tf2 := "ahk_exe hl2.exe"
 }
