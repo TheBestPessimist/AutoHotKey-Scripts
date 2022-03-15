@@ -26,22 +26,6 @@
 
 ; CapsLock & Numpad0: toggle Templar
 
-; CapsLock & Numpad9: toggle Marine
-
-; CapsLock & Numpad8: toggle Dragoon
-
-; CapsLock & Numpad7: toggle Medic
-
-; CapsLock & Numpad6: toggle Cyro
-
-; CapsLock & Numpad4: toggle Centurion
-
-; CapsLock & Numpad2: toggle Spectre
-
-; CapsLock & Numpad1: toggle upgrades (every 15 seconds)
-
-; CapsLock & NumpadMult (the *): save new Mouse position (The mouse has to be OVER THE TANK when you run this)
-
 ; CapsLock & Click: Send 100 clicks (useful for quick SP upgrades)
 
 ; CapsLock & F5: stop all macros at once
@@ -68,39 +52,15 @@ StarCraft2AutoExecute(){
 ; after autohotkey has started/reloaded
 StarCraft2AutoExecuteOnTimer()
 {
-    ; SC2.ToggleDragoonQ()
-    ; SC2.ToggleSpectrePlay()
-    ; SC2.ToggleTemplar()
-    ; SC2.ToggleMedic()
-    ; SC2.ToggleAutoupgrade()
-    ; SC2.ToggleCyro()
 }
 
+
 ; disabled
-; CapsLock & LButton::SC2.ClickManyTimes()
-
-CapsLock & NumpadMult::SC2.SaveMousePosition()
-
-; Dragoon is in group 8
-CapsLock & Numpad8::SC2.ToggleDragoonQ()
-
-; Medic is in group 7
-CapsLock & Numpad7::SC2.ToggleMedic()
-
-; Spectre is in group 2
-CapsLock & Numpad2::SC2.ToggleSpectrePlay()
-
-; Centurion is in group 4
-CapsLock & Numpad4::SC2.ToggleCenturionPlay()
-
-; Upgrade whatever is selected in group 1
-CapsLock & Numpad1::SC2.ToggleAutoupgrade()
-
-; Marine is in group 9
-CapsLock & Numpad9::SC2.ToggleMarine()
+CapsLock & LButton::SC2.ClickManyTimes()
 
 ; Templar is in group 0
-CapsLock & Numpad0::SC2.ToggleTemplar()
+CapsLock & .::SC2.ToggleTemplar()
+
 
 ; Cyro is in group 6
 CapsLock & Numpad6::SC2.ToggleCyro()
@@ -109,25 +69,11 @@ CapsLock & Numpad6::SC2.ToggleCyro()
 class SC2
 {
 ; ahk OOP is weird/stupid.
-; i have to make variables static, and still use `this.variable` when using them.
+; I have to make variables static, and still use `this.variable` when using them.
 ; It's kinda like JS with Prototype Object Inheritance
     static ahk_SC2 := "ahk_exe SC2_x64.exe"
 
-
-    static tankxPos := 0
-    static tankyPos := 0
-
-    static casterxPos := 0
-    static casteryPos := 0
-
-    static dragoonQMillis := 2000
-    static spectrePlayMillis := 1053
-    static centurionPlayMillis := 319
-    static autoupgradeMillis := 15003
-    static medicMillis := 2000
-    static marineMillis := 15000
-    static templarMillis := 4000
-    static cyroMillis := 5000
+    static templarMillis := 5000
 
 
     ; Save mouse position to use in SC2
@@ -154,18 +100,26 @@ class SC2
 
     ClickManyTimes()
     {
-        Loop, % 20
+        ; SendInput {Click, 3}
+
+        Loop, % 5
         {
-            Click, % 5
-            Sleep 1
+            ; MouseGetPos, xPos, yPos
+            ; ControlClick,, % this.ahk_SC2,, LEFT, 3, %  "NA" xPos yPos
+            ; Click, xPos, yPos, 3
+            Click
+            Sleep, 35
         }
+
+
     }
+
 
     ToggleDragoonQ()
     {
         ToggleTimerAndShowTooltip("SC2.DragoonQ", this.dragoonQMillis, SC2.DragoonQ.Bind(SC2))
     }
-    
+
     ToggleMedic()
     {
         ToggleTimerAndShowTooltip("SC2.Medic", this.medicMillis, SC2.Medic.Bind(SC2))
@@ -242,18 +196,18 @@ class SC2
             }
         }
 
-        ; use the saved position
-        x := this.cryoxPos
-        y := this.cryoyPos
+        ; ; use the saved position
+        ; x := this.cryoxPos
+        ; y := this.cryoyPos
 
-        ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
-        x := "x" . x
-        y := "y" . y
+        ; ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
+        ; x := "x" . x
+        ; y := "y" . y
 
-        ControlSend,, {Blind}{Raw}6ehh, % this.ahk_SC2
-        ControlSend,, {Blind}{Raw}6w, % this.ahk_SC2
-        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, {Blind}{Raw}6hh, % this.ahk_SC2
+        ControlSend,, {Blind}{Raw}1qwhh, % this.ahk_SC2
+        ; ControlSend,, {Blind}{Raw}6w, % this.ahk_SC2
+        ; ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ; ControlSend,, {Blind}{Raw}6hh, % this.ahk_SC2
     }
 
     Medic()
@@ -357,24 +311,37 @@ class SC2
         SetKeyDelay, 30, 10
         SetControlDelay 30
 
-        if (WinActive(this.ahk_SC2)) {
-            Tippy("Templar",, 0)
-            if(this.tankxPos = 0){
-                this.SaveMousePosition()
-            }
-        }
+        ; if (WinActive(this.ahk_SC2)) {
+        ;     Tippy("Templar",, 0)
+        ;     if(this.tankxPos = 0){
+        ;         this.SaveMousePosition()
+        ;     }
+        ; }
 
         ; use the saved position
-        x := this.casterxPos
-        y := this.casteryPos
+        ; x := this.casterxPos
+        ; y := this.casteryPos
 
         ; ControlClick, must have the coordinates as "x100 y100", not just "100 100"
-        x := "x" . x
-        y := "y" . y
+        ; x := "x" . x
+        ; y := "y" . y
+        ControlSend,, {Blind}{F2}{Raw}ce1h1vy1, % this.ahk_SC2
+        ; ControlSend,, {Blind}{F2}{Raw}ce1h11, % this.ahk_SC2
+        ; ControlSend,, {Blind}{4}{Raw}qwh, % this.ahk_SC2
 
-        ControlSend,, {Blind}{Raw}0q, % this.ahk_SC2
-        ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
-        ControlSend,, {Blind}{Raw}0h, % this.ahk_SC2
+        ; Send 1ba
+        ; Click
+        ; Send 1a
+        ; Click
+
+
+
+
+        ; ControlSend,, {Blind}{F2}{Raw}qw1h, % this.ahk_SC2
+        ; ControlSend,, {Blind}{F2}, % this.ahk_SC2
+
+        ; ControlClick,, % this.ahk_SC2,, LEFT, 1, %  "NA" x y
+        ; ControlSend,, {Blind}{Raw}0h, % this.ahk_SC2
     }
 
 
