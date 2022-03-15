@@ -77,3 +77,7 @@ In order to debug try running the hotstring with these options:
 
 ; bocked by
 :O::block::⛔ `
+
+; eyes 
+:O::check::👀 `
+:O::eyes::👀 `

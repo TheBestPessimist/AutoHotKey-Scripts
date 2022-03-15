@@ -5,7 +5,7 @@
 :O:c@tbp::cristian@tbp.land
 :O:c@gmail::cristian.nahsuc@gmail.com
 :O:c@metas::cristian.pasat@metasfresh.com
-:O:c@nagarro::cristian.pasat@nagarro.com
+:O:c@nagarro::cristian.pasat.ext@nagarro.com
 :O:@tbp::TheBestPessimist
 
 
