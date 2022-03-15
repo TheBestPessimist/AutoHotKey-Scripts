@@ -15,12 +15,12 @@ k::PgUp
 ;       CapsLock sublime text
 CapsLock & s::
 runSublimeText(){
-    if !WinExist(ahk_sublime) {
+    if !WinExist(WinTitles.SublimeText) {
       Run "C:\all\Sublime Text\sublime_text.exe"
-      WinWait % ahk_sublime
+      WinWait % WinTitles.SublimeText
     }
     Sleep 499
-    WinActivate % ahk_sublime
+    WinActivate % WinTitles.SublimeText
 }
 
 
@@ -162,7 +162,7 @@ getTaskbarDimensions(ByRef tw, ByRef th) {
 
 ;-------------------------------------------------
 ; Sublime Text: CapsLock & w to toggle word wrap
-#If WinActive(ahk_sublime)
+#If WinActive(WinTitles.SublimeText)
 CapsLock & w::
     SendInput ^+P
     Sleep 500
@@ -193,7 +193,7 @@ Return
 ; hide the Sublime Text message for unregistered copy
 ; #IfWinExist This is an unregistered copy ahk_exe sublime_text.exe
 ; hideSublimeRegister() {
-;     sublime_window := WinExist("This is an unregistered copy " . ahk_sublime)
+;     sublime_window := WinExist("This is an unregistered copy " . WinTitles.SublimeText)
 ;     if (sublime_window) {
 ;         WinActivate
 ;         SendInput {Esc}
