@@ -25,27 +25,27 @@ Menu, Tray, Icon, resources/blueStar.ico
 
 
 ; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
-#include appHandling_autoExecute.ahk
+#Include appHandling_autoExecute.ahk
 
 
 
 ; rest of everything
-#include lib/libdebug.ahk
+#Include lib/libdebug.ahk
 #Include app_handling.ahk
-#include lib/Tippy.ahk
-#include lib/ReloadScript.ahk
-#include PowerManager.ahk
-#include CapsLockToggle.ahk
-#include SoundBalance.ahk
-; #include games/StarCraft2.ahk
-#include FixKeyGhostPresses.ahk
-#include XmgFusion15.ahk
+#Include lib/Tippy.ahk
+#Include lib/ReloadScript.ahk
+#Include PowerManager.ahk
+#Include CapsLockToggle.ahk
+#Include SoundBalance.ahk
+; #Include games/StarCraft2.ahk
+#Include FixKeyGhostPresses.ahk
+#Include XmgFusion15.ahk
 
-#include hotstrings/MarkdownEmoji.ahk
-#include hotstrings/GenericHotstrings.ahk
-#include hotstrings/MarkdownHotstrings.ahk
-#include hotstrings/ResetHotstrings.ahk
-
+#Include hotstrings/MarkdownEmoji.ahk
+#Include hotstrings/GenericHotstrings.ahk
+#Include hotstrings/MarkdownHotstrings.ahk
+#Include hotstrings/ResetHotstrings.ahk
+#Include *i Private.ahk
 
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
