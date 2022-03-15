@@ -1,6 +1,6 @@
 ; telegram clients are retarded and want "__" instead of "_" for italics, bold respectively.
 ; (ノಠ益ಠ)ノ彡┻━┻ so much for CommonMarkdown
-#If WinActive(ahk_telegram)
+#If WinActive(WinTitles.Telegram)
     :OB0:__::__{left 2}
 #If
 

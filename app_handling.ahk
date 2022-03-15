@@ -37,11 +37,11 @@ runSublimeText(){
 CapsLock & t::
 startAndResizeTelegram()
 {
-    if !WinExist(ahk_telegram) {
+    if !WinExist(WinTitles.Telegram) {
         Run "C:\all\Telegram\Telegram.exe"
-        Winwait % ahk_telegram
+        Winwait % WinTitles.Telegram
         Sleep 499
-        WinActivate % ahk_telegram
+        WinActivate % WinTitles.Telegram
         ; select the most important chat
         Sleep 499
         SendInput {PgDn}
@@ -63,7 +63,7 @@ startAndResizeTelegram()
         h := A_ScreenHeight - th
         x := A_ScreenWidth - w
         y := 0
-        WinMove, % ahk_telegram, , x, y, w, h
+        WinMove, % WinTitles.Telegram, , x, y, w, h
 
 
 
@@ -122,7 +122,7 @@ startAndResizeTelegram()
         ; MouseMove, initial_x, initial_y
     }
     else {
-        WinActivate % ahk_telegram
+        WinActivate % WinTitles.Telegram
     }
 }
 
@@ -231,7 +231,7 @@ hideTeamviewerSponsoredsession() {
 ;-------------------------------------------------
 ; use just F4 to close some windows
 #If false
-    || WinActive(ahk_telegram)
+    || WinActive(WinTitles.Telegram)
     ; || WinActive(ahk_chrome)
     ; || WinActive(ahk_firefox)
     || WinActive(WinTitles.Vlc)
@@ -308,7 +308,7 @@ CapsLock & v::
         ClipWait 1
 
         Tippy("Opening mpv with: " Clipboard)
-        Run % "mpvnet.exe " Clipboard
+        Run % "C:\all\mpv.net\mpvnet.exe " Clipboard
 
         Clipboard := ClipSaved   ; Restore Clipboard
     }

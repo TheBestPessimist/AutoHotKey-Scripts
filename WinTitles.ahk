@@ -16,6 +16,7 @@
     static TeamViewer := "TeamViewer ahk_exe TeamViewer.exe"
     static ACDSee := "ahk_exe ACDSeeProfessional2018.exe"
     static MsTeams := "ahk_exe Teams.exe"
+    static Telegram := "ahk_exe telegram.exe ahk_class Qt5153QWindowIcon"
 
 
 
