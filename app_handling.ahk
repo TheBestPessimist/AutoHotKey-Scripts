@@ -265,29 +265,29 @@ End::Return
 ; ;-------------------------------------------------
 ; ; tf2: press reload and autoclick
 ; CapsLock & R::
-;     CallMethodWithTimer("pressR", 500)
+;     ; CallMethodWithTimer("pressR", 500)
 ;     CallMethodWithTimer("clickLMouse", 50)
-;
+
 ; Return
-;
-; ; stop autoclicking (for example if scoped -> stop scope and autoclicking)
-; ~RButton::
-;     if (WinActive(ahk_tf2)
-;         && IsToggleOn("pressR")
-;         && IsToggleOn("clickLMouse")) {
-;             CallMethodWithTimer("pressR", 1)
-;             CallMethodWithTimer("clickLMouse", 1)
-;     }
-;
+
+; ; ; stop autoclicking (for example if scoped -> stop scope and autoclicking)
+; ; ~RButton::
+; ;     if (WinActive(ahk_tf2)
+; ;         && IsToggleOn("pressR")
+; ;         && IsToggleOn("clickLMouse")) {
+; ;             CallMethodWithTimer("pressR", 1)
+; ;             CallMethodWithTimer("clickLMouse", 1)
+; ;     }
+
 ; Return
 ; #If
-;
-; pressR() {
-;      if (WinActive(ahk_tf2)) {
-;         SendInput {r}
-;     }
-; }
-;
+
+; ; pressR() {
+; ;      if (WinActive(ahk_tf2)) {
+; ;         SendInput {r}
+; ;     }
+; ; }
+
 ; clickLMouse(){
 ;      if (WinActive(ahk_tf2)) {
 ;         SendInput {LButton}
