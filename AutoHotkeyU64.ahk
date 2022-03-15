@@ -23,12 +23,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 Menu, Tray, Icon, resources/blueStar.ico
 
 
-
-; AUTOEXECUTE HAS TO BE THE FIRST IMPORTED THING
-#Include appHandling_autoExecute.ahk
-
-
-
 ; rest of everything
 #Include lib/libdebug.ahk
 #Include app_handling.ahk
