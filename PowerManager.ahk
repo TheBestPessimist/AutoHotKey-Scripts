@@ -33,4 +33,3 @@ RunWaitCommand(command) {
     ; Read and return the command's output
     return exec.StdOut.ReadAll()
 }
-
