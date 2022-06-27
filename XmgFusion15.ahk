@@ -20,7 +20,10 @@ XmgFusion15AutoExecute()
 
     static autoExecute := XmgFusion15AutoExecute()
 
-    changeKeyOrder()
+    ; changeKeyOrderUsingAutoHotInterception()
+
+    changeKeyOrderByDetectingUSBKeyboard()
+
 }
 
 
@@ -34,27 +37,67 @@ XmgFusion15AutoExecute()
 ;   and not the keys from other connected keyboards
 ;
 ; PROBLEM: this doesn't always block the original key therefore I have to use "subscription" mechanism instead of the easier to use "context"
-changeKeyOrder()
+; changeKeyOrderUsingAutoHotInterception()
+; {
+;     AHI := new AutoHotInterception()
+;     Fusion15KeyboardId := AHI.GetKeyboardIdFromHandle("ACPI\VEN_MSFT&DEV_0001", 1)
+;
+;     AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgUp"), true, Func("XmgKeyEventHandler").Bind("PgDn"))
+;     AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgDn"), true, Func("XmgKeyEventHandler").Bind("Home"))
+;     AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("Home"), true, Func("XmgKeyEventHandler").Bind("PgUp"))
+;
+;     Tippy("inside changeKeyOrder")
+; }
+;
+; XmgKeyEventHandler(newKey, state)
+; {
+;     if(state)
+;         Send % "{Blind}{" newKey " down}"
+;     else
+;         Send % "{Blind}{" newKey " up}"
+; }
+
+
+; The thing above is commented out, because Interception driver is fucked and after disconnecting and reconnecting ANY USB device multiple times,
+; all usb devices stop working.
+; Source: https://www.autohotkey.com/boards/viewtopic.php?f=76&p=439480
+changeKeyOrderByDetectingUSBKeyboard()
 {
-    AHI := new AutoHotInterception()
-    Fusion15KeyboardId := AHI.GetKeyboardIdFromHandle("ACPI\VEN_MSFT&DEV_0001", 1)
-
-    AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgUp"), true, Func("XmgKeyEventHandler").Bind("PgDn"))
-    AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgDn"), true, Func("XmgKeyEventHandler").Bind("Home"))
-    AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("Home"), true, Func("XmgKeyEventHandler").Bind("PgUp"))
-
-    Tippy("inside changeKeyOrder")
+    OnMessage(0x219, "onUsbDeviceChangeTimer")
 }
 
-XmgKeyEventHandler(newKey, state)
+onUsbDeviceChangeTimer()
 {
-    if(state)
-        Send % "{Blind}{" newKey " down}"
+    SetTimer % "onUsbDeviceChange", -2000
+}
+
+global usbKeyboardAttached := false
+onUsbDeviceChange()
+{
+    global usbKeyboardAttached
+    static corsairKeyboardDeviceId := "HID\VID_1B1C&PID_1B13&MI_00&COL01\8&270545BF&0&0000"
+
+    saveClipboard()
+
+    PS := "Get-WmiObject Win32_PNPEntity | Sort-Object -Property DeviceID | Format-Table DeviceID | clip"
+    RunWait, PowerShell.exe -Command "%PS%",, Hide
+    found := InStr(Clipboard, corsairKeyboardDeviceId)
+    if found
+        usbKeyboardAttached := true
     else
-        Send % "{Blind}{" newKey " up}"
+        usbKeyboardAttached := false
+
+    restoreClipboard()
 }
 
 
+#If !usbKeyboardAttached
+{
+     PgUp::PgDn
+     PgDn::Home
+     Home::PgUp
+}
+#if
 
 
 
@@ -104,15 +147,7 @@ sc178 & 9::NumPad9
 ;sc178 & F5::return
 
 
-
-; ====
-; ==== Fn Lock
-;
-; still todo
-
-
 ; ====
 ; ==== Disable insert key
 ;
-
 Insert::Return
