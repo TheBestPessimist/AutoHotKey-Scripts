@@ -6,7 +6,7 @@ Ref: https://www.autohotkey.com/boards/viewtopic.php?p=276407
 */
 
 ~^v::Hotstring("Reset")
-~Home::Hotstring("Reset")
+; ~Home::Hotstring("Reset") ; commented out because of XMG Fusions' stupid key layout workaround
 ~End::Hotstring("Reset")
 ~Left::Hotstring("Reset")
 ~Right::Hotstring("Reset")
