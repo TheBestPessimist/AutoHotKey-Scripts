@@ -1,4 +1,6 @@
 ﻿#Include WinTitles.ahk
+#include lib/clipboard.ahk
+
 
 ; There is no need for a standard ahk auto-execute area anymore because of this method.
 ; This method is called automatically when the static variable autoExecute is instantiated,
@@ -308,8 +310,7 @@ End::Return
 
 CapsLock & v::
     openInMpv() {
-        ClipSaved := ClipboardAll   ; Backup Clipboard
-        clipboard := ""
+        saveClipboard()
 
         Send ^l
         Sleep 100
@@ -321,7 +322,7 @@ CapsLock & v::
         Tippy("Opening mpv with: " Clipboard)
         Run % "C:\all\mpv.net\mpvnet.exe " Clipboard
 
-        Clipboard := ClipSaved   ; Restore Clipboard
+       restoreClipboard()
     }
 
 
