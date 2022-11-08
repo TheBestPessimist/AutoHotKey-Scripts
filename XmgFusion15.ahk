@@ -64,6 +64,7 @@ XmgFusion15AutoExecute()
 changeKeyOrderByDetectingUSBKeyboard()
 {
     OnMessage(0x219, "onUsbDeviceChangeTimer")
+    onUsbDeviceChangeTimer()
 }
 
 onUsbDeviceChangeTimer()
