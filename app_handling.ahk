@@ -29,7 +29,7 @@ k::PgUp
 CapsLock & s::
 runSublimeText(){
     if !WinExist(WinTitles.SublimeText) {
-      Run "C:\all\Sublime Text\sublime_text.exe"
+      Run "D:\all\all\Sublime Text\sublime_text.exe"
       WinWait % WinTitles.SublimeText
     }
     Sleep 499
@@ -51,7 +51,7 @@ CapsLock & t::
 startAndResizeTelegram()
 {
     if !WinExist(WinTitles.Telegram) {
-        Run "C:\all\Telegram\Telegram.exe"
+        Run "D:\all\all\Telegram\Telegram.exe"
         Winwait % WinTitles.Telegram
         Sleep 499
         WinActivate % WinTitles.Telegram
@@ -261,9 +261,12 @@ F4:: SendInput !{F4}
 
 
 ;-------------------------------------------------
-; disable End in AcdSee
+; disable Home/End in AcdSee
 #If  WinActive(WinTitles.ACDSee)
+Home::Return
 End::Return
+Ctrl & Home::Home
+Ctrl & End::End
 #If
 
 ; ------------------------------------------------
@@ -320,7 +323,7 @@ CapsLock & v::
         ClipWait 1
 
         Tippy("Opening mpv with: " Clipboard)
-        Run % "C:\all\mpv.net\mpvnet.exe " Clipboard
+        Run % "D:\all\all\mpv.net\mpvnet.exe " Clipboard
 
        restoreClipboard()
     }
