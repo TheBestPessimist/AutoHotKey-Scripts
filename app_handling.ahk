@@ -180,7 +180,7 @@ CapsLock & w::
     SendInput ^+P
     Sleep 500
     SendInput wwp
-    Sleep 500
+    Sleep 1500
     SendInput {Enter}
 Return
 #If
