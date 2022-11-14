@@ -76,17 +76,14 @@ global usbKeyboardAttached := false
 onUsbDeviceChange()
 {
     global usbKeyboardAttached
-    static corsairKeyboardDeviceId := "HID\VID_1B1C&PID_1B13&MI_00&COL01\8&270545BF&0&0000"
+    static corsairKeyboardDeviceId := "HID\VID_1B1C&PID_1B13&MI_00&COL01"
 
     saveClipboard()
 
     PS := "Get-WmiObject Win32_PNPEntity | Sort-Object -Property DeviceID | Format-Table DeviceID | clip"
     RunWait, PowerShell.exe -Command "%PS%",, Hide
-    found := InStr(Clipboard, corsairKeyboardDeviceId)
-    if found
-        usbKeyboardAttached := true
-    else
-        usbKeyboardAttached := false
+
+    usbKeyboardAttached := InStr(Clipboard, corsairKeyboardDeviceId)
 
     restoreClipboard()
 }
