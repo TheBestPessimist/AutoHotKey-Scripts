@@ -3,7 +3,7 @@
 ; The Fn key has Scan Code 178
 
 
-#include lib\AutoHotInterception\AutoHotInterception.ahk
+;#include lib\AutoHotInterception\AutoHotInterception.ahk
 
 
 
