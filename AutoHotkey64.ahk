@@ -1,4 +1,4 @@
-#Requires AutoHotkey v2.0-beta
+#Requires AutoHotkey v2.0
 
 #SingleInstance Force
 ;#WinActivateForce ; disabled to check if AHK v2 works better than AHK V1
