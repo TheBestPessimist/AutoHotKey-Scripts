@@ -26,7 +26,6 @@ Menu, Tray, Icon, resources/blueStar.ico
 ; rest of everything
 #include lib/clipboard.ahk
 #Include lib/libdebug.ahk
-#Include app_handling.ahk
 #Include lib/Tippy.ahk
 #Include PowerManager.ahk
 #Include CapsLockToggle.ahk
