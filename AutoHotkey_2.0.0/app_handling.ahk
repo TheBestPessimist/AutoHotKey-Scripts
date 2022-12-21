@@ -1,5 +1,5 @@
 ﻿#Include WinTitles.ahk
-;#include lib/clipboard.ahk
+#include lib/clipboard.ahk
 
 
 ;; There is no need for a standard ahk auto-execute area anymore because of this method.
@@ -236,25 +236,26 @@ Ctrl & Home::Home
 Ctrl & End::End
 #HotIf
 
-;CapsLock & v::
-;    openInMpv() {
-;        saveClipboard()
-;
-;        Send {Blind}^l
-;        Sleep 100
-;        Send {Blind}^a
-;        Sleep 100
-;        Send {Blind}^c
-;        ClipWait 1
-;
-;        Tippy("Opening mpv with: " Clipboard)
-;        Run % "D:\all\all\mpv.net\mpvnet.exe " Clipboard
-;
-;       restoreClipboard()
-;    }
-;
-;
-;
+;-----------------------
+;  Open an url in MPV
+CapsLock & v:: {
+    saveClipboard()
+
+    Send "{Blind}^l"
+    Sleep 100
+    Send "{Blind}^a"
+    Sleep 100
+    Send "{Blind}^c"
+    ClipWait 1
+
+;        Tippy("Opening mpv with: " A_Clipboard)
+    Run("D:\all\all\mpv.net\mpvnet.exe " A_Clipboard)
+
+   restoreClipboard()
+}
+
+
+
 ;-----------------------
 ; Microshitsoft Teams is fucking retarded
 ;
