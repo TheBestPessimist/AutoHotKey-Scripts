@@ -25,7 +25,7 @@ InstallMouseHook
 ;#Include lib/Tippy.ahk
 #Include lib/ReloadScript.ahk
 ;#Include PowerManager.ahk
-;#Include CapsLockToggle.ahk
+#Include CapsLockToggle.ahk
 ;#Include SoundBalance.ahk
 ;; #Include games/StarCraft2.ahk
 ;#Include FixKeyGhostPresses.ahk
