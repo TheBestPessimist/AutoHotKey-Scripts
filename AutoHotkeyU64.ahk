@@ -27,7 +27,6 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include lib/clipboard.ahk
 #Include lib/libdebug.ahk
 #Include lib/Tippy.ahk
-#Include PowerManager.ahk
 ; #Include games/StarCraft2.ahk
 #Include FixKeyGhostPresses.ahk
 #Include XmgFusion15.ahk
@@ -36,4 +35,3 @@ Menu, Tray, Icon, resources/blueStar.ico
 #Include hotstrings/GenericHotstrings.ahk
 #Include hotstrings/MarkdownHotstrings.ahk
 #Include hotstrings/ResetHotstrings.ahk
-#Include *i Private.ahk

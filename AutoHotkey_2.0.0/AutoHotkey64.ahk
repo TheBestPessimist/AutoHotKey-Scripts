@@ -19,12 +19,10 @@ InstallMouseHook
 
 
 ;; rest of everything
-;#include lib/clipboard.ahk
 ;#Include lib/libdebug.ahk
 #Include app_handling.ahk
 ;#Include lib/Tippy.ahk
 #Include lib/ReloadScript.ahk
-;#Include PowerManager.ahk
 #Include CapsLockToggle.ahk
 ;#Include SoundBalance.ahk
 ;; #Include games/StarCraft2.ahk
@@ -35,7 +33,7 @@ InstallMouseHook
 ;#Include hotstrings/GenericHotstrings.ahk
 ;#Include hotstrings/MarkdownHotstrings.ahk
 ;#Include hotstrings/ResetHotstrings.ahk
-;#Include *i Private.ahk
+#Include *i Private.ahk
 
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
