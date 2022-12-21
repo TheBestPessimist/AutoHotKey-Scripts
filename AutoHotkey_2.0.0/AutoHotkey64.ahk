@@ -19,19 +19,18 @@ InstallMouseHook
 
 
 ;; rest of everything
+;#Include lib/Tippy.ahk
 ;#Include lib/libdebug.ahk
 #Include app_handling.ahk
-;#Include lib/Tippy.ahk
 #Include lib/ReloadScript.ahk
 #Include CapsLockToggle.ahk
-;#Include SoundBalance.ahk
-;; #Include games/StarCraft2.ahk
 #Include XmgFusion15.ahk
-;
+
 ;#Include hotstrings/MarkdownEmoji.ahk
 ;#Include hotstrings/GenericHotstrings.ahk
 ;#Include hotstrings/MarkdownHotstrings.ahk
 ;#Include hotstrings/ResetHotstrings.ahk
+
 #Include *i Private.ahk
 
 ;-------------------------------------------------
