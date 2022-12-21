@@ -11,11 +11,11 @@ InstallMouseHook
 
 ; Change the icon in taskbar
 ; Ref: https://github.com/TaranVH/2nd-keyboard/blob/master/INFO_and_PROFILES/system32-shell32_dll.png
-; Menu, Tray, Icon, shell32.dll, 303 ; changes tray icon to a  check mark
-; Menu, Tray, Icon, shell32.dll, 16 ; change tray icon to a little laptop
-; Menu, Tray, Icon, shell32.dll, 321 ; change tray icon to a blue star
-; Menu, Tray, Icon, shell32.dll, 44 ; change tray icon to a yellow star
-;Menu, Tray, Icon, resources/blueStar.ico ; TODO
+; TraySetIcon "shell32.dll", 303 ; changes tray icon to a  check mark
+; TraySetIcon "shell32.dll", 16 ; change tray icon to a little laptop
+; TraySetIcon "shell32.dll", 321 ; change tray icon to a blue star
+; TraySetIcon "shell32.dll", 44 ; change tray icon to a yellow star
+TraySetIcon("resources/blueStar.ico")
 
 
 ;; rest of everything
