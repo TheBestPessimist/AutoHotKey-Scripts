@@ -2,21 +2,6 @@
 #include lib/clipboard.ahk
 
 
-;; There is no need for a standard ahk auto-execute area anymore because of this method.
-;; This method is called automatically when the static variable autoExecute is instantiated,
-;; and since it's a static, it will only be instantiated once!
-;;
-;; Idea provided by @nnnik#6686 on the AHK Discord Server: https://discord.gg/s3Fqygv
-;AppHandlingAutoExecute()
-;{
-;    static autoExecute := AppHandlingAutoExecute()
-;
-;    SetTimer, hideTeamviewerSponsoredSession, 5000
-;
-;    ; 2018.09.07: no need for this as sublime text is licensed now!
-;    ; SetTimer, hideSublimeRegister, 1000
-;}
-
 #HotIf WinActive("ahk_class SDL_app")
 j::Space
 k::PgUp
