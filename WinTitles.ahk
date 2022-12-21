@@ -20,4 +20,5 @@ class WinTitles
     static Telegram := "ahk_exe telegram.exe ahk_class Qt5154QWindowIcon"
     static SublimeText := "ahk_exe sublime_text.exe"
     static tf2 := "ahk_exe hl2.exe"
+    static windowsCredentials := "Windows Security"
 }
