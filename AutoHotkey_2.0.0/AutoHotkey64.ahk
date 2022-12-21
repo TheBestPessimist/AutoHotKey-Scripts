@@ -65,22 +65,20 @@ XBUtton2::SendInput "{Volume_Up 1}"
 
 ;------------------------------------------------
 ; caps lock + space => always on top
-;CapsLock & SPACE::  Winset, Alwaysontop, , A
+CapsLock & SPACE::WinSetAlwaysOnTop(-1, "A")
 
 
 
-;;------------------------------------------------
-;; caps lock + 1 => sleep screen
-;CapsLock & 1::
-;{
-;    Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
-;    SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into off mode
-;    ; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
-;    Sleep 2000
-;    SendMessage 0x112, 0xF170, 2,,Program Manager
-;    Return
-;}
-;
+;------------------------------------------------
+; caps lock + 1 => sleep screen
+CapsLock & 1::{
+    Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
+    SendMessage(0x112, 0xF170, 2,, "Program Manager") ; send the monitor into off mode
+    ; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
+    Sleep 2000
+    SendMessage(0x112, 0xF170, 2,, "Program Manager")
+}
+
 
 
 
