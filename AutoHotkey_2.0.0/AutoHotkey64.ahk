@@ -1,3 +1,5 @@
+#Requires AutoHotkey v2.0-beta
+
 #SingleInstance Force
 ;#WinActivateForce ; disabled to check if AHK v2 works better than AHK V1
 InstallKeybdHook
@@ -19,7 +21,7 @@ InstallMouseHook
 ;; rest of everything
 ;#include lib/clipboard.ahk
 ;#Include lib/libdebug.ahk
-;#Include app_handling.ahk
+#Include app_handling.ahk
 ;#Include lib/Tippy.ahk
 #Include lib/ReloadScript.ahk
 ;#Include PowerManager.ahk
