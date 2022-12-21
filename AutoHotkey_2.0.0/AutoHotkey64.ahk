@@ -26,7 +26,7 @@ InstallMouseHook
 #Include CapsLockToggle.ahk
 #Include XmgFusion15.ahk
 
-;#Include hotstrings/MarkdownEmoji.ahk
+#Include hotstrings/MarkdownEmoji.ahk
 #Include hotstrings/GenericHotstrings.ahk
 ;#Include hotstrings/MarkdownHotstrings.ahk
 ;#Include hotstrings/ResetHotstrings.ahk
