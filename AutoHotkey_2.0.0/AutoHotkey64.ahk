@@ -28,7 +28,7 @@ InstallMouseHook
 
 #Include hotstrings/MarkdownEmoji.ahk
 #Include hotstrings/GenericHotstrings.ahk
-;#Include hotstrings/MarkdownHotstrings.ahk
+#Include hotstrings/MarkdownHotstrings.ahk
 ;#Include hotstrings/ResetHotstrings.ahk
 
 #Include *i Private.ahk
