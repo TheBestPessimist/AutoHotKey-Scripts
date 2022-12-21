@@ -2,7 +2,7 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-#SingleInstance force
+#SingleInstance Force
 #MaxHotkeysPerInterval 200
 #WinActivateForce
 #InstallKeybdHook
@@ -28,10 +28,8 @@ Menu, Tray, Icon, resources/blueStar.ico
 #Include lib/libdebug.ahk
 #Include app_handling.ahk
 #Include lib/Tippy.ahk
-#Include lib/ReloadScript.ahk
 #Include PowerManager.ahk
 #Include CapsLockToggle.ahk
-#Include SoundBalance.ahk
 ; #Include games/StarCraft2.ahk
 #Include FixKeyGhostPresses.ahk
 #Include XmgFusion15.ahk
@@ -41,58 +39,3 @@ Menu, Tray, Icon, resources/blueStar.ico
 #Include hotstrings/MarkdownHotstrings.ahk
 #Include hotstrings/ResetHotstrings.ahk
 #Include *i Private.ahk
-
-;-------------------------------------------------
-;   Handle multiple virtual desktops
-CapsLock & D:: SendInput ^#{Right}
-CapsLock & A:: SendInput ^#{Left}
-
-
-
-;-------------------------------------------------
-;       CapsLock media keys
-CapsLock & Right::SendInput {Media_Next}
-CapsLock & Left::SendInput {Media_Prev}
-CapsLock & Up::SendInput {Media_Play_Pause}
-CapsLock & Down::SendInput {Media_Play_Pause}
-
-
-
-;-------------------------------------------------
-;       CapsLock volume
-CapsLock & 3::SendInput {Volume_Down 1}
-CapsLock & 4::SendInput {Volume_Up 1}
-
-
-;-------------------------------------------------
-;       Mouse buttons Volume
-XButton1::SendInput {Volume_Down 1}
-XBUtton2::SendInput {Volume_Up 1}
-
-
-;------------------------------------------------
-; caps lock + space => always on top
-CapsLock & SPACE::  Winset, Alwaysontop, , A
-
-
-
-;------------------------------------------------
-; caps lock + 1 => sleep screen
-CapsLock & 1::
-{
-    Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
-    SendMessage 0x112, 0xF170, 2,,Program Manager ; send the monitor into off mode
-    ; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
-    Sleep 2000
-    SendMessage 0x112, 0xF170, 2,,Program Manager
-    Return
-}
-
-
-
-
-
-
-;------------------------------------------------
-; CapsLock + P: Toggle between "Power saver" and "Balanced" powers schemes
-;CapsLock & P::TogglePowerScheme()
