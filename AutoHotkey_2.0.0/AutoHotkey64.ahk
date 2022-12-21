@@ -21,7 +21,7 @@ InstallMouseHook
 ;#Include lib/libdebug.ahk
 ;#Include app_handling.ahk
 ;#Include lib/Tippy.ahk
-;#Include lib/ReloadScript.ahk
+#Include lib/ReloadScript.ahk
 ;#Include PowerManager.ahk
 ;#Include CapsLockToggle.ahk
 ;#Include SoundBalance.ahk
