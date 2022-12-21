@@ -1,4 +1,4 @@
-﻿SetTimer(() => SetCapsLockState("AlwaysOff"), -1)
+﻿SetCapsLockState("AlwaysOff")
 
 CapsLock & Alt:: {
     static state := 0
@@ -8,7 +8,7 @@ CapsLock & Alt:: {
 ;        Tippy("CapsLock is: ON", 99999999)
     }
     else {
-;        Tippy("CapsLock is: off")
         SetCapsLockState("AlwaysOff")
+;        Tippy("CapsLock is: off")
     }
 }

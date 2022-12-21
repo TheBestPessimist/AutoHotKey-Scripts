@@ -28,8 +28,7 @@ Menu, Tray, Icon, resources/blueStar.ico
 #Include lib/libdebug.ahk
 #Include lib/Tippy.ahk
 ; #Include games/StarCraft2.ahk
-#Include FixKeyGhostPresses.ahk
-#Include XmgFusion15.ahk
+;#Include FixKeyGhostPresses.ahk
 
 #Include hotstrings/MarkdownEmoji.ahk
 #Include hotstrings/GenericHotstrings.ahk
