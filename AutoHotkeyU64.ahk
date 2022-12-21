@@ -27,8 +27,3 @@ Menu, Tray, Icon, resources/blueStar.ico
 #include lib/clipboard.ahk
 #Include lib/libdebug.ahk
 #Include lib/Tippy.ahk
-
-#Include hotstrings/MarkdownEmoji.ahk
-#Include hotstrings/GenericHotstrings.ahk
-#Include hotstrings/MarkdownHotstrings.ahk
-#Include hotstrings/ResetHotstrings.ahk
