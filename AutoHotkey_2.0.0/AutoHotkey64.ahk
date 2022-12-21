@@ -26,7 +26,6 @@ InstallMouseHook
 #Include CapsLockToggle.ahk
 ;#Include SoundBalance.ahk
 ;; #Include games/StarCraft2.ahk
-;#Include FixKeyGhostPresses.ahk
 #Include XmgFusion15.ahk
 ;
 ;#Include hotstrings/MarkdownEmoji.ahk
