@@ -6,7 +6,6 @@ class WinTitles
     static ModernSkype := [WinTitles.ModernApp, "Skype"]
     static ModernPhotos := [WinTitles.ModernApp, "Photos"]
     static Vlc := "ahk_exe vlc.exe"
-    static Goland := "ahk_exe goland64.exe"
     static IntellijIdea := "ahk_exe idea64.exe"
     static CorsairCUE := "ahk_class CUEBorderlessWindow ahk_exe iCUE.exe"
     static BattleNet := "ahk_exe Battle.net.exe"
@@ -16,7 +15,7 @@ class WinTitles
     static TeamViewerSponsoredSession := "Sponsored session ahk_exe TeamViewer.exe"
     static TeamViewer := "TeamViewer ahk_exe TeamViewer.exe"
     static ACDSee := "ahk_exe ACDSeeProfessional2018.exe"
-    static MsTeams := "ahk_exe Teams.exe"
+    static Feces := "ahk_exe Teams.exe"
     static Telegram := "ahk_exe telegram.exe ahk_class Qt5154QWindowIcon"
     static SublimeText := "ahk_exe sublime_text.exe"
     static tf2 := "ahk_exe hl2.exe"

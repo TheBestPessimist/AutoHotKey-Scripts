@@ -1,3 +1,6 @@
+﻿todo: better position changing: https://learn.microsoft.com/en-us/windows/win32/controls/implement-tracking-tooltips
+
+
 ; Show a ToolTip which follows the mouse for a specific duration.
 ; Multiple ToolTips are stacked vertically, so no information is hidden.
 ;
