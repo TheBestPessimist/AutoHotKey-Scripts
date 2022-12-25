@@ -171,7 +171,7 @@ CapsLock & v:: {
     Send "{Blind}^c"
     ClipWait 1
 
-;        Tippy("Opening mpv with: " A_Clipboard)
+    Tippy("Opening mpv with: " A_Clipboard)
     Run("D:\all\all\mpv.net\mpvnet.exe " A_Clipboard)
 
    restoreClipboard()
