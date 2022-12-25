@@ -19,8 +19,8 @@ TraySetIcon("resources/blueStar.ico")
 
 
 ;; rest of everything
-;#Include lib/Tippy.ahk
-;#Include lib/libdebug.ahk
+#Include lib/Tippy.ahk
+#Include lib/libdebug.ahk
 #Include app_handling.ahk
 #Include lib/ReloadScript.ahk
 #Include CapsLockToggle.ahk

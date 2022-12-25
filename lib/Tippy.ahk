@@ -113,6 +113,8 @@ class TT {
         ttData.WhichToolTip := whichToolTip
         ttData.extraOffsetY := extraOffsetY
         ttData.Hwnd := ""
+        ttData.ToolTipHeight := 0
+        ttData.YOffset := ""
 
         Sleep 2
     }
@@ -120,25 +122,21 @@ class TT {
 
     GetUnusedToolTip(text) {
         ; firstly go through all tooltips to check if this one is not already shown
-        For whichToolTip, ttData in this.ToolTipData
-        {
-            if(ttData.CurrentText == text)
-            {
+        For whichToolTip, ttData in this.ToolTipData {
+            if(ttData.CurrentText == text) {
                 return whichToolTip
             }
         }
 
         ; if no tooltips with same text is shown, then return a new one
         whichToolTip := 2
-        While (whichToolTip <= this.MaxWhichToolTip)
-        {
-            if(!this.ToolTipData[whichToolTip])
-            {
+        While (whichToolTip <= this.MaxWhichToolTip) {
+            if(!this.ToolTipData.Has(whichToolTip)) {
                 return whichToolTip
             }
             whichToolTip++
         }
-        Return this.DefaultWhichToolTip
+        return this.DefaultWhichToolTip
     }
 
 
@@ -311,8 +309,7 @@ class TT {
         static screens := 0
 
         newMonitorCount := MonitorGetCount()
-        if (monitorCount != newMonitorCount)
-        {
+        if (monitorCount != newMonitorCount) {
             monitorCount := newMonitorCount
 
             screens := []

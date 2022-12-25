@@ -7,10 +7,10 @@ CapsLock & Alt:: {
     state := !state
     if state {
         SetCapsLockState("AlwaysOn")
-        Tippy("CapsLock is: ON", 99999999999999)
+        Tippy("CapsLock is: ON", 99999999999999, 15)
     }
     else {
         SetCapsLockState("AlwaysOff")
-        Tippy("CapsLock is: off")
+        Tippy("CapsLock is: off",, 15)
     }
 }
