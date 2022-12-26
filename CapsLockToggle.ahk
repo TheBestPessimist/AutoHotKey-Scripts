@@ -1,52 +1,16 @@
-﻿; There is no need for a standard ahk auto-execute area anymore because of this method.
-; This method is called automatically when the static variable autoExecute is instantiated,
-; and since it's a static, it will only be instantiated once!
-;
-; Idea provided by @nnnik#6686 on the AHK Discord Server: https://discord.gg/s3Fqygv
-CapsLockToggleAutoExecute()
-{
-    static autoExecute := CapsLockToggleAutoExecute()
+﻿#Include lib/Tippy.ahk
 
-    ; Every second enforce the correct CapsLock state
-    SetTimer, enforceCapsLockState, 1000
+SetCapsLockState("AlwaysOff")
 
-    ; Sometimes i may want to use caps. This is a toggle to control that.
-    global CapsLockState := "off"
-}
-
-; disable normal CapsLock usage
-CapsLock::return
-
-enforceCapsLockState()
-{
-    global CapsLockState
-
-    if (CapsLockState = "on")
-    {
-        SetCapsLockState On
-        Tippy("CapsLock is: ON")
+CapsLock & Alt:: {
+    static state := 0
+    state := !state
+    if state {
+        SetCapsLockState("AlwaysOn")
+        Tippy("CapsLock is: ON", 99999999999999, 15)
     }
-    else if(CapsLockState = "off")
-    {
-        SetCapsLockState Off
+    else {
+        SetCapsLockState("AlwaysOff")
+        Tippy("CapsLock is: off",, 15)
     }
-}
-
-
-CapsLock & Alt::
-ToggleCapsLockState()
-{
-    Critical
-    global CapsLockState
-
-    if (CapsLockState = "on")
-    {
-        CapsLockState := "off"
-        Tippy("CapsLock is: off")
-    }
-    else if(CapsLockState = "off")
-    {
-        CapsLockState := "on"
-    }
-    enforceCapsLockState()
 }

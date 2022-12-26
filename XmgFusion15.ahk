@@ -1,30 +1,7 @@
-; XMG Fusion 15 Improved keyboard shortcuts, plus Fn Lock functionality
+﻿; XMG Fusion 15 Improved keyboard shortcuts, plus Fn Lock functionality
 
 ; The Fn key has Scan Code 178
 
-
-;#include lib\AutoHotInterception\AutoHotInterception.ahk
-
-
-
-; There is no need for a standard ahk auto-execute area anymore because of this method.
-; This method is called automatically when the static variable autoExecute is instantiated,
-; and since it's a static, it will only be instantiated once!
-;
-; Idea provided by @nnnik#6686 on the AHK Discord Server: https://discord.gg/s3Fqygv
-XmgFusion15AutoExecute()
-{
-    if (A_ComputerName != "tbp-fusion") {
-        return
-    }
-
-    static autoExecute := XmgFusion15AutoExecute()
-
-    ; changeKeyOrderUsingAutoHotInterception()
-
-    changeKeyOrderByDetectingUSBKeyboard()
-
-}
 
 
 ; ====
@@ -33,69 +10,39 @@ XmgFusion15AutoExecute()
 ; Initial order: Home, PgUp, PgDown, End (like, WTF Intel?)
 ; Correct order: PgUp, PgDown, Home, End (duuuh)
 ;
-; This is done  using AutoHotInterception library, so that only the keys from the laptop are changed,
-;   and not the keys from other connected keyboards
+; This thing was done originally using Interception but now is changed,
+; because Interception driver is fucked and after disconnecting and reconnecting ANY USB device
+; multiple times, all usb devices stop working.
 ;
-; PROBLEM: this doesn't always block the original key therefore I have to use "subscription" mechanism instead of the easier to use "context"
-; changeKeyOrderUsingAutoHotInterception()
-; {
-;     AHI := new AutoHotInterception()
-;     Fusion15KeyboardId := AHI.GetKeyboardIdFromHandle("ACPI\VEN_MSFT&DEV_0001", 1)
-;
-;     AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgUp"), true, Func("XmgKeyEventHandler").Bind("PgDn"))
-;     AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("PgDn"), true, Func("XmgKeyEventHandler").Bind("Home"))
-;     AHI.SubscribeKey(Fusion15KeyboardId, GetKeySC("Home"), true, Func("XmgKeyEventHandler").Bind("PgUp"))
-;
-;     Tippy("inside changeKeyOrder")
-; }
-;
-; XmgKeyEventHandler(newKey, state)
-; {
-;     if(state)
-;         Send % "{Blind}{" newKey " down}"
-;     else
-;         Send % "{Blind}{" newKey " up}"
-; }
-
-
-; The thing above is commented out, because Interception driver is fucked and after disconnecting and reconnecting ANY USB device multiple times,
-; all usb devices stop working.
+; Instead, I'm listening to the "usb device changed" message and searching for my external keyboard HID.
 ; Source: https://www.autohotkey.com/boards/viewtopic.php?f=76&p=439480
-changeKeyOrderByDetectingUSBKeyboard()
-{
-    OnMessage(0x219, "onUsbDeviceChangeTimer")
-    onUsbDeviceChangeTimer()
+init()
+
+init() {
+    global IsUsbKeyboardAttached := false
+    OnMessage(0x219, (*) => SetTimer(onUsbDeviceChange, -2000))
+    SetTimer(onUsbDeviceChange, -2000)
 }
 
-onUsbDeviceChangeTimer()
-{
-    SetTimer % "onUsbDeviceChange", -2000
-}
-
-global usbKeyboardAttached := false
-onUsbDeviceChange()
-{
-    global usbKeyboardAttached
+onUsbDeviceChange(*) {
+    global IsUsbKeyboardAttached
     static corsairKeyboardDeviceId := "HID\VID_1B1C&PID_1B13&MI_00&COL01"
 
     saveClipboard()
 
-    PS := "Get-WmiObject Win32_PNPEntity | Sort-Object -Property DeviceID | Format-Table DeviceID | clip"
-    RunWait, PowerShell.exe -Command "%PS%",, Hide
+    PS := '"Get-WmiObject Win32_PNPEntity | Sort-Object -Property DeviceID | Format-Table DeviceID | clip"'
+    RunWait('PowerShell.exe -Command ' PS,, "Hide")
 
-    usbKeyboardAttached := InStr(Clipboard, corsairKeyboardDeviceId)
+    IsUsbKeyboardAttached := InStr(A_Clipboard, corsairKeyboardDeviceId)
 
     restoreClipboard()
 }
 
-
-#If !usbKeyboardAttached
-{
-     PgUp::PgDn
-     PgDn::Home
-     Home::PgUp
-}
-#if
+#HotIf !IsUsbKeyboardAttached
+PgUp::PgDn
+PgDn::Home
+Home::PgUp
+#HotIf
 
 
 
@@ -132,6 +79,13 @@ sc178 & 7::NumPad7
 sc178 & 8::NumPad8
 sc178 & 9::NumPad9
 
+
+; ====
+; ==== Disable insert key
+;
+Insert::Return
+
+
 ; ====
 ; ==== Disable some Fn Shortcuts which I do not like
 ;
@@ -143,9 +97,3 @@ sc178 & 9::NumPad9
 ;
 ; Disable Touchpad Disabler
 ;sc178 & F5::return
-
-
-; ====
-; ==== Disable insert key
-;
-Insert::Return

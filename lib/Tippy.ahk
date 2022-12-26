@@ -1,3 +1,10 @@
+﻿/*
+https://www.autohotkey.com/boards/viewtopic.php?f=6&t=62607
+https://www.autohotkey.com/boards/viewtopic.php?f=92&t=103459
+
+POSSIBLY better position changing: https://learn.microsoft.com/en-us/windows/win32/controls/implement-tracking-tooltips
+*/
+
 ; Show a ToolTip which follows the mouse for a specific duration.
 ; Multiple ToolTips are stacked vertically, so no information is hidden.
 ;
@@ -9,12 +16,13 @@
 ;           You have an example at the end of the script (just uncomment it)!
 
 Tippy(text := "", duration := 3333, whichToolTip := 1, extraOffsetY := 0) {
+    static _tt := TT()
     if(whichToolTip == -1)
     {
-        whichToolTip := TT.GetUnusedToolTip(text)
+        whichToolTip := _tt.GetUnusedToolTip(text)
     }
 
-    TT.ShowTooltip(text, duration, whichToolTip, extraOffsetY)
+    _tt.ShowTooltip(text, duration, whichToolTip, extraOffsetY)
 }
 
 ;   == Original idea ==
@@ -39,30 +47,31 @@ Tippy(text := "", duration := 3333, whichToolTip := 1, extraOffsetY := 0) {
 ;       and uses MoveWindow dll call instead of recreating the ToolTip,
 ;       that's why the tooltip movement is smooth!
 ;
-; - TippyOff is called after %Duration% time to tur  off the timer for TippyOn so everything is clean
+; - TippyOff is called after %Duration% time to turn off the timer for TippyOn so everything is clean
 ;
 ;  - MultipleToolTipsYOffsetCalc computes each ToolTip's stacking position and caches those values.
 ;
 ;
 class TT {
-    static ToolTipData := {}
+    ToolTipData := Map()
 
-    static AllToolTipsHeightSum := 0
-    static WidestToolTip := 0
+    AllToolTipsHeightSum := 0
+    WidestToolTip := 0
 
-    static MaxWhichToolTip := 20
-    static DefaultWhichToolTip := 1
+    MaxWhichToolTip := 20
+    DefaultWhichToolTip := 1
 
-    static __TippyOnFn := TT.__TippyOn.Bind(TT)
+    __TippyOnFn := this.TippyOn.Bind(this)
 
     ShowTooltip(text, duration, whichToolTip, extraOffsetY) {
         fnOff := ""
+        ttData := ""
         ; sanitize whichToolTip
         whichToolTip := Max(1, Mod(whichToolTip, this.MaxWhichToolTip))
         ; rate limiting if ToolTip already exists
-        ttData := this.ToolTipData[whichToolTip]
-        if(ttData)
+        if(this.ToolTipData.has(whichToolTip))
         {
+            ttData := this.ToolTipData[whichToolTip]
             fnOff := ttData.fnOff
             if(text == "")
             {
@@ -92,16 +101,20 @@ class TT {
             fnOff := this.__TippyOff.Bind(this, whichToolTip)
         }
         ; call start and stop
-        SetTimer, % fnOff, % "-" duration
+        SetTimer(fnOff, "-" duration)
         fnOn := this.__TippyOnFn
-        SetTimer, % fnOn, 10
+        SetTimer(fnOn, 10)
 
         ; init the ToolTipData
         ttData.CurrentText := text
+        ttData.LastText := ""
         ttData.Duration := duration
         ttData.fnOff := fnOff
         ttData.WhichToolTip := whichToolTip
         ttData.extraOffsetY := extraOffsetY
+        ttData.Hwnd := ""
+        ttData.ToolTipHeight := 0
+        ttData.YOffset := ""
 
         Sleep 2
     }
@@ -109,29 +122,25 @@ class TT {
 
     GetUnusedToolTip(text) {
         ; firstly go through all tooltips to check if this one is not already shown
-        For whichToolTip, ttData in this.ToolTipData
-        {
-            if(ttData.CurrentText == text)
-            {
+        For whichToolTip, ttData in this.ToolTipData {
+            if(ttData.CurrentText == text) {
                 return whichToolTip
             }
         }
 
         ; if no tooltips with same text is shown, then return a new one
         whichToolTip := 2
-        While (whichToolTip <= this.MaxWhichToolTip)
-        {
-            if(!this.ToolTipData[whichToolTip])
-            {
+        While (whichToolTip <= this.MaxWhichToolTip) {
+            if(!this.ToolTipData.Has(whichToolTip)) {
                 return whichToolTip
             }
             whichToolTip++
         }
-        Return this.DefaultWhichToolTip
+        return this.DefaultWhichToolTip
     }
 
 
-    __TippyOn() {
+    TippyOn() {
         this.__ToolTipFM()
     }
 
@@ -140,10 +149,10 @@ class TT {
         this.__DestroyWhichTooltip(whichToolTip)
         this.__InvalidateToolTipYOffsetCache()
 
-        if(this.ToolTipData.Count() == 0)
+        if(this.ToolTipData.Count == 0)
         {
             fnOn := this.__TippyOnFn
-            SetTimer, % fnOn, Off
+            SetTimer(fnOn, 0)
         }
     }
 
@@ -157,14 +166,19 @@ class TT {
         localScreenHeight := localScreen.screenHeight
         localScreenWidth := localScreen.screenWidth
 
-        CoordMode, Mouse, Screen
-        MouseGetPos, realMouseX, realMouseY
+        CoordMode("Mouse", "Screen")
+        MouseGetPos(&realMouseX, &realMouseY)
 
         For whichToolTip, ttData in this.ToolTipData
         {
             x := realMouseX
             y := realMouseY
-            WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
+            if(ttData.Hwnd)
+                WinGetPos(,, &w, &h, "ahk_id " ttData.Hwnd)
+            else {
+                w := 0
+                h := 0
+            }
 
             ; stack tooltips vertically
             multipleToolTipsYOffset := this.__ToolTipYOffsetCache(whichToolTip)
@@ -200,19 +214,19 @@ class TT {
             ; move tooltip
             if (ttData.CurrentText == ttData.LastText)
             {
-                DllCall("MoveWindow", A_PtrSize ? "UPTR" : "UInt", ttData.Hwnd, "Int", x, "Int", y, "Int", w, "Int", h, "Int", 0)
+                DllCall("MoveWindow", "Ptr", ttData.Hwnd, "Int", x, "Int", y, "Int", w, "Int", h, "Int", 0)
             }
             ; create tooltip
             else
             {
                 ; Perfect solution would be to update tooltip text (TTM_UPDATETIPTEXT), but must be compatible with all versions of AHK_L and AHK Basic.
                 ; My Ask For Help link: http://www.autohotkey.com/forum/post-421841.html#421841
-                CoordMode, ToolTip, Screen
-                ToolTip, % ttData.CurrentText, x, y, % whichToolTip
+                CoordMode("ToolTip", "Screen")
+                ToolTip(ttData.CurrentText, x, y, whichToolTip)
                 ttData.Hwnd := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId"))
                 ttData.LastText := ttData.CurrentText
 
-                WinGetPos,,, w, h, % "ahk_id " . ttData.Hwnd
+                WinGetPos(,, &w, &h, "ahk_id " ttData.Hwnd)
                 ttData.ToolTipHeight := h
                 this.WidestToolTip := Max(this.WidestToolTip, w)
                 this.__InvalidateToolTipYOffsetCache()
@@ -223,9 +237,9 @@ class TT {
 
     __ToolTipYOffsetCache(neededToolTip) {
         ; if it's the only tooltip
-        if(this.ToolTipData.Count() == 1)
+        if(this.ToolTipData.Count == 1)
         {
-            return this.ToolTipData[1].extraOffsetY
+            return this.ToolTipData[neededToolTip].extraOffsetY
         }
 
         ; if it's the very first tooltip
@@ -271,7 +285,7 @@ class TT {
 
 
     __DestroyWhichTooltip(whichTooltip) {
-        ToolTip,,,, % whichToolTip
+        ToolTip(,,, whichToolTip)
         this.ToolTipData.Delete(whichToolTip)
     }
 
@@ -279,31 +293,29 @@ class TT {
     __GetLocalScreenMouseCoordsAndBounds() {
         screens := this.__GetAllScreenDimensions()
 
-        CoordMode, Mouse, Screen
-        MouseGetPos, X, Y
+        CoordMode("Mouse", "Screen")
+        MouseGetPos(&X, &Y)
 
         for k, v in screens {
             if (X >= v.Left && X <= v.Right && Y <= v.Bottom && Y >= v.Top) {
-                return {"x": X - v.Left, "y": Y - v.Top, "screenHeight": v.Bottom, "screenWidth": v.Right}
+                return {x: X - v.Left, y: Y - v.Top, screenHeight: v.Bottom, screenWidth: v.Right}
             }
         }
     }
 
 
     __GetAllScreenDimensions() {
-        static monitorCount
-        static screens
+        static monitorCount := 0
+        static screens := 0
 
-        SysGet, newMonitorCount, MonitorCount
-        if (monitorCount != newMonitorCount)
-        {
+        newMonitorCount := MonitorGetCount()
+        if (monitorCount != newMonitorCount) {
             monitorCount := newMonitorCount
 
             screens := []
-            loop, % MonitorCount
-            {
-                SysGet, BoundingBox, Monitor, % A_Index
-                screens.Push({"Top": BoundingBoxTop, "Bottom": BoundingBoxBottom, "Left": BoundingBoxLeft, "Right": BoundingBoxRight})
+            Loop MonitorCount {
+                MonitorGet A_Index, &L, &T, &R, &B
+                screens.Push({Top: T, Bottom: B, Left: L, Right: R})
             }
         }
         return screens

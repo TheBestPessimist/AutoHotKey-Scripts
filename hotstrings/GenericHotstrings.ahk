@@ -4,7 +4,6 @@
 ; ----- @self --------------------------
 :O:c@tbp::cristian@tbp.land
 :O:c@gmail::cristian.nahsuc@gmail.com
-:O:c@metas::cristian.pasat@metasfresh.com
 :O:c@nagarro::cristian.pasat.ext@nagarro.com
 :O:@tbp::TheBestPessimist
 
@@ -15,45 +14,31 @@
 ::.gitahkl::https://git.tbp.land/AutoHotKey-Launcher/
 
 
-
-; ------ metasfresh --------------------
-::.gitmetas::https://github.com/metasfresh/metasfresh/
-::.cacher::rest/api/debug/cacheReset
-::.date::
-    FormatDateyyyyMMdd()
-    {
-        FormatTime, CurrentDate,, yyyy-MM-dd
-        Send %CurrentDate%
-    }
-::.@date::
-    DateAndUser()
-    {
-        Send % "- "
-       FormatTime, CurrentDate,, yyyy-MM-dd
-        Send % " - @TheBestPessimist"
-    }
-::.datet::
-    FormatDateyyyyMMddHHmmss()
-    {
-        FormatTime, CurrentDate,, yyyy-MM-dd--HH-mm-ss
-        Send %CurrentDate%
-    }
-
-::.collapsed::
-::.hidden::
-    CollapsedForBrevity()
-    {
-    text =
-    ( LTrim
-    <details>
-    <summary>Collapsed for Brevity</summary>
+::.date:: {
+    Send(FormatTime( , "yyyy-MM-dd"))
+}
+::.datet:: {
+    Send(FormatTime(, "yyyy-MM-dd--HH-mm-ss"))
+}
 
 
 
-    </details>
-    )
-    Send, % text
-    }
+
+
+; todo: fix for ahk 2
+;::.collapsed::
+;::.hidden:: {
+;text =
+;( LTrim
+;<details>
+;<summary>Collapsed for Brevity</summary>
+;
+;
+;
+;</details>
+;)
+;Send, % text
+;}
 
 
 
@@ -76,7 +61,4 @@
 
 ::.youtried::https://discourse.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
 
-:O:.tias::
-    tagTias() {
-        Send % "https://discourse.tbp.land/uploads/default/original/1X/e741730b2b41b7ecd3672f986951038ca43af531.jpeg"
-    }
+:O:.tias::https://discourse.tbp.land/uploads/default/original/1X/e741730b2b41b7ecd3672f986951038ca43af531.jpeg

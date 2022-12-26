@@ -1,25 +1,22 @@
-#include <Tippy>
+﻿#include <Tippy>
 
 
 ;------------------------------------------------
 ; CapsLock + /: Toggle Mouse debugging mode
-CapsLock & /::ToggleMouseDebugging()
-
-ToggleMouseDebugging()
-{
-    static toggle
+CapsLock & /:: {
+    static toggle := 0
     MouseDebugging()
-    SetTimer MouseDebugging, % (toggle := !toggle) ? 500 : "Off"
+    SetTimer(MouseDebugging, (toggle := !toggle) ? 500 : 0)
 }
 
 MouseDebugging() {
-    CoordMode, Mouse, Screen
-    MouseGetPos, x, y
+    CoordMode("Mouse", "Screen")
+    MouseGetPos(&X, &Y)
     Tippy("Mouse Pos: " x " x " y " (global)", , 19)
 
-    SysGet, virtualScreenWidth, 78
-    SysGet, virtualScreenHeight, 79
-    Tippy("Screen Size: " virtualScreenWidth " x " virtualScreenHeight,, 18)
+    VirtualScreenWidth := SysGet(78)
+    VirtualScreenHeight := SysGet(79)
+    Tippy("Screen Size: " VirtualScreenWidth " x " VirtualScreenHeight,, 18)
 
     localPos := GetLocalMonitorMouseCoords()
     Tippy("Mouse Pos: " localPos.x " x " localPos.y " (local)",, 20)
@@ -27,34 +24,32 @@ MouseDebugging() {
 }
 
 GetAllMonitorsDimensions() {
-    static monitorCount
-    static monitors
+    static monitorCount := 0
+    static screens := 0
 
-    SysGet, newMonitorCount, MonitorCount
-    if (monitorCount != newMonitorCount)
-    {
+    newMonitorCount := MonitorGetCount()
+    if (monitorCount != newMonitorCount) {
         monitorCount := newMonitorCount
 
-        monitors := []
-        loop, % MonitorCount
-        {
-            SysGet, BoundingBox, Monitor, % A_Index
-            monitors.Push({"Top": BoundingBoxTop, "Bottom": BoundingBoxBottom, "Left": BoundingBoxLeft, "Right": BoundingBoxRight})
+        screens := []
+        Loop MonitorCount {
+            MonitorGet A_Index, &L, &T, &R, &B
+            screens.Push({Top: T, Bottom: B, Left: L, Right: R})
         }
     }
-    return monitors
+    return screens
 }
 
 
 GetLocalMonitorMouseCoords() {
     monitors := GetAllMonitorsDimensions()
 
-    CoordMode, Mouse, Screen
-    MouseGetPos, X, Y
+    CoordMode("Mouse", "Screen")
+    MouseGetPos(&X, &Y)
 
     for k, v in monitors {
         if (X >= v.Left && X <= v.Right && Y <= v.Bottom && Y >= v.Top) {
-            return {"x": X - v.Left, "y": Y - v.Top}
+            return {x: X - v.Left, y: Y - v.Top}
         }
     }
 }

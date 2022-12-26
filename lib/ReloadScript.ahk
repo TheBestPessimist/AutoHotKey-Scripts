@@ -5,21 +5,13 @@
 ; Ref: https://www.autohotkey.com/docs/misc/SendMessageList.htm
 ; I am sending the message 0x111 with the wParam 65303
 ; That wParam is what ahk interprets are "Reload"
-CapsLock & F5::
-ReloadAllAhkScripts() {
-    DetectHiddenWindows, On
-    SetTitleMatchMode, 2
-
-    WinGet, allAhkExe, List, ahk_class AutoHotkey
-    Loop, % allAhkExe {
-        hwnd := allAhkExe%A_Index%
-
+CapsLock & F5::{
+    DetectHiddenWindows(True)
+    for hwnd in WinGetList("ahk_class AutoHotkey") {
         if (hwnd = A_ScriptHwnd)  ; ignore the current window for reloading
-        {
             continue
-        }
 
-        PostMessage, 0x111, 65303,,, % "ahk_id" . hwnd
+        PostMessage(0x111, 65303,,, hwnd)
     }
     Reload
 }
