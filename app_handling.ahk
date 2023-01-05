@@ -14,7 +14,7 @@ k::PgUp
 CapsLock & s:: {
     if !WinExist(WinTitles.SublimeText) {
       Run("D:\all\all\Sublime Text\sublime_text.exe")
-      WinWaitActive(WinTitles.SublimeText)
+      WinWaitActive(WinTitles.SublimeText, , 10)
     }
     Sleep 499
     WinActivate(WinTitles.SublimeText)
@@ -34,7 +34,7 @@ CapsLock & s:: {
 CapsLock & t:: {
     if !WinExist(WinTitles.Telegram) {
         Run("D:\all\all\Telegram\Telegram.exe")
-        WinWait(WinTitles.Telegram)
+        WinWait(WinTitles.Telegram, , 10)
         Sleep 499
         WinActivate(WinTitles.Telegram)
         ; select the most important chat
