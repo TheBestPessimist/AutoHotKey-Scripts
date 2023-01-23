@@ -20,4 +20,9 @@ class WinTitles
     static SublimeText := "ahk_exe sublime_text.exe"
     static tf2 := "ahk_exe hl2.exe"
     static windowsCredentials := "Windows Security"
+    static FlowLauncher := "ahk_exe Flow.Launcher.exe"
+}
+
+class Paths {
+    static FlowLauncher := "D:\all\all\FlowLauncher\Flow.Launcher.exe"
 }
