@@ -86,20 +86,19 @@ CapsLock & w:: {
 #HotIf
 
 
-; temporarily disabled because i can do the same thing from intellij
-;;-------------------------------------------------
-;; Intellij Idea: CapsLock & w to toggle word wrap
-;#HotIf WinActive(WinTitles.IntellijIdea)
-;CapsLock & w:: {
-;    Send "^+A"
-;    Sleep 500
-;    Send "active editor soft wrap"
-;;    Sleep 500
-;;    Send "{Enter}"
-;;    Sleep 500
-;;    Send "{Esc}"
-;}
-;#HotIf
+;-------------------------------------------------
+; Intellij Idea: CapsLock & w to toggle word wrap
+#HotIf WinActive(WinTitles.IntellijIdea)
+CapsLock & w:: {
+    Send "^+A"
+    Sleep 500
+    Send "active editor soft wrap"
+    Sleep 500
+    Send "{Enter}"
+    Sleep 500
+    Send "{Esc}"
+}
+#HotIf
 
 
 
@@ -164,11 +163,11 @@ Ctrl & End::End
 CapsLock & v:: {
     saveClipboard()
 
-    Send "{Blind}^l"
+    Send "^l"
     Sleep 100
-    Send "{Blind}^a"
+    Send "^a"
     Sleep 100
-    Send "{Blind}^c"
+    Send "^c"
     ClipWait 1
 
     Tippy("Opening mpv with: " A_Clipboard)
