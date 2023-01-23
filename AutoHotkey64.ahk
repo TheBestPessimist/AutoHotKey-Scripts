@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0
 
 #SingleInstance Force
+A_MenuMaskKey := "vkE8"
 ;#WinActivateForce ; disabled to check if AHK v2 works better than AHK V1
 InstallKeybdHook
 InstallMouseHook
@@ -78,10 +79,69 @@ CapsLock & 1::{
 }
 
 
+;------------------------------------------------
+; Flow Launcher should replaces Windows key, but that is not possible while also keeping AltSnap working
+;~LWin & ~LControl:: ; for some reason this ordering of keys interferes with Precision touchpad "3 finger tap = Middle click" 🙄. Why is Microshitsoft sending all modifier keys before middle click? WTF ?!?!?!!?!?
+LControl & LWin Up::{
+    if(!ProcessExist(WinTitles.FlowLauncher)) {
+        Tippy("It's dead, Jim")
+        Run(Paths.FlowLauncher)
+        DetectHiddenWindows true
+        WinWait(WinTitles.FlowLauncher,, 4)
+        Sleep 1500
+    }
+    Run(Paths.FlowLauncher)
+    sleep 200
+    WinActivate(WinTitles.FlowLauncher)
+}
+
+;------------------------------------------------
+; Launch Voidtools Everything
+$#s::Send "#^!+{F12}"
+
+;------------------------------------------------
+; Launch the other launcher (Autohotkey-Launcher).
+; I must do this dance because this script takes over Win key, and the other one cannot use it
+; Technical: I must use LWin Up, because Win + L = lock screen
+CapsLock & LWin Up::Send "^!+l"
+
+;------------------------------------------------
+; CapsLock + P: Toggle between "Power saver" and "Balanced" powers schemes
+;CapsLock & P::TogglePowerScheme()
 
 
 
 
 ;------------------------------------------------
-; CapsLock + P: Toggle between "Power saver" and "Balanced" powers schemes
-;CapsLock & P::TogglePowerScheme()
+/*
+Note in case future me wants to use `LWin Up::` as a hotkey: DO NOT DO IT, IT WILL NEVER WORK
+Things which will break:
+- Altsnap (win + double click; win + alt + click to resize)
+- Middle click
+- Win + E and all other win+key shortcuts
+- my sanity
+
+workarounds needed because Touchpad Middle click is made up of these keys:
+LWin     d
+LControl d
+LShift   d
+F22      d
+F22      u
+LShift   u
+LControl u
+LWin     u
+MButton  d
+MButton  u
+
+Tippy("thisHotkey " thisHotkey "`nA_PriorHotkey " A_PriorHotkey "`nA_PriorKey " A_PriorKey, 20000)
+
+if(A_PriorKey == "F22") {
+    Send "{MButton}"
+    return
+}
+
+if(A_PriorKey != "LWin") {
+    return
+}
+; end of workarounds
+*/
