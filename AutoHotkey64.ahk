@@ -83,7 +83,7 @@ CapsLock & 1::{
 ; Flow Launcher should replaces Windows key, but that is not possible while also keeping AltSnap working
 ;~LWin & ~LControl:: ; for some reason this ordering of keys interferes with Precision touchpad "3 finger tap = Middle click" 🙄. Why is Microshitsoft sending all modifier keys before middle click? WTF ?!?!?!!?!?
 LControl & LWin Up::{
-    if(!ProcessExist(WinTitles.FlowLauncher)) {
+    if(!ProcessExist(Process.FlowLauncher)) {
         Tippy("It's dead, Jim")
         Run(Paths.FlowLauncher)
         DetectHiddenWindows true
