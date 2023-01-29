@@ -70,12 +70,9 @@ CapsLock & SPACE::WinSetAlwaysOnTop(-1, "A")
 
 ;------------------------------------------------
 ; caps lock + 1 => sleep screen
-CapsLock & 1::{
-    Sleep 200 ; if you use this with a hotkey, not sleeping will make it so your keyboard input wakes up the monitor immediately
+CapsLock & 1 Up::{
+    Sleep 900 ; if you use this with a hotkey, not sleeping will make it so your keyboard input (lifting your fingers from the keyboard after pressing the hotkey) wakes up the monitor immediately
     SendMessage(0x112, 0xF170, 2,, "Program Manager") ; send the monitor into off mode
-    ; unsure why, but sending the second message makes f.lux activate correctly when screen wakes up. otherwise i have to alt-tab for f.lux to work properly
-    Sleep 2000
-    SendMessage(0x112, 0xF170, 2,, "Program Manager")
 }
 
 
