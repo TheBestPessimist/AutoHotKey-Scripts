@@ -83,13 +83,9 @@ LControl & LWin Up::{
     if(!ProcessExist(Process.FlowLauncher)) {
         Tippy("It's dead, Jim")
         Run(Paths.FlowLauncher)
-        DetectHiddenWindows true
-        WinWait(WinTitles.FlowLauncher,, 4)
         Sleep 1500
     }
-    Run(Paths.FlowLauncher)
-    sleep 200
-    WinActivate(WinTitles.FlowLauncher)
+    Send "#{F10}"
 }
 
 ;------------------------------------------------
