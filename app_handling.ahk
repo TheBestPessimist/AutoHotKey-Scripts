@@ -144,6 +144,7 @@ CapsLock & w:: {
     || WinActive(WinTitles.Skype)
     || WinActive(WinTitles.BattleNet)
     || WinActive(WinTitles.ACDSee)
+    || WinActive(WinTitles.ArmouryCrate)
 F4::Send "!{F4}"
 #HotIf
 

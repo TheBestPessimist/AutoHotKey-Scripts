@@ -21,10 +21,11 @@ class WinTitles
     static tf2 := "ahk_exe hl2.exe"
     static windowsCredentials := "Windows Security"
     static FlowLauncher := "ahk_exe Flow.Launcher.exe"
+    static ArmouryCrate := "ARMOURY CRATE ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe"
 }
 
 class Paths {
-    static FlowLauncher := "D:\all\all\FlowLauncher\Flow.Launcher.exe"
+    static FlowLauncher := "D:\all\all\Flow.Launcher\Flow.Launcher.exe"
 }
 
 class Process {
