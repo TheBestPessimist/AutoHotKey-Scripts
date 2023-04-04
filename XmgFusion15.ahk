@@ -38,11 +38,11 @@ onUsbDeviceChange(*) {
     restoreClipboard()
 }
 
-#HotIf !IsUsbKeyboardAttached
-PgUp::PgDn
-PgDn::Home
-Home::PgUp
-#HotIf
+; #HotIf !IsUsbKeyboardAttached
+; PgUp::PgDn
+; PgDn::Home
+; Home::PgUp
+; #HotIf
 
 
 
@@ -52,16 +52,16 @@ Home::PgUp
 ; Note: Fusion already has dedicated keys for this, but I also find useful to have these Fn shortcuts.
 
 ; PageUp = Fn + Up
-sc178 & Up::PgUp
+; sc178 & Up::PgUp
 
 ; PageDown = Fn + Down
-sc178 & Down::PgDn
+; sc178 & Down::PgDn
 
 ; Home = Fn + left
-sc178 & Left::Home
+; sc178 & Left::Home
 
 ; End = Fn + Right
-sc178 & Right::End
+; sc178 & Right::End
 
 
 

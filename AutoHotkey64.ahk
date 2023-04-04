@@ -25,7 +25,7 @@ TraySetIcon("resources/blueStar.ico")
 #Include app_handling.ahk
 #Include lib/ReloadScript.ahk
 #Include CapsLockToggle.ahk
-#Include XmgFusion15.ahk
+; #Include XmgFusion15.ahk
 
 #Include hotstrings/MarkdownEmoji.ahk
 #Include hotstrings/GenericHotstrings.ahk
@@ -33,6 +33,8 @@ TraySetIcon("resources/blueStar.ico")
 #Include hotstrings/ResetHotstrings.ahk
 
 #Include *i Private.ahk
+
+
 
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
@@ -103,6 +105,10 @@ CapsLock & LWin Up::Send "^!+l"
 ;CapsLock & P::TogglePowerScheme()
 
 
+
+;------------------------------------------------
+; Run Windows Terminal
+#t::Run "wt"
 
 
 ;------------------------------------------------
