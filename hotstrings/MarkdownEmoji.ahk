@@ -81,3 +81,15 @@ In order to debug try running the hotstring with these options:
 ; eyes 
 :O::check::👀 `
 :O::eyes::👀 `
+
+; https://emojipedia.org/smiling-face-with-horns/
+:O::evil::😈 `
+
+
+; ±
+:O::+-::± `
+:O::-+::± `
+
+
+; smirk
+:O::smug::😏 `
