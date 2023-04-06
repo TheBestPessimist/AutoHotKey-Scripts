@@ -25,7 +25,7 @@ TraySetIcon("resources/blueStar.ico")
 #Include app_handling.ahk
 #Include lib/ReloadScript.ahk
 #Include CapsLockToggle.ahk
-; #Include XmgFusion15.ahk
+#Include "Asus Rog Flow X16.ahk"
 
 #Include hotstrings/MarkdownEmoji.ahk
 #Include hotstrings/GenericHotstrings.ahk
@@ -109,6 +109,8 @@ CapsLock & LWin Up::Send "^!+l"
 ;------------------------------------------------
 ; Run Windows Terminal
 #t::Run "wt"
+
+
 
 
 ;------------------------------------------------
