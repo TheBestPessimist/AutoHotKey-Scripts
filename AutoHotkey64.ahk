@@ -85,7 +85,13 @@ LControl & LWin Up::{
     if(!ProcessExist(Process.FlowLauncher)) {
         Tippy("It's dead, Jim")
         Run(Paths.FlowLauncher)
-        Sleep 1500
+        Sleep 2500
+    }
+
+    ; if Start menu is open, turn it off
+    if(WinActive("ahk_class Windows.UI.Core.CoreWindow")) {
+        Send "{Esc}"
+        Sleep 500
     }
     Send "#{F10}"
 }
