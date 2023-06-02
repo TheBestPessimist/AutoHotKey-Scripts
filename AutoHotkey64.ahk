@@ -81,7 +81,10 @@ CapsLock & 1 Up::{
 ;------------------------------------------------
 ; Flow Launcher should replaces Windows key, but that is not possible while also keeping AltSnap working
 ;~LWin & ~LControl:: ; for some reason this ordering of keys interferes with Precision touchpad "3 finger tap = Middle click" 🙄. Why is Microshitsoft sending all modifier keys before middle click? WTF ?!?!?!!?!?
-LControl & LWin Up::{
+LControl & LWin Up::
+{
+    if(A_PriorKey = "F24") ; in my 2 in 1 laptop, when rotating the screen into tabled only mode, GHelper sends the keys LCtrl Down, LWin Down, F24 Down, then up, which activates this hotkey
+        return
     if(!ProcessExist(Process.FlowLauncher)) {
         Tippy("It's dead, Jim")
         Run(Paths.FlowLauncher)
@@ -114,7 +117,12 @@ CapsLock & LWin Up::Send "^!+l"
 
 ;------------------------------------------------
 ; Run Windows Terminal
-#t::Run "wt"
+#t::
+{
+    Run("C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.16.10262.0_x64__8wekyb3d8bbwe\WindowsTerminal.exe",,, &pid)
+    WinWait("ahk_pid " pid, , 5)
+    WinActivate("ahk_pid " pid)
+}
 
 
 
