@@ -17,7 +17,7 @@ if A_LineFile = A_ScriptFullPath
 
 Install_Main() {
     try {
-        inst := Installation()
+        Installation.Instance := inst := Installation()
         method := 'InstallFull'
         params := []
         while A_Index <= A_Args.Length {
@@ -87,11 +87,10 @@ class Installation {
         if hadInstallDir := this.HasProp('InstallDir')
             DirCreate installDir := this.InstallDir
         else
-            installDir := A_ScriptDir '\..'
+            installDir := IsSet(InstallUtil) ? InstallUtil.DefaultDir : A_ScriptDir '\..'
         Loop Files installDir, 'D'
-            this.InstallDir := installDir := A_LoopFileFullPath
-        else
-            throw ValueError("Invalid target directory",, installDir)
+            installDir := A_LoopFileFullPath
+        this.InstallDir := installDir
         SetRegView 64
         installDirs := []
         for rootKey in ['HKLM', 'HKCU']
@@ -107,8 +106,18 @@ class Installation {
             if installDirs[this.UserInstall?2:1]
                 this.InstallDir := installDirs[this.UserInstall?2:1]
             ; Default to the location and mode of any other existing installation
-            else if installDirs[this.UserInstall?1:2]
+            else if installDirs[this.UserInstall?1:2] {
+                if !A_IsAdmin && this.UserInstall {
+                    ; Use the existing all-user installation only if elevation is successful
+                    try
+                        RunWait '*runas ' DllCall('GetCommandLine', 'str')
+                    catch
+                        return ; Presume user cancelled; continue as user
+                    else
+                        ExitApp
+                }
                 this.InstallDir := installDirs[this.UserInstall?1:2], this.UserInstall := !this.UserInstall
+            }
         }
     }
     
@@ -841,8 +850,10 @@ class Installation {
     }
     
     CreateStartShortcut() {
+        if this.Hashes.Has(this.StartFolder '\AutoHotkey.lnk')
+            try FileDelete this.StartFolder '\AutoHotkey.lnk'
         CreateAppShortcut(
-            lnk := this.StartFolder '\AutoHotkey.lnk', {
+            lnk := this.StartFolder '\AutoHotkey Dash.lnk', {
                 target: this.Interpreter,
                 args: Format('"{1}\UX\ui-dash.ahk"', this.InstallDir),
                 desc: "AutoHotkey Dash",
