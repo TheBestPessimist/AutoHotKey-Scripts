@@ -38,8 +38,8 @@ TraySetIcon("resources/blueStar.ico")
 
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
-CapsLock & D:: SendInput "^#{Right}"
-CapsLock & A:: SendInput "^#{Left}"
+CapsLock & D::SendInput "^#{Right}"
+CapsLock & A::SendInput "^#{Left}"
 
 
 
