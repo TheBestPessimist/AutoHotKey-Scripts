@@ -6,32 +6,36 @@ class T
 {
     static Tooltips := Map()
 
-    static ShowTooltipsFunc := T.LoopDisplayTooltips.Bind(this)
+    static TheLoopFunc := T.TheLoop.Bind(this)
 
     CurrentText := -1
-    Duration := -1
+    DurationMs := -1
     WhichToolTip := -1
-    ToolTipHeight := 0
+    ToolTipHeight := -1
+    Hwnd := -1
+    TimeStart := -1
+    TimeEnd := -1
 
     LastText := -1
     extraOffsetY := -1
     YOffset := -1
-    Hwnd := -1
 
     __New(
         CurrentText,
-        Duration,
+        DurationMs,
         WhichTooltip
     ) {
         this.CurrentText := CurrentText
-        this.Duration := Duration
+        this.DurationMs := DurationMs
         this.WhichTooltip := WhichTooltip
+        this.TimeStart := A_TickCount
+        this.TimeEnd := A_TickCount + DurationMs
     }
 
-    static LoopDisplayTooltips()
+    static TheLoop()
     {
         Critical
-        SetWinDelay -1
+        SetWinDelay 0
 
         CoordMode("Mouse", "Screen")
         MouseGetPos(&mouseX, &mouseY)
@@ -41,16 +45,23 @@ class T
 
         /*
         Cases
-        - tooltip is new and was not shown before
-        - tooltip exists and was already shown
+        - tooltip is new and was not shown before ✅
+        - tooltip exists and was already shown ✅
         - tooltip exists and was already shown, but has changed text
-        - tooltip has expired and must not be shown anymore
+        - tooltip has expired and must not be shown anymore ✅
         */
 
 
 
         for k,tt in T.tooltips
         {
+            ; tooltip has expired and must be removed
+            if(tt.TimeEnd < A_TickCount)
+            {
+                T.DeleteTooltip(k)
+                continue
+            }
+
             x := x + 30*k
             y := y + 10*k
 
@@ -73,10 +84,15 @@ class T
         return (this.Hwnd != -1)
     }
 
+    static DeleteTooltip(whichTooltip)
+    {
+        ToolTip(,,, whichToolTip)
+        T.tooltips.Delete(whichToolTip)
+    }
 
     static StartLoop()
     {
-        SetTimer(T.ShowTooltipsFunc, 1)
+        SetTimer(T.TheLoopFunc, 1)
 
        ; TODO: use A_Tick count to set the time after which this tooltip should be off.
        ; in this way i dont have to store start and stop functions for each tooltip
@@ -84,7 +100,7 @@ class T
 
     static StopLoop()
     {
-        SetTimer(T.ShowTooltipsFunc, 0)
+        SetTimer(T.TheLoopFunc, 0)
     }
 
     /*
@@ -94,8 +110,8 @@ class T
 
 
 
-t1 := T("curr 1", 123, 16)
-t2 := T("curr 2", 456, 10)
+t1 := T("curr 1", 1230, 16)
+t2 := T("curr 2", 4560, 10)
 
 t.tooltips[16] := t1
 t.tooltips[10] := t2
