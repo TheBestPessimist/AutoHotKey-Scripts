@@ -21,15 +21,18 @@ class T
     YOffset := -1
 
     __New(
-        CurrentText,
-        DurationMs,
-        WhichTooltip
+        currentText,
+        durationMs,
+        whichTooltip
     ) {
-        this.CurrentText := CurrentText
-        this.DurationMs := DurationMs
-        this.WhichTooltip := WhichTooltip
+        this.CurrentText := currentText
+        this.DurationMs := durationMs
+        this.WhichTooltip := whichTooltip
         this.TimeStart := A_TickCount
         this.TimeEnd := A_TickCount + DurationMs
+
+        T.Tooltips[WhichTooltip] := this
+        T.StartLoop()
     }
 
     static TheLoop()
@@ -53,19 +56,19 @@ class T
 
 
 
-        for k,tt in T.tooltips
+        for k,tt in T.Tooltips
         {
             ; tooltip has expired and must be removed
-            if(tt.TimeEnd < A_TickCount)
+            if(tt.IsExpired())
             {
-                T.DeleteTooltip(k)
+                T.OnTooltipExpired(k)
                 continue
             }
 
             x := x + 30*k
             y := y + 10*k
 
-            if(!tt.AlreadyShown())
+            if(!tt.IsAlreadyShown())
             {
                 Tooltip( k .  dbg(tt), x, y, k)
                 tt.Hwnd := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId"))
@@ -77,30 +80,35 @@ class T
                 WinMove(x, y,,, tt.Hwnd)
             }
         }
+
+        T.StopLoopIfNeeded()
     }
 
-    AlreadyShown()
+    IsAlreadyShown()
     {
         return (this.Hwnd != -1)
     }
 
-    static DeleteTooltip(whichTooltip)
+    IsExpired()
+    {
+        return this.TimeEnd < A_TickCount
+    }
+
+    static OnTooltipExpired(whichTooltip)
     {
         ToolTip(,,, whichToolTip)
-        T.tooltips.Delete(whichToolTip)
+        T.Tooltips.Delete(whichToolTip)
     }
 
     static StartLoop()
     {
-        SetTimer(T.TheLoopFunc, 1)
-
-       ; TODO: use A_Tick count to set the time after which this tooltip should be off.
-       ; in this way i dont have to store start and stop functions for each tooltip
+        SetTimer(T.TheLoopFunc, 10)
     }
 
-    static StopLoop()
+    static StopLoopIfNeeded()
     {
-        SetTimer(T.TheLoopFunc, 0)
+        if(T.Tooltips.Count < 1)
+            SetTimer(T.TheLoopFunc, 0)
     }
 
     /*
@@ -110,21 +118,23 @@ class T
 
 
 
-t1 := T("curr 1", 1230, 16)
-t2 := T("curr 2", 4560, 10)
-
-t.tooltips[16] := t1
-t.tooltips[10] := t2
-;msgbox dbg(T)
-
-t1.CurrentText := "AAAAAAAAAAAAAAAAAA"
-;msgbox dbg(T)
-
 
 dbg(obj)
 {
     return JxonEncode(obj, 1)
 }
 
-^j::T.StartLoop()
-^k::T.StopLoop()
+^j::
+{
+    Tippy("AAAAAAAAAAAAAAAAAA", 1234, 16)
+    Tippy("curr 2", 4567, 10)
+}
+
+Tippy(text := "", durationMs := 3333, whichTooltip := 1) {
+;    if(whichTooltip == -1)
+;    {
+;        whichTooltip := _tt.GetUnusedToolTip(text)
+;    }
+
+    T(text, durationMs, whichTooltip)
+}
