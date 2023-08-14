@@ -43,6 +43,9 @@ class T
         this.DurationMs := durationMs
         this.TimeEnd := A_TickCount + DurationMs
 
+        if(T.Tooltips.Has(whichTooltip))
+            T.OnTooltipExpired(whichTooltip)
+
         T.Tooltips[whichTooltip] := this
         T.StartLoop()
     }
@@ -87,7 +90,10 @@ class T
             }
             else
             {
-                WinMove(x, y,,, tt.Hwnd)
+                ; if a tooltip exists and is being shown then gets deleted in the constructor, this will throw an error. Swallow it
+                try {
+                    WinMove(x, y,,, tt.Hwnd)
+                }
             }
             currentTooltipsHeights += tt.Height
 
