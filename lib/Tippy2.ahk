@@ -2,6 +2,24 @@
 #SingleInstance
 
 
+/*
+
+# Technical
+
+## Tooltip creation/movement
+
+- tooltip is new and was not shown before
+- tooltip exists and was already shown
+- tooltip has expired and must not be shown anymore
+
+## ToString:
+
+The function is not needed because i'm using a JSON library to dump everything to string when i need to debug things 🎉
+
+Note regarding AHK class and static access weirdness:
+- https://discord.com/channels/115993023636176902/1140576103694602241
+- https://www.autohotkey.com/boards/viewtopic.php?f=82&t=120363
+*/
 class T
 {
     static Tooltips := Map()
@@ -10,10 +28,8 @@ class T
 
     CurrentText := -1
     DurationMs := -1
-    WhichToolTip := -1
     ToolTipHeight := -1
     Hwnd := -1
-    TimeStart := -1
     TimeEnd := -1
 
     LastText := -1
@@ -27,11 +43,9 @@ class T
     ) {
         this.CurrentText := currentText
         this.DurationMs := durationMs
-        this.WhichTooltip := whichTooltip
-        this.TimeStart := A_TickCount
         this.TimeEnd := A_TickCount + DurationMs
 
-        T.Tooltips[WhichTooltip] := this
+        T.Tooltips[whichTooltip] := this
         T.StartLoop()
     }
 
@@ -46,22 +60,12 @@ class T
         x := mouseX
         y := mouseY
 
-        /*
-        Cases
-        - tooltip is new and was not shown before ✅
-        - tooltip exists and was already shown ✅
-        - tooltip exists and was already shown, but has changed text
-        - tooltip has expired and must not be shown anymore ✅
-        */
-
-
-
-        for k,tt in T.Tooltips
+        for k,tt in this.Tooltips
         {
             ; tooltip has expired and must be removed
             if(tt.IsExpired())
             {
-                T.OnTooltipExpired(k)
+                this.OnTooltipExpired(k)
                 continue
             }
 
@@ -81,7 +85,7 @@ class T
             }
         }
 
-        T.StopLoopIfNeeded()
+        this.StopLoopIfNeeded()
     }
 
     IsAlreadyShown()
@@ -97,23 +101,20 @@ class T
     static OnTooltipExpired(whichTooltip)
     {
         ToolTip(,,, whichToolTip)
-        T.Tooltips.Delete(whichToolTip)
+        this.Tooltips.Delete(whichToolTip)
     }
 
     static StartLoop()
     {
-        SetTimer(T.TheLoopFunc, 10)
+        SetTimer(this.TheLoopFunc, 10)
     }
 
     static StopLoopIfNeeded()
     {
-        if(T.Tooltips.Count < 1)
-            SetTimer(T.TheLoopFunc, 0)
+        if(this.Tooltips.Count < 1)
+            SetTimer(this.TheLoopFunc, 0)
     }
 
-    /*
-    Technical: ToString is not needed because i'm using a JSON library to dump everything to string
-    */
 }
 
 
@@ -126,8 +127,8 @@ dbg(obj)
 
 ^j::
 {
-    Tippy("AAAAAAAAAAAAAAAAAA", 1234, 16)
-    Tippy("curr 2", 4567, 10)
+    Tippy("AAAAAAAAAAAAAAAAAA" , 1234, 16)
+    Tippy("curr 2 " A_Now, 4567, 10)
 }
 
 Tippy(text := "", durationMs := 3333, whichTooltip := 1) {
