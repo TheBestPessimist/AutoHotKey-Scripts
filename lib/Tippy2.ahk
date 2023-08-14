@@ -9,7 +9,7 @@
 ## Tooltip creation/movement
 
 - tooltip is new and was not shown before
-- tooltip exists and was already shown
+- tooltip exists and is being shown
 - tooltip has expired and must not be shown anymore
 
 ## ToString:
@@ -26,15 +26,13 @@ class T
 
     static TheLoopFunc := T.TheLoop.Bind(this)
 
+    static defaultOffsetFromCursor := 32
+
     CurrentText := -1
     DurationMs := -1
-    ToolTipHeight := -1
+    Height := 0
     Hwnd := -1
     TimeEnd := -1
-
-    LastText := -1
-    extraOffsetY := -1
-    YOffset := -1
 
     __New(
         currentText,
@@ -55,12 +53,13 @@ class T
         SetWinDelay 0
 
         CoordMode("Mouse", "Screen")
+        CoordMode("ToolTip", "Screen")
+
         MouseGetPos(&mouseX, &mouseY)
 
-        x := mouseX
-        y := mouseY
+        currentTooltipsHeights := 0
 
-        for k,tt in this.Tooltips
+        for k, tt in this.Tooltips
         {
             ; tooltip has expired and must be removed
             if(tt.IsExpired())
@@ -69,20 +68,31 @@ class T
                 continue
             }
 
-            x := x + 30*k
-            y := y + 10*k
+            x := mouseX
+            y := mouseY
+
+            ; offset from cursor
+            x += this.defaultOffsetFromCursor
+            y += this.defaultOffsetFromCursor
+
+            ; offset from the previous tooltip (tooltip above)
+            y +=  currentTooltipsHeights
 
             if(!tt.IsAlreadyShown())
             {
-                Tooltip( k .  dbg(tt), x, y, k)
+                Tooltip( k .  dbg(tt) " " currentTooltipsHeights, x, y, k)
                 tt.Hwnd := WinExist("ahk_class tooltips_class32 ahk_pid " DllCall("GetCurrentProcessId"))
                 WinGetPos(,, &w, &h, "ahk_id " tt.Hwnd)
-                tt.ToolTipHeight := h
+                tt.Height := h
             }
             else
             {
                 WinMove(x, y,,, tt.Hwnd)
             }
+            currentTooltipsHeights += tt.Height
+
+            ; add a little gap from the previous tooltip
+            currentTooltipsHeights += 2
         }
 
         this.StopLoopIfNeeded()
@@ -127,8 +137,9 @@ dbg(obj)
 
 ^j::
 {
-    Tippy("AAAAAAAAAAAAAAAAAA" , 1234, 16)
-    Tippy("curr 2 " A_Now, 4567, 10)
+    Tippy("10 " A_Now, 1000000, 10)
+    Tippy("16 " A_Now, 1000000, 16)
+    Tippy(" 9 " A_Now, 1000000, 9)
 }
 
 Tippy(text := "", durationMs := 3333, whichTooltip := 1) {
