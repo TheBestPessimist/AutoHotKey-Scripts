@@ -16,7 +16,7 @@ class WinTitles
     static TeamViewer := "TeamViewer ahk_exe TeamViewer.exe"
     static ACDSee := "ahk_exe ACDSeeProfessional2018.exe"
     static Feces := "ahk_exe Teams.exe"
-    static Telegram := "ahk_exe telegram.exe ahk_class Qt5159QWindowIcon"
+    static Telegram := "ahk_exe telegram.exe ahk_class Qt51510QWindowIcon"
     static SublimeText := "ahk_exe sublime_text.exe"
     static tf2 := "ahk_exe hl2.exe"
     static windowsCredentials := "Windows Security"
