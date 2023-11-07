@@ -18,6 +18,11 @@ InstallMouseHook
 ; TraySetIcon "shell32.dll", 44 ; change tray icon to a yellow star
 TraySetIcon("resources/blueStar.ico")
 
+CoordMode("Mouse", "Screen")
+
+; I removed `n and `t from hotstring trigger chars
+; https://www.autohotkey.com/docs/v2/Hotstrings.htm#EndChars
+#Hotstring EndChars -()[]{}:;'"/\,.?!`s
 
 ;; rest of everything
 #Include lib/Tippy.ahk
@@ -34,6 +39,7 @@ TraySetIcon("resources/blueStar.ico")
 
 #Include *i Private.ahk
 
+#Include lib/_JXON.ahk
 
 
 ;-------------------------------------------------

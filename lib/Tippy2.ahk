@@ -81,6 +81,8 @@ class T
             ; offset from the previous tooltip (tooltip above)
             y +=  currentTooltipsHeights
 
+            ; if tooltip is at right side of screen
+;TODO
             if(!tt.IsAlreadyShown())
             {
                 Tooltip( k .  dbg(tt) " " currentTooltipsHeights, x, y, k)
@@ -133,13 +135,51 @@ class T
 
 }
 
+;GetMouseCoordinates?????
+GetLocalScreenMouseCoordsAndBounds() {
+    screens := GetAllScreenCoordinates()
 
+    CoordMode("Mouse", "Screen")
+    MouseGetPos(&X, &Y)
 
-
-dbg(obj)
-{
-    return JxonEncode(obj, 1)
+    for s in screens {
+        if (X >= s.Left && X <= s.Right && Y >= s.Bottom && Y <= s.Top) {
+            return {x: X - s.Left, y: Y - s.Top, screenHeight: s.Bottom, screenWidth: s.Right}
+        }
+    }
 }
+
+GetAllScreenCoordinates() {
+    static monitorCount := 0
+    static screens := 0
+
+    newMonitorCount := MonitorGetCount()
+    if (monitorCount != newMonitorCount) {
+        monitorCount := newMonitorCount
+
+        screens := []
+        Loop MonitorCount {
+            MonitorGet A_Index, &L, &T, &R, &B
+            if (L > R) {
+                tmp := L
+                L := R
+                R := tmp
+            }
+
+            if (B > T) {
+                tmp := B
+                B := T
+                T := tmp
+            }
+            screens.Push({Top: T, Bottom: B, Left: L, Right: R})
+        }
+    }
+    return screens
+}
+
+
+
+
 
 ^j::
 {
@@ -155,4 +195,48 @@ Tippy(text := "", durationMs := 3333, whichTooltip := 1) {
 ;    }
 
     T(text, durationMs, whichTooltip)
+}
+
+
+^k::
+{
+MonitorCount := MonitorGetCount()
+MonitorPrimary := MonitorGetPrimary()
+MsgBox "Monitor Count:`t" MonitorCount "`nPrimary Monitor:`t" MonitorPrimary
+Loop MonitorCount
+{
+    MonitorGet(1, &L, &T, &R, &B)
+    MonitorGetWorkArea A_Index, &WL, &WT, &WR, &WB
+    MsgBox
+    (
+        "Monitor:`t#" A_Index "
+        Name:`t" MonitorGetName(A_Index) "
+        Left:`t" L " (" WL " work)
+        Top:`t" T " (" WT " work)
+        Right:`t" R " (" WR " work)
+        Bottom:`t" B " (" WB " work)"
+    )
+}
+}
+
+
+
+class BB
+{
+    static v := 6
+
+    __New()
+    {
+        v := 1 ; ❌ assumes local variable, not the static
+        this.v := 1 ; ❌ assumes instance variable, not the static
+        BB.v := 1 ; ✅
+        %this.__Class%.v :=1 ✅
+    }
+
+    showV()
+    {
+        Tooltip(v) ; ❌ Error: Warning: This variable appears to never be assigned a value.
+        Tooltip(BB.v) ; ✅ this works
+        Tooltip(this.V) ; ✅ this also works! 🎉
+    }
 }
