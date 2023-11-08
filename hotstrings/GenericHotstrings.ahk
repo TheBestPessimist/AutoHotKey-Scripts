@@ -1,5 +1,8 @@
 ﻿; Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
-; Note: "O" deletes the ending character (the one which activates the hotstring)
+; Flag explanations:
+; - 0 (letter o) deletes the ending character (the one which activates the hotstring)
+; - B0 (letter b and zero): Disable automatic backspacing
+; - Kn: Delay between each keypress
 
 ; ----- @self --------------------------
 :O:c@tbp::cristian@tbp.land

@@ -23,6 +23,10 @@ CoordMode("Mouse", "Screen")
 ; I removed `n and `t from hotstring trigger chars
 ; https://www.autohotkey.com/docs/v2/Hotstrings.htm#EndChars
 #Hotstring EndChars -()[]{}:;'"/\,.?!`s
+; Try to make telegram and Feces work better with hotstrings
+; 1. Switch all hotstrings from SendInput to SendEvent, otherwise they ignore key delay
+; 2. Increase the time between each hotstring hotkey to 10ms
+#Hotstring SE K10
 
 ;; rest of everything
 #Include lib/Tippy.ahk

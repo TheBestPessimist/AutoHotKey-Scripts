@@ -61,13 +61,13 @@ In order to debug try running the hotstring with these options:
 
 ; :thumbsup - https://emojipedia.org/thumbs-up/
 :O::`+1::👍 `
-:0::thup::👍 `
+:O::thup::👍 `
 
 
 ; :thumbsdown - https://emojipedia.org/thumbs-down/
 :O::`-1::👎 `
-:0::thdn::👎 `
-:0::thdown::👎 `
+:O::thdn::👎 `
+:O::thdown::👎 `
 
 
 ; Pause - https://emojis.wiki/pause-button/
