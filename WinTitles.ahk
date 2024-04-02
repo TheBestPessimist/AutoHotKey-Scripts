@@ -5,6 +5,8 @@ class WinTitles
 
     static ModernSkype := [WinTitles.ModernApp, "Skype"]
     static ModernPhotos := [WinTitles.ModernApp, "Photos"]
+    static ModernMediaPlayer := [WinTitles.ModernApp, "Media Player"]
+    static ModernDolbyAccess := [WinTitles.ModernApp, "Dolby Access"]
     static Vlc := "ahk_exe vlc.exe"
     static IntellijIdea := "ahk_exe idea64.exe"
     static CorsairCUE := "ahk_class CUEBorderlessWindow ahk_exe iCUE.exe"
