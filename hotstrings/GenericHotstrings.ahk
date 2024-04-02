@@ -65,3 +65,5 @@
 ::.youtried::https://discourse.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
 
 :O:.tias::https://discourse.tbp.land/uploads/default/original/1X/e741730b2b41b7ecd3672f986951038ca43af531.jpeg
+
+::.cal.t::https://calendar.tbp.land
