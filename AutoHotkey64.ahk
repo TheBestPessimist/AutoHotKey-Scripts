@@ -25,8 +25,8 @@ CoordMode("Mouse", "Screen")
 #Hotstring EndChars -()[]{}:;'"/\,.?!`s
 ; Try to make telegram and Feces work better with hotstrings
 ; 1. Switch all hotstrings from SendInput to SendEvent, otherwise they ignore key delay
-; 2. Increase the time between each hotstring hotkey to 10ms
-#Hotstring SE K10
+; 2. Increase the time between each hotstring hotkey to 5ms
+#Hotstring SE K5
 
 ;; rest of everything
 #Include lib/Tippy.ahk
