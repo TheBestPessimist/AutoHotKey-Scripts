@@ -370,9 +370,11 @@ class Installation {
         ; Close scripts and help files
         this.PreUninstallChecks files
         
-        ; Remove from registry only if being fully uninstalled
-        if versions = ''
+        ; Remove registry key and certificate only if being fully uninstalled
+        if versions = '' {
             this.UninstallRegistry
+            try EnableUIAccess_DeleteCertAndKey("AutoHotkey")
+        }
         
         ; Remove files
         SetWorkingDir this.InstallDir
@@ -902,7 +904,7 @@ class Installation {
             catch as e {
                 try FileDelete newPath
                 if e.What != "EndUpdateResource"
-                    throw
+                    throw e
                 if this.Silent {
                     if A_Index > 4
                         break
