@@ -55,5 +55,20 @@ MarkdownCodeHighlighter(hs)
     {
         hs := "powershell"
     }
-    Send("``````" hs "`n`n" "``````" "{left 4}")
+
+    prefix := "``````"
+    suffix := "``````"
+    newlines := "`n`n"
+    moveCursorBack := "{left 4}"
+
+
+
+    ; Obsidian already adds the backticks
+    if (WinActive(WinTitles.Obsidian)) {
+        suffix := ""
+        moveCursorBack := ""
+        newlines := "`n"
+    }
+
+    Send(prefix hs newlines suffix moveCursorBack)
 }
