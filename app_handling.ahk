@@ -212,3 +212,28 @@ sc06A Up::Send "!{Left}" ; This sends Alt+Left
 ; Browser_Forward via 3 finger swipe to left
 sc069::Return
 sc069 Up::Send "!{Right}" ; This sends Alt+Right
+
+
+/*
+For the love of god, i can't understand why they don't allow me to use just my keyboard to play the game.
+WTF folks?
+*/
+#HotIf WinActive(WinTitles.BeatSlayer)
+J::Send "{LButton}"
+K::Send "{RButton}"
+#HotIf
+
+
+#HotIf WinActive(WinTitles.Obsidian)
+::.ttt:: {
+    Send("- [ ] ttt ")
+}
+#HotIf
+
+
+
+;$q::Send "1q"
+;$w::Send "1w"
+;$e::Send "1e"
+;$r::Send "1r"
+;$g::Send "1g"
