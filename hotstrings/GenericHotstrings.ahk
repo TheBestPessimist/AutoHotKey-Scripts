@@ -7,12 +7,13 @@
 ; ----- @self --------------------------
 :O:c@tbp::cristian@tbp.land
 :O:c@gmail::cristian.nahsuc@gmail.com
-:O:c@nagarro::cristian.pasat.ext@nagarro.com
+:O:c@mhp::cristian-viorel.pirnea@mhp.com
 :O:@tbp::TheBestPessimist
 
 
 
-; ----- my autohotkey github -----------
+; ----- github -----------
+::.git::https://git.tbp.land/
 ::.gitahk::https://git.tbp.land/AutoHotKey-Scripts/
 ::.gitahkl::https://git.tbp.land/AutoHotKey-Launcher/
 
@@ -23,9 +24,6 @@
 ::.datet:: {
     Send(FormatTime(, "yyyy-MM-dd--HH-mm-ss"))
 }
-
-
-
 
 
 ; todo: fix for ahk 2
@@ -62,8 +60,15 @@
 ; ---- Misc ----------------------------
 ::.giggle::__(giggle)__
 
+::.logo::`¯\_(ツ)_/¯`
+
 ::.youtried::https://discourse.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
 
 :O:.tias::https://discourse.tbp.land/uploads/default/original/1X/e741730b2b41b7ecd3672f986951038ca43af531.jpeg
 
 ::.cal.t::https://calendar.tbp.land
+
+; `em` dash (is a longer minus): https://en.wikipedia.org/wiki/Dash#Em_dash
+::.--::—
+
+::.yt::label:youtube -kotlin -lowkotv -local-first
