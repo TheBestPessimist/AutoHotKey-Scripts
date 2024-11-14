@@ -29,7 +29,7 @@ class WinTitles
 }
 
 class Paths {
-    static FlowLauncher := "D:\all\all\Flow.Launcher\Flow.Launcher.exe"
+    static FlowLauncher := "D:\all\all\FlowLauncher\Flow.Launcher.exe"
 }
 
 class Process {
