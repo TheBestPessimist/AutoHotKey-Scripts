@@ -46,6 +46,8 @@ CoordMode("Mouse", "Screen")
 #Include lib/_JXON.ahk
 
 
+
+
 ;-------------------------------------------------
 ;   Handle multiple virtual desktops
 CapsLock & D::SendInput "^#{Right}"
@@ -174,3 +176,20 @@ if(A_PriorKey != "LWin") {
 }
 ; end of workarounds
 */
+
+
+; SC2 Eterrnal Wrath of Eres
+; 3 = marine stim
+; 4 = tank boost armor
+; 1 = moi
+CapsLock & m:: {
+    static toggle := 0
+    SetTimer(stim, (toggle := !toggle) ? 400 : 0)
+}
+
+stim() {
+    Tippy("stim (caps M)", 3000, 5)
+    ControlSend("{Blind}{Raw}3tt",, "ahk_exe SC2_x64.exe")
+;    ControlSend("{Blind}{Raw}4b",, "ahk_exe SC2_x64.exe")
+    ControlSend("{Blind}{Raw}1h",, "ahk_exe SC2_x64.exe")
+}

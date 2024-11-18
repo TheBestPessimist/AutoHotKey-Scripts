@@ -1,4 +1,7 @@
-﻿#include lib/Tippy.ahk
+﻿#include Tippy.ahk
+
+
+; ❗ not working for AHK 2
 
 ; Function which toggles a timer (using SetTimer) but also shows if it turned the timer on or off with a tooltip.
 ;
