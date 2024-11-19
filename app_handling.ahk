@@ -232,6 +232,20 @@ K::Send "{RButton}"
 
 
 
+/*
+Why a KeyDelay for Slack? Because Slack has dogshit slow garbage performance.
+
+If i use normal hotstring replacement for text which has any markup (italic, bold, inline code, etc.), Slack trashes everything ahk types and also losses characters.
+Instead, I have to use SendEvent, which respects key delay.
+
+I swear to fucking god, all the JavaScript world is pure fucking garbage.
+*/
+if(WinActive("ahk_exe slack.exe")) {
+    SetKeyDelay 100
+}
+
+
+
 ;$q::Send "1q"
 ;$w::Send "1w"
 ;$e::Send "1e"

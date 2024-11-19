@@ -1,8 +1,12 @@
-﻿; Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
-; Flag explanations:
-; - 0 (letter o) deletes the ending character (the one which activates the hotstring)
-; - B0 (letter b and zero): Disable automatic backspacing
-; - Kn: Delay between each keypress
+﻿/*
+Reference: https://autohotkey.com/docs/Hotstrings.htm#Options
+Flag explanations:
+- 0 (letter o) deletes the ending character (the one which activates the hotstring)
+- B0 (letter b and zero): Disable automatic backspacing
+- Kn: Delay between each keypress
+
+Why am I using SendEvent at times? Search for Slack.
+*/
 
 ; ----- @self --------------------------
 :O:c@tbp::cristian@tbp.land
@@ -58,9 +62,13 @@
 
 
 ; ---- Misc ----------------------------
-::.giggle::__(giggle)__
+::.giggle::{
+    SendEvent("__(giggle)__")
+}
 
-::.logo::`¯\_(ツ)_/¯`
+::.logo::{
+    SendEvent("``¯\_(ツ)_/¯``")
+}
 
 ::.youtried::https://discourse.tbp.land/uploads/default/original/1X/ffe6c3aeef608606b00fa5587acce5bbf6d15d05.png
 
