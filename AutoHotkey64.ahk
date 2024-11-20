@@ -133,7 +133,7 @@ CapsLock & LWin Up::Send "^!+l"
 ; Run Windows Terminal
 #t::
 {
-    Run("C:\Users\TheBestPessimist\AppData\Local\Microsoft\WindowsApps\wt.exe  --title `"Windows FUCKING Terminal :^)`" ")
+    Run("wt.exe  --title `"Windows FUCKING Terminal :^)`" ")
     windowsFuckingTerminalWindow := "Windows FUCKING Terminal ahk_class CASCADIA_HOSTING_WINDOW_CLASS ahk_exe WindowsTerminal.exe"
 
     WinWait(windowsFuckingTerminalWindow, , 5)
