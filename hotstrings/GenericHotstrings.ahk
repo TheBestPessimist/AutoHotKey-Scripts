@@ -80,3 +80,5 @@ Why am I using SendEvent at times? Search for Slack.
 ::.--::—
 
 ::.yt::label:youtube -kotlin -lowkotv -local-first
+
+::.english::https://www.youtube.com/watch?v=HbvYeLxMKN8
