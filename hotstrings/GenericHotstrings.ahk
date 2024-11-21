@@ -81,4 +81,8 @@ Why am I using SendEvent at times? Search for Slack.
 
 ::.yt::label:youtube -kotlin -lowkotv -local-first
 
+; ENGLISH MOTHERFUCKER, DO YOU SPEAK IT?
 ::.english::https://www.youtube.com/watch?v=HbvYeLxMKN8
+
+; Just DO IT!
+::.doit::https://media.giphy.com/media/UqZ4imFIoljlr5O2sM/giphy.gif
