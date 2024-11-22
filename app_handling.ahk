@@ -228,6 +228,8 @@ K::Send "{RButton}"
 ::.ttt:: {
     Send("- [ ] ttt ")
 }
+!]::Tab
+![::Send "{Shift Down}{Tab}{Shift Up}"
 #HotIf
 
 
