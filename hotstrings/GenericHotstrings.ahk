@@ -19,7 +19,6 @@ Why am I using SendEvent at times? Search for Slack.
 ; ----- github -----------
 ::.git::https://git.tbp.land/
 ::.gitahk::https://git.tbp.land/AutoHotKey-Scripts/
-::.gitahkl::https://git.tbp.land/AutoHotKey-Launcher/
 
 
 ::.date:: {
