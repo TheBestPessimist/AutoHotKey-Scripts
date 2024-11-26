@@ -66,11 +66,13 @@ In order to debug try running the hotstring with these options:
 
 ; :thumbsup - https://emojipedia.org/thumbs-up/
 :O::`+1::👍 `
+:O::up::👍 `
 :O::thup::👍 `
 
 
 ; :thumbsdown - https://emojipedia.org/thumbs-down/
 :O::`-1::👎 `
+:O::dn::👎 `
 :O::thdn::👎 `
 :O::thdown::👎 `
 
