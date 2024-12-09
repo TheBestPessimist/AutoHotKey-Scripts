@@ -42,6 +42,7 @@ CoordMode("Mouse", "Screen")
 #Include hotstrings/ResetHotstrings.ahk
 
 #Include *i Private.ahk
+#Include "HP so-called Elitebook.ahk"
 
 #Include lib/_JXON.ahk
 
