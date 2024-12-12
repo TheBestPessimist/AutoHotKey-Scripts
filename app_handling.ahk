@@ -243,7 +243,7 @@ Instead, I have to use SendEvent, which respects key delay.
 I swear to fucking god, all the JavaScript world is pure fucking garbage.
 */
 if(WinActive("ahk_exe slack.exe")) {
-    SetKeyDelay 100
+    SetKeyDelay 150
 }
 
 
