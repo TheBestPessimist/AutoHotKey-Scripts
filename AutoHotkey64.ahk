@@ -117,11 +117,6 @@ LControl & LWin Up::
 ; Launch Voidtools Everything
 $#s::Send "#^!+{F12}"
 
-;------------------------------------------------
-; Launch the other launcher (Autohotkey-Launcher).
-; I must do this dance because this script takes over Win key, and the other one cannot use it
-; Technical: I must use LWin Up, because Win + L = lock screen
-CapsLock & LWin Up::Send "^!+l"
 
 ;------------------------------------------------
 ; CapsLock + P: Toggle between "Power saver" and "Balanced" powers schemes
