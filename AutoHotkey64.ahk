@@ -110,7 +110,8 @@ LControl & LWin Up::
         Send "{Esc}"
         Sleep 500
     }
-    Send "#{F10}"
+    ; Alt Shift F10
+    Send "!+{F10}"
 }
 
 ;------------------------------------------------
