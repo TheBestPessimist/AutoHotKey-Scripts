@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0
 
 #SingleInstance Force
-A_MenuMaskKey := "vkE8"
-;#WinActivateForce ; disabled to check if AHK v2 works better than AHK V1
+A_MenuMaskKey := "vkFF"
+;#WinActivateForce ; disabled because AHK v2 works better than AHK V1
 InstallKeybdHook
 InstallMouseHook
 ; these 2 settings are killing the telegram starter, since the telegram process exists,
