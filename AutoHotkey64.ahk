@@ -110,8 +110,8 @@ LControl & LWin Up::
         Send "{Esc}"
         Sleep 500
     }
-    ; Alt Shift F10
-    Send "!+{F10}"
+    ; F23 was set by editing the FL configuration file manually in `FL/UserData/Settings/Settings.json`
+    Send "{F23}"
 }
 
 ;------------------------------------------------
