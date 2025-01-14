@@ -94,7 +94,7 @@ CapsLock & 1 Up::{
 ;------------------------------------------------
 ; Flow Launcher should replaces Windows key, but that is not possible while also keeping AltSnap working
 ;~LWin & ~LControl:: ; for some reason this ordering of keys interferes with Precision touchpad "3 finger tap = Middle click" 🙄. Why is Microshitsoft sending all modifier keys before middle click? WTF ?!?!?!!?!?
-LControl & LWin Up::
+CapsLock & LWin Up::
 {
     ; see https://github.com/seerge/g-helper/issues/512: need this to disable touchpad
     if(A_PriorKey = "F24") ; in my 2 in 1 laptop, when rotating the screen into tabled only mode, GHelper sends the keys LCtrl Down, LWin Down, F24 Down, then up, which activates this hotkey
