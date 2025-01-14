@@ -246,6 +246,46 @@ if(WinActive("ahk_exe slack.exe")) {
     SetKeyDelay 150
 }
 
+;------------------------------------------------
+; Run Windows Terminal
+#t::
+{
+    Run("wt.exe  --title `"Windows FUCKING Terminal :^)`" ")
+    windowsFuckingTerminalWindow := "Windows FUCKING Terminal ahk_class CASCADIA_HOSTING_WINDOW_CLASS ahk_exe WindowsTerminal.exe"
+
+    WinWait(windowsFuckingTerminalWindow, , 5)
+    WinActivate(windowsFuckingTerminalWindow)
+}
+
+
+;------------------------------------------------
+; Flow Launcher should replaces Windows key, but that is not possible while also keeping AltSnap working
+;~LWin & ~LControl:: ; for some reason this ordering of keys interferes with Precision touchpad "3 finger tap = Middle click" 🙄. Why is Microshitsoft sending all modifier keys before middle click? WTF ?!?!?!!?!?
+;LControl & LWin Up:: ; this one seems to work, but sometimes it opens FL Flow Launcher without focus, so typing does nothing.
+; In the end, using CapsLock is the best decision.
+CapsLock & LWin Up::
+{
+    ; see https://github.com/seerge/g-helper/issues/512: need this to disable touchpad
+    if(A_PriorKey = "F24") ; in my 2 in 1 laptop, when rotating the screen into tabled only mode, GHelper sends the keys LCtrl Down, LWin Down, F24 Down, then up, which activates this hotkey
+        return
+    if(!ProcessExist(Process.FlowLauncher)) {
+        Tippy("It's dead, Jim")
+        Run(Paths.FlowLauncher)
+        Sleep 2500
+    }
+
+    ; if Start menu is open, turn it off
+    if(WinActive("ahk_class Windows.UI.Core.CoreWindow")) {
+        Send "{Esc}"
+        Sleep 500
+    }
+    ; F23 was set by editing the FL configuration file manually in `FL/UserData/Settings/Settings.json`
+    Send "{F23}"
+}
+
+;------------------------------------------------
+; Launch Voidtools Everything
+$#s::Send "#^!+{F12}"
 
 
 ;$q::Send "1q"
