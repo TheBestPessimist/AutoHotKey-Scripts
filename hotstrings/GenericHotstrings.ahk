@@ -25,9 +25,11 @@ Why am I using SendEvent at times? Search for Slack.
     Send(FormatTime( , "yyyy-MM-dd"))
 }
 ::.datet:: {
-    Send(FormatTime(, "yyyy-MM-dd--HH-mm-ss"))
+    Send(FormatTime(, "yyyy-MM-dd HH-mm-ss"))
 }
-
+::.time:: {
+    Send(FormatTime(, "HH-mm-ss"))
+}
 
 ; todo: fix for ahk 2
 ;::.collapsed::
