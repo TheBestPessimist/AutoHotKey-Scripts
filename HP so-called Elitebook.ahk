@@ -12,7 +12,7 @@ WHY MAKE ME JUMP OVER 3 KEYS FOR HOME-END????? BRAH!?!?! WHY???
 
 
 
-#HotIf A_ComputerName = "TBP-MHP"
+#HotIf A_ComputerName = "RO-5CG3260MPX"
 Home::PgUp
 PgUp::PgDn
 PgDn::Home
