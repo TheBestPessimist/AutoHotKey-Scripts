@@ -7,6 +7,7 @@ resetCapsLockState()
 ; I hope this will fix it
 resetCapsLockState(){
     SetCapsLockState("On")
+    Sleep(200)
     SetCapsLockState("AlwaysOff")
 }
 
