@@ -265,6 +265,7 @@ if(WinActive("ahk_exe slack.exe")) {
 ; In the end, using CapsLock is the best decision.
 CapsLock & LWin Up::
 {
+    resetCapsLockState()
     ; see https://github.com/seerge/g-helper/issues/512: need this to disable touchpad
     if(A_PriorKey = "F24") ; in my 2 in 1 laptop, when rotating the screen into tabled only mode, GHelper sends the keys LCtrl Down, LWin Down, F24 Down, then up, which activates this hotkey
         return

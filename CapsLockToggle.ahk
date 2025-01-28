@@ -1,6 +1,14 @@
 ﻿#Include lib/Tippy.ahk
 
-SetCapsLockState("AlwaysOff")
+
+resetCapsLockState()
+
+; As far as i can see, CapsLock is sometimes stuck when launcher Flow Launcher via Caps + Win.
+; I hope this will fix it
+resetCapsLockState(){
+    SetCapsLockState("On")
+    SetCapsLockState("AlwaysOff")
+}
 
 CapsLock & Alt:: {
     static state := 0
