@@ -225,10 +225,15 @@ K::Send "{RButton}"
 
 
 #HotIf WinActive(WinTitles.Obsidian)
+; task
 ::.ttt:: {
-    Send("- [ ] ttt  ➕ " date() " {left 14}")
+    Send("{Home} - [ ] ttt {end} ➕ " date() " {left 14}")
 }
+
+; Ctrl ] - Indent
 !]::Tab
+
+; Ctrl [ - Unindent
 ![::Send "{Shift Down}{Tab}{Shift Up}"
 #HotIf
 
