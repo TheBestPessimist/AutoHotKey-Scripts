@@ -20,9 +20,12 @@ Why am I using SendEvent at times? Search for Slack.
 ::.git::https://git.tbp.land/
 ::.gitahk::https://git.tbp.land/AutoHotKey-Scripts/
 
+date() {
+    return FormatTime( , "yyyy-MM-dd")
+}
 
 ::.date:: {
-    Send(FormatTime( , "yyyy-MM-dd"))
+    Send(date())
 }
 ::.datet:: {
     Send(FormatTime(, "yyyy-MM-dd HH-mm-ss"))

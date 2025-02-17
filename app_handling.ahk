@@ -226,7 +226,7 @@ K::Send "{RButton}"
 
 #HotIf WinActive(WinTitles.Obsidian)
 ::.ttt:: {
-    Send("- [ ] ttt ")
+    Send("- [ ] ttt  ➕ " date() " {left 14}")
 }
 !]::Tab
 ![::Send "{Shift Down}{Tab}{Shift Up}"
