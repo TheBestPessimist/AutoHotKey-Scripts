@@ -235,6 +235,11 @@ K::Send "{RButton}"
 
 ; Ctrl [ - Unindent
 ![::Send "{Shift Down}{Tab}{Shift Up}"
+
+; Link to a local folder or file
+::.file:: {
+    Send("[title](<file:///paste_link_here>)")
+}
 #HotIf
 
 
