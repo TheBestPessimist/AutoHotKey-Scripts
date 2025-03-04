@@ -12,12 +12,17 @@ k::PgUp
 ;-------------------------------------------------
 ;       CapsLock sublime text
 CapsLock & s:: {
-    if !WinExist(WinTitles.SublimeText) {
-      Run("D:\all\all\Sublime Text\sublime_text.exe")
-      WinWaitActive(WinTitles.SublimeText, , 10)
+    Try {
+        pid := WinGetPID(WinTitles.SublimeText)
+    } Catch {
+        pid := 0
     }
-    Sleep 499
-    WinActivate(WinTitles.SublimeText)
+
+    if (!pid) {
+        Run("D:\all\all\Sublime Text\sublime_text.exe",, "Max", &pid)
+        WinWait("ahk_pid " pid)
+    }
+    WinActivate("ahk_pid " pid)
 }
 
 
