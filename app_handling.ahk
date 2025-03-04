@@ -309,3 +309,11 @@ $#s::Send "#^!+{F12}"
 ;$e::Send "1e"
 ;$r::Send "1r"
 ;$g::Send "1g"
+
+
+; Win E = File Pilot and not Explorer! 🎉
+#e:: {
+    Run("D:\all\all\File Pilot\FPilot.exe ~",, "Max", &pid)
+    WinWait("ahk_pid " pid)
+    WinActivate("ahk_pid " pid)
+}
