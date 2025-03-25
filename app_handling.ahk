@@ -98,7 +98,7 @@ CapsLock & w:: {
     Send "^+A"
     Sleep 500
     Send "active editor soft wrap"
-    Sleep 500
+    Sleep 1000
     Send "{Enter}"
     Sleep 500
     Send "{Esc}"
