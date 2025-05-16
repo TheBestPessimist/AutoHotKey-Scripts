@@ -83,7 +83,7 @@ date() {
 ; `em` dash (is a longer minus): https://en.wikipedia.org/wiki/Dash#Em_dash
 ::.--::—
 
-::.yt::label:youtube -kotlin -lowkotv -local-first -revision
+::.yt::label:youtube -kotlin -lowkotv -local-first -revision -jetbrains -java
 
 ; ENGLISH MOTHERFUCKER, DO YOU SPEAK IT?
 ::.english::https://www.youtube.com/watch?v=HbvYeLxMKN8
