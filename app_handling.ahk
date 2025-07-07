@@ -313,7 +313,17 @@ $#s::Send "#^!+{F12}"
 
 ; Win E = File Pilot and not Explorer! 🎉
 #e:: {
-    Run("D:\all\all\File Pilot\FPilot.exe ~",, "Max", &pid)
+    if(FileExist("D:\all\all\File Pilot\FPilot-Prof.exe")) {
+        ; profiler version -- it creates HUGE files
+        Run("D:\all\all\File Pilot\FPilot-Prof.exe ~",, "Max", &pid)
+    } else
+    if(FileExist("D:\all\all\File Pilot\FPilot-Dev.exe")) {
+        ; development build - better stack traces. RUN THIS
+        Run("D:\all\all\File Pilot\FPilot-Dev.exe ~",, "Max", &pid)
+    } else {
+        ; perf optimised build
+        Run("D:\all\all\File Pilot\FPilot.exe ~",, "Max", &pid)
+    }
     WinWait("ahk_pid " pid)
     WinActivate("ahk_pid " pid)
 }
