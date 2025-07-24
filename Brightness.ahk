@@ -1,9 +1,9 @@
-﻿
-#HotIf A_ComputerName = "tbp-mhp"
-; Change display brightness with Ctrl + Volume
+﻿; Change display brightness with Ctrl + Volume
 ; Source: https://gist.github.com/krrr/3c3f1747480189dbb71f
 ;
 ; A problem: I cannot make the Windows Brightness OSD appear. Yes, I tried in multiple ways and with LLMs and everything.
+
+#HotIf A_ComputerName = "tbp-mhp"
 
 Ctrl & Volume_Up::AdjustScreenBrightness(10)
 Ctrl & Volume_Down::AdjustScreenBrightness(-10)
@@ -21,7 +21,7 @@ AdjustScreenBrightness(step) {
         toSet := 0
     if (toSet > 100)
         toSet := 100
-    Tippy("Brightnes: " toSet)
+    Tippy("Brightness: " toSet)
     for i in monMethods {
         i.WmiSetBrightness(1, toSet)
         break
