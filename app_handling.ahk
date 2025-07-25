@@ -235,12 +235,6 @@ K::Send "{RButton}"
     Send("{Home} - [ ] ttt {end}  ➕ " date() " {left 14}")
 }
 
-; Ctrl ] - Indent
-!]::Tab
-
-; Ctrl [ - Unindent
-![::Send "{Shift Down}{Tab}{Shift Up}"
-
 ; Link to a local folder or file
 ::.file:: {
     Send("[title](<file:///paste_link_here>)")
