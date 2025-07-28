@@ -185,6 +185,44 @@ CapsLock & v:: {
 }
 
 
+;---------------------------------------------------
+; 2 min timer
+CapsLock & o::
+{
+    _2MinTimer.toggle := !_2MinTimer.toggle
+
+    if (_2MinTimer.toggle) {
+        _2MinTimer.i := 120
+        _2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID.call()
+        SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 1000)
+    } else {
+        SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 0)
+        Tippy(" ", 1, 17)
+        _2MinTimer.toggle := 0
+    }
+}
+class _2MinTimer {
+    static i := 0
+    static toggle := 0
+
+    static ahkFunctionReferencesAreFUCKINGSTUPID := ObjBindMethod(_2MinTimer, "func")
+
+    static func() {
+        Tippy("timer: " _2MinTimer.i,,17)
+        _2MinTimer.i--
+        if (_2MinTimer.i < 0) {
+            _2MinTimer.toggle := 0
+            SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 0)
+            Loop 10 {
+                t := 200
+                Tippy("      timer done       ",, 17)
+                sleep(t)
+                Tippy("❗ timer done ❗",, 17)
+                sleep(t)
+            }
+        }
+    }
+}
 
 ;-----------------------
 ; Microshitsoft Teams is fucking retarded
