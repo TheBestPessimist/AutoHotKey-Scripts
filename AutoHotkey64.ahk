@@ -32,6 +32,7 @@ CoordMode("Mouse", "Screen")
 #Include lib/Tippy.ahk
 #Include lib/libdebug.ahk
 #Include app_handling.ahk
+#Include app_bitwarden.ahk
 #Include lib/ReloadScript.ahk
 #Include CapsLockToggle.ahk
 #Include "Asus Rog Flow X16.ahk"
