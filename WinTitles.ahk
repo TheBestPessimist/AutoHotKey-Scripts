@@ -26,6 +26,7 @@ class WinTitles
     static ArmouryCrate := "ARMOURY CRATE ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe"
     static Obsidian := "ahk_exe Obsidian.exe"
     static BeatSlayer := "ahk_exe BeatSlayer.exe"
+    static Bitwarden := "ahk_exe Bitwarden.exe"
 }
 
 class Paths {

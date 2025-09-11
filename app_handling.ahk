@@ -386,3 +386,37 @@ $#s::Send "#^!+{F12}"
 ;    ; restore initial position
 ;    MouseMove x, y
 ;}
+
+
+
+
+;-------------------------------------------------
+; Bitwarden: Ctrl+E Edit, Ctrl+S Save via image search
+#HotIf WinActive(WinTitles.Bitwarden)
+^e:: {
+    CoordMode "Pixel", "Screen"
+    CoordMode "Mouse", "Screen"
+    SendMode "Event"
+    MouseGetPos &x, &y
+    if ImageSearch(&ix, &iy, 0, 0, A_ScreenWidth, A_ScreenHeight, "resources/BW - Bitwarden Edit Button.png") {
+        MouseMove ix, iy, 5
+        Send "{LButton}"
+        MouseMove x, y, 5
+    } else {
+        Tippy("Bitwarden Edit button not found")
+    }
+}
+^s:: {
+    CoordMode "Pixel", "Screen"
+    CoordMode "Mouse", "Screen"
+    MouseGetPos &x, &y
+    SendMode "Event"
+    if ImageSearch(&ix, &iy, 0, 0, A_ScreenWidth, A_ScreenHeight, "resources/BW - Bitwarden Save Button.png") {
+        MouseMove ix, iy, 5
+        Send "{LButton}"
+        MouseMove x, y, 5
+    } else {
+        Tippy("Bitwarden Save button not found")
+    }
+}
+#HotIf
