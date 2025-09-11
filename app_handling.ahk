@@ -213,11 +213,11 @@ class _2MinTimer {
         if (_2MinTimer.i < 0) {
             _2MinTimer.toggle := 0
             SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 0)
-            Loop 10 {
-                t := 200
-                Tippy("      timer done       ",, 17)
+            Loop 40 {
+                Tippy(" ❗ ❗ timer done ❗ ❗ ",, 17)
+                t := 150
                 sleep(t)
-                Tippy("❗ timer done ❗",, 17)
+                Tippy("timer done",, 17)
                 sleep(t)
             }
         }

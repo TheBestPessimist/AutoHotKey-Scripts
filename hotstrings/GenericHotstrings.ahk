@@ -11,7 +11,6 @@ Why am I using SendEvent at times? Search for Slack.
 ; ----- @self --------------------------
 :O:c@tbp::cristian@tbp.land
 :O:c@gmail::cristian.nahsuc@gmail.com
-:O:c@mhp::cristian-viorel.pirnea@mhp.com
 :O:@tbp::TheBestPessimist
 
 
