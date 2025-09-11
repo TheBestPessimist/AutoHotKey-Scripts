@@ -419,4 +419,17 @@ $#s::Send "#^!+{F12}"
         Tippy("Bitwarden Save button not found")
     }
 }
+^d:: {
+    CoordMode "Pixel", "Screen"
+    CoordMode "Mouse", "Screen"
+    MouseGetPos &x, &y
+    SendMode "Event"
+    if ImageSearch(&ix, &iy, 0, 0, A_ScreenWidth, A_ScreenHeight, "resources/BW - Bitwarden Delete Button.png") {
+        MouseMove ix, iy, 5
+        Send "{LButton}"
+        MouseMove x, y, 5
+    } else {
+        Tippy("Bitwarden Delete button not found")
+    }
+}
 #HotIf
