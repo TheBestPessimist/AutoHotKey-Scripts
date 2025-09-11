@@ -391,45 +391,32 @@ $#s::Send "#^!+{F12}"
 
 
 ;-------------------------------------------------
-; Bitwarden: Ctrl+E Edit, Ctrl+S Save via image search
+; Bitwarden Shortcuts which they won't implement for some stupid reason
 #HotIf WinActive(WinTitles.Bitwarden)
-^e:: {
+; Helper: click an image within the Bitwarden window bounds
+bitwardenClickImage(imgPath) {
     CoordMode "Pixel", "Screen"
     CoordMode "Mouse", "Screen"
     SendMode "Event"
     MouseGetPos &x, &y
-    if ImageSearch(&ix, &iy, 0, 0, A_ScreenWidth, A_ScreenHeight, "resources/BW - Bitwarden Edit Button.png") {
+    WinGetPos &wx, &wy, &ww, &wh, WinTitles.Bitwarden
+    x1 := wx
+    y1 := wy
+    x2 := wx + ww - 1
+    y2 := wy + wh - 1
+    if ImageSearch(&ix, &iy, x1, y1, x2, y2, imgPath) {
         MouseMove ix, iy, 5
         Send "{LButton}"
         MouseMove x, y, 5
+        return true
     } else {
-        Tippy("Bitwarden Edit button not found")
+        Tippy("Image   `"" . imgPath . "`"    was not found.")
+        return false
     }
 }
-^s:: {
-    CoordMode "Pixel", "Screen"
-    CoordMode "Mouse", "Screen"
-    MouseGetPos &x, &y
-    SendMode "Event"
-    if ImageSearch(&ix, &iy, 0, 0, A_ScreenWidth, A_ScreenHeight, "resources/BW - Bitwarden Save Button.png") {
-        MouseMove ix, iy, 5
-        Send "{LButton}"
-        MouseMove x, y, 5
-    } else {
-        Tippy("Bitwarden Save button not found")
-    }
-}
-^d:: {
-    CoordMode "Pixel", "Screen"
-    CoordMode "Mouse", "Screen"
-    MouseGetPos &x, &y
-    SendMode "Event"
-    if ImageSearch(&ix, &iy, 0, 0, A_ScreenWidth, A_ScreenHeight, "resources/BW - Bitwarden Delete Button.png") {
-        MouseMove ix, iy, 5
-        Send "{LButton}"
-        MouseMove x, y, 5
-    } else {
-        Tippy("Bitwarden Delete button not found")
-    }
-}
+
+#HotIf WinActive(WinTitles.Bitwarden)
+^e::bitwardenClickImage("resources/BW - Bitwarden Edit Button.png")
+^s::bitwardenClickImage("resources/BW - Bitwarden Save Button.png")
+^d::bitwardenClickImage("resources/BW - Bitwarden Delete Button.png")
 #HotIf
