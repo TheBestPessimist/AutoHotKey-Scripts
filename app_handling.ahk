@@ -192,7 +192,7 @@ CapsLock & o::
     _2MinTimer.toggle := !_2MinTimer.toggle
 
     if (_2MinTimer.toggle) {
-        _2MinTimer.i := 120
+        _2MinTimer.i := 1
         _2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID.call()
         SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 1000)
     } else {
@@ -208,17 +208,20 @@ class _2MinTimer {
     static ahkFunctionReferencesAreFUCKINGSTUPID := ObjBindMethod(_2MinTimer, "func")
 
     static func() {
-        Tippy("timer: " _2MinTimer.i,,17)
-        _2MinTimer.i--
-        if (_2MinTimer.i < 0) {
-            _2MinTimer.toggle := 0
-            SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 0)
-            Loop 40 {
-                Tippy(" ❗ ❗ timer done ❗ ❗ ",, 17)
-                t := 150
-                sleep(t)
+        if (_2MinTimer.i >= 0) {
+            Tippy("timer: " _2MinTimer.i,,17)
+            _2MinTimer.i--
+        } else {
+            SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 150)
+            if(Mod(Abs(_2MinTimer.i), 2) == 0) {
+                Tippy("            ❗       ❗ timer done ❗       ❗            ",, 17)
+            } else {
                 Tippy("timer done",, 17)
-                sleep(t)
+            }
+            _2MinTimer.i--
+            if(_2MinTimer.i <=-80) {
+                _2MinTimer.toggle := 0
+                SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 0)
             }
         }
     }
@@ -270,7 +273,7 @@ K::Send "{RButton}"
 #HotIf WinActive(WinTitles.Obsidian)
 ; task
 ::.ttt:: {
-    Send("{Home} - [ ] ttt {end}  ➕ " date() " {left 14}")
+    Send("{Home}- [ ] ttt {end}  ➕ " date() " {left 14}")
 }
 
 ; Link to a local folder or file
