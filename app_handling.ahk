@@ -192,7 +192,7 @@ CapsLock & o::
     _2MinTimer.toggle := !_2MinTimer.toggle
 
     if (_2MinTimer.toggle) {
-        _2MinTimer.i := 1
+        _2MinTimer.i := 120
         _2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID.call()
         SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 1000)
     } else {
