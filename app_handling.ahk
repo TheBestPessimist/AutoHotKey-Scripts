@@ -214,7 +214,7 @@ class _2MinTimer {
         } else {
             SetTimer(_2MinTimer.ahkFunctionReferencesAreFUCKINGSTUPID, 150)
             if(Mod(Abs(_2MinTimer.i), 2) == 0) {
-                Tippy("            ❗       ❗ timer done ❗       ❗            ",, 17)
+                Tippy("`n`n`n`n`n            ❗       ❗ timer done ❗       ❗            `n`n`n`n`n   ",, 17)
             } else {
                 Tippy("timer done",, 17)
             }
@@ -249,15 +249,15 @@ class _2MinTimer {
 ;   Vivaldi executes the Browser_Forward and Browser_Back actions both on key up and on key down.
 ;   Therefore the solution is simple: don't send key down events to Vivaldi
 
-; Browser_Back via 3 finger swipe to right
-sc16A::Return
-sc16A Up::Send "!{Left}" ; This sends Alt+Left
-sc06A::Return
-sc06A Up::Send "!{Left}" ; This sends Alt+Left
-
-; Browser_Forward via 3 finger swipe to left
-sc069::Return
-sc069 Up::Send "!{Right}" ; This sends Alt+Right
+; ; Browser_Back via 3 finger swipe to right
+; sc16A::Return
+; sc16A Up::Send "!{Left}" ; This sends Alt+Left
+; sc06A::Return
+; sc06A Up::Send "!{Left}" ; This sends Alt+Left
+;
+; ; Browser_Forward via 3 finger swipe to left
+; sc069::Return
+; sc069 Up::Send "!{Right}" ; This sends Alt+Right
 
 
 /*
