@@ -11,7 +11,7 @@ k::PgUp
 
 ;-------------------------------------------------
 ;       CapsLock sublime text
-CapsLock & s:: {
+CapsLock & S:: {
     Try {
         pid := WinGetPID(WinTitles.SublimeText)
     } Catch {
@@ -281,6 +281,23 @@ K::Send "{RButton}"
     Send("[title](<file:///paste_link_here>)")
 }
 #HotIf
+
+;-------------------------------------------------
+;   CapsLock & A: Obsidian
+CapsLock & A:: {
+    Try {
+        pid := WinGetPID(WinTitles.Obsidian)
+    } Catch {
+        pid := 0
+    }
+
+    if (!pid) {
+        Run(Paths.Obsidian,, "Max", &pid)
+        WinWait("ahk_pid " pid)
+    }
+    WinActivate("ahk_pid " pid)
+}
+
 
 
 
