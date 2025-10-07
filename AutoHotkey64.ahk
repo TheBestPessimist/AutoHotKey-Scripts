@@ -51,13 +51,6 @@ CoordMode("Mouse", "Screen")
 
 
 ;-------------------------------------------------
-;   Handle multiple virtual desktops
-CapsLock & D::SendInput "^#{Right}"
-CapsLock & A::SendInput "^#{Left}"
-
-
-
-;-------------------------------------------------
 ;       CapsLock media keys
 CapsLock & Right::SendInput "{Media_Next}"
 CapsLock & Left::SendInput "{Media_Prev}"
