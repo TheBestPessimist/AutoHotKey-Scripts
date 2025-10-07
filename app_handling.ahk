@@ -8,20 +8,14 @@ k::PgUp
 #HotIf
 
 
-
-;-------------------------------------------------
-;       CapsLock sublime text
-CapsLock & S:: {
-    Try {
-        pid := WinGetPID(WinTitles.SublimeText)
-    } Catch {
-        pid := 0
+focusOrOpenApp(winTitle, exePath) {
+    if WinExist(winTitle) {
+        WinActivate(winTitle)
+        return
     }
 
-    if (!pid) {
-        Run("D:\all\all\Sublime Text\sublime_text.exe",, "Max", &pid)
-        WinWait("ahk_pid " pid)
-    }
+    Run(exePath,, "Max", &pid)
+    WinWait("ahk_pid " pid)
     WinActivate("ahk_pid " pid)
 }
 
@@ -283,19 +277,15 @@ K::Send "{RButton}"
 #HotIf
 
 ;-------------------------------------------------
+;       CapsLock sublime text
+CapsLock & S:: {
+    focusOrOpenApp(WinTitles.SublimeText, Paths.SublimeText)
+}
+
+;-------------------------------------------------
 ;   CapsLock & A: Obsidian
 CapsLock & A:: {
-    Try {
-        pid := WinGetPID(WinTitles.Obsidian)
-    } Catch {
-        pid := 0
-    }
-
-    if (!pid) {
-        Run(Paths.Obsidian,, "Max", &pid)
-        WinWait("ahk_pid " pid)
-    }
-    WinActivate("ahk_pid " pid)
+    focusOrOpenApp(WinTitles.Obsidian, Paths.Obsidian)
 }
 
 
