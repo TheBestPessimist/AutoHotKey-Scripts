@@ -100,3 +100,6 @@ In order to debug try running the hotstring with these options:
 
 ; smirk
 :O::smug::😏 `
+
+; Repeat Button - https://emojipedia.org/repeat-button/
+:O::retry::🔁 `
