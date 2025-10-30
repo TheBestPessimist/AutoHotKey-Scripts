@@ -37,7 +37,6 @@ In order to debug try running the hotstring with these options:
 
 ; :question: - https://emojipedia.org/question-mark/
 :O::?::❓ `
-:O:.??::❓ `
 
 ; Answer
 :O::>>::➡️ `
