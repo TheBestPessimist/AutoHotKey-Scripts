@@ -43,7 +43,6 @@ CoordMode("Mouse", "Screen")
 #Include hotstrings/ResetHotstrings.ahk
 
 #Include *i Private.ahk
-;#Include Brightness.ahk
 
 #Include lib/_JXON.ahk
 #Include work.ahk
