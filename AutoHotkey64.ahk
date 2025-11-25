@@ -146,3 +146,20 @@ stim() {
 ;    ControlSend("{Blind}{Raw}4b",, "ahk_exe SC2_x64.exe")
     ControlSend("{Blind}{Raw}1h",, "ahk_exe SC2_x64.exe")
 }
+
+
+
+
+CapsLock & LButton::ClickManyTimes()
+
+ClickManyTimes()
+{
+    Loop 30
+    {
+        ; MouseGetPos, xPos, yPos
+        ; ControlClick,, % this.ahk_SC2,, LEFT, 3, %  "NA" xPos yPos
+        ; Click, xPos, yPos, 3
+        Click
+        Sleep 35
+    }
+}
