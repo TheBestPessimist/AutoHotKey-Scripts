@@ -52,7 +52,7 @@ In order to debug try running the hotstring with these options:
 
 
 ;
-:O::todo::🚧 `
+:O::todo::⛏️ `
 
 
 ; customer is our king - https://emojipedia.org/crown/
