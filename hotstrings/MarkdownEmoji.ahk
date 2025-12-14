@@ -102,3 +102,6 @@ In order to debug try running the hotstring with these options:
 
 ; Repeat Button - https://emojipedia.org/repeat-button/
 :O::retry::🔁 `
+
+; Business is  _special_
+:O::bus::💩 `
