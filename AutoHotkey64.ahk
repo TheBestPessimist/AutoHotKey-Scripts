@@ -46,6 +46,7 @@ CoordMode("Mouse", "Screen")
 
 #Include lib/_JXON.ahk
 #Include work.ahk
+#Include CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetarded.ahk
 
 
 
