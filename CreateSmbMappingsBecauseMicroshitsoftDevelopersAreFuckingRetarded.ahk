@@ -1,12 +1,7 @@
-﻿; There is no need for a standard ahk auto-execute area anymore because of this method.
-; This method is called automatically when the static variable autoExecute is instantiated,
-; and since it's a static, it will only be instantiated once!
-;
-; Idea provided by @nnnik#6686 on the AHK Discord Server: https://discord.gg/s3Fqygv
+﻿CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetardedAutoExecute()
+
 CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetardedAutoExecute()
 {
-    static autoExecute := CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetardedAutoExecute()
-
     SetTimer(CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetarded, -2000)
 }
 
@@ -20,9 +15,9 @@ CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetardedAutoExecute()
 ; Fuck whoever broke this, and whoever the fuck tested and approved this fucking garbage. I wish them all dihareea 3 days a week.
 CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetarded()
 {
-    Run('powershell.exe -WindowStyle Hidden -Command "'
+    Run('pwsh -WindowStyle Hidden -Command "'
         . "New-SmbMapping -Persistent `$true -LocalPath 'P:' -RemotePath '\\tbp-nuc\patrunjel\Patrunjel\Patrunjel'; "
         . "New-SmbMapping -Persistent `$true -LocalPath 'T:' -RemotePath '\\tbp-nuc\torrentz'; "
-        . "New-SmbMapping -Persistent `$true -LocalPath 'W:' -RemotePath '\\tbp-nuc\tbp'"
+        . "New-SmbMapping -Persistent `$true -LocalPath 'W:' -RemotePath '\\tbp-nuc\tbp'; "
         . '"',, "Hide")
 }
