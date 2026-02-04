@@ -12,10 +12,13 @@ CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetardedAutoExecute()
 ;
 ; FUCK THIS FUCKING GARBAGE joke of a fucking operating system, Microshitsoft.
 ; Fuck your fucking Copilot crap.
-; Fuck whoever broke this, and whoever the fuck tested and approved this fucking garbage. I wish them all dihareea 3 days a week.
+; Fuck whoever broke this, and whoever the fuck tested and approved this fucking garbage. I wish them all diarrhea 3 days a week.
 CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetarded()
 {
     Run('pwsh -WindowStyle Hidden -Command "'
+        . "Remove-SmbMapping -LocalPath 'P:' -Force -ErrorAction SilentlyContinue; "
+        . "Remove-SmbMapping -LocalPath 'T:' -Force -ErrorAction SilentlyContinue; "
+        . "Remove-SmbMapping -LocalPath 'W:' -Force -ErrorAction SilentlyContinue; "
         . "New-SmbMapping -Persistent `$true -LocalPath 'P:' -RemotePath '\\tbp-nuc\patrunjel\Patrunjel\Patrunjel'; "
         . "New-SmbMapping -Persistent `$true -LocalPath 'T:' -RemotePath '\\tbp-nuc\torrentz'; "
         . "New-SmbMapping -Persistent `$true -LocalPath 'W:' -RemotePath '\\tbp-nuc\tbp'; "
