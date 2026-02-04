@@ -20,7 +20,7 @@ class WinTitles
     static Feces := "ahk_exe Teams.exe"
     static Telegram := "ahk_exe telegram.exe"
     static SublimeText := "ahk_exe sublime_text.exe"
-    static tf2 := "ahk_exe hl2.exe"
+    static tf2 := "ahk_exe tf_win64.exe"
     static windowsCredentials := "Windows Security"
     static FlowLauncher := "ahk_exe Flow.Launcher.exe"
     static ArmouryCrate := "ARMOURY CRATE ahk_class ApplicationFrameWindow ahk_exe ApplicationFrameHost.exe"

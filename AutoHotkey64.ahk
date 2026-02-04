@@ -150,17 +150,23 @@ stim() {
 
 
 
-
-CapsLock & LButton::ClickManyTimes()
-
-ClickManyTimes()
-{
-    Loop 30
-    {
-        ; MouseGetPos, xPos, yPos
-        ; ControlClick,, % this.ahk_SC2,, LEFT, 3, %  "NA" xPos yPos
-        ; Click, xPos, yPos, 3
-        Click
-        Sleep 35
-    }
+; todo i should try both of these and see which one works better
+CapsLock & LButton:: {
+        MouseGetPos(&xPos, &yPos)
+        SetControlDelay -1
+        ControlClick(, WinTitles.tf2,, "Left", 20,  "NA " " X" xPos " Y" yPos)
 }
+
+;CapsLock & LButton::ClickManyTimes()
+;
+;ClickManyTimes()
+;{
+;    Loop 30
+;    {
+;        ; MouseGetPos, xPos, yPos
+;        ; ControlClick,, % this.ahk_SC2,, LEFT, 3, %  "NA" xPos yPos
+;        ; Click, xPos, yPos, 3
+;        Click
+;        Sleep 35
+;    }
+;}

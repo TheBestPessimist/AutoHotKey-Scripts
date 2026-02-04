@@ -278,9 +278,11 @@ K::Send "{RButton}"
 
 ;-------------------------------------------------
 ;       CapsLock sublime text
+#HotIf !WinActive(WinTitles.tf2)
 CapsLock & S:: {
     focusOrOpenApp(WinTitles.SublimeText, Paths.SublimeText)
 }
+#HotIf
 
 ;-------------------------------------------------
 ;   CapsLock & A: Obsidian
