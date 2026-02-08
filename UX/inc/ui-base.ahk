@@ -1,6 +1,8 @@
 class AutoHotkeyUxGui extends Gui {
     __new(title, opt:='') {
+        try dhb := DllCall("SetThreadDpiHostingBehavior", 'int', 1) ; Enable mixed DPI awareness
         super.__new(opt, title, this)
+        IsSet(dhb) && DllCall("SetThreadDpiHostingBehavior", 'int', dhb) ; Restore previous value
         this.SetFont('s9', "Segoe UI")
         this.OnEvent('Escape', 'Destroy')
         this.OnEvent('Close', 'Destroy')
@@ -8,27 +10,14 @@ class AutoHotkeyUxGui extends Gui {
     
     AddListMenu(options:='', columns:=unset) {
         IsSet(columns) || columns := []
+        try dac := DllCall("SetThreadDpiAwarenessContext", 'ptr', -2, 'ptr') ; System DPI aware, not per-monitor
         c := this.AddListView(UxListMenu.DefaultOptions ' ' options, columns)
+        IsSet(dac) && DllCall("SetThreadDpiAwarenessContext", 'ptr', dac, 'ptr') ; Restore previous value
         if !InStr(options, 'Theme')
             DllCall("uxtheme\SetWindowTheme", "ptr", c.hwnd, "wstr", "Explorer", "ptr", 0)
-        static LVTVIM_TILESIZE := 1, LVTVIM_COLUMNS := 2, LVTVIM_LABELMARGIN := 4
-        static LVTVIF_AUTOSIZE := 0, LVTVIF_EXTENDED := 4, LVTVIF_FIXEDHEIGHT := 2
-            , LVTVIF_FIXEDSIZE := 3, LVTVIF_FIXEDWIDTH := 1
-        static LVM_SETTILEVIEWINFO := 0x10A2
-        tileviewinfo := Buffer(40, 0)
-        ControlGetPos(,, &w,, c)
-        pad := 2 * A_ScreenDPI // 96
-        NumPut(
-            'uint', 40, ; cbSize
-            'uint', LVTVIM_LABELMARGIN | LVTVIM_TILESIZE, ; dwMask
-            'uint', LVTVIF_FIXEDWIDTH, ; dwFlags
-            'int', w, 'int', 0, ; sizeTile
-            'int', 0, ; cLines
-            'int', pad, 'int', pad, 'int', pad, 'int', pad, ; rcLabelMargin
-            tileviewinfo
-        )
-        SendMessage LVM_SETTILEVIEWINFO,, tileviewinfo, c
         c.base := UxListMenu.Prototype
+        ControlGetPos(,, &w,, c)
+        c._SetTileWidth(w)
         return c
     }
     

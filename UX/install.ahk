@@ -73,6 +73,7 @@ class Installation {
     QUninstallCmd   => this.CmdStr('UX\install.ahk', '/uninstall /silent')
     
     DialogTitle     => this.ProductName " Setup"
+    DialogOptions   := 'Owner' WinExist(this.DialogTitle ' ahk_pid ' ProcessGetParent())
     
     FileItems       := [] ; [{Source, Dest}]
     RegItems        := [] ; [{Key, ValueName, Value}]
@@ -277,8 +278,14 @@ class Installation {
         if FileExist(this.InstallDir '\UX\reset-assoc.ahk')
             RunWait this.CmdStr('UX\reset-assoc.ahk', '/check')
         
-        if !this.Silent
-            ShellRun this.Interpreter, 'UX\ui-dash.ahk', this.InstallDir
+        if !this.Silent {
+            try if !installedVersion {
+                ; This can fail if explorer.exe isn't running.
+                ShellRun this.Interpreter, 'UX\ui-dash.ahk', this.InstallDir
+                return
+            }
+            this.InfoBox "AutoHotkey v" this.Version " is now installed."
+        }
     }
     
     InstallExtraVersion() {
@@ -459,12 +466,11 @@ class Installation {
                 hasChm := true
             if !(curFile := hashes.Get(item.Dest, ''))
                 unknownFiles .= item.Dest "`n"
-            else if destDir = 'v2' && curFile.Version && curFile.Version != this.Version {
-                this.AddPreAction this.DisplaceFile.Bind(, item.Dest
-                    , 'v' curFile.Version '\' destName '.' ext, curFile.Version)
+            else if destDir = 'v2' && curFile.Version && curFile.Version != this.Version 
+                && !FileExist((newDirAndName := 'v' curFile.Version '\' destName) '.' ext) {
+                this.AddPreAction this.DisplaceFile.Bind(, item.Dest, newDirAndName '.' ext, curFile.Version)
                 if ext = 'exe' && FileExist('v2\' destName '_UIA.exe')
-                    this.AddPreAction this.DisplaceFile.Bind(, 'v2\' destName '_UIA.exe'
-                        , 'v' curFile.Version '\' destName '_UIA.exe', '')
+                    this.AddPreAction this.DisplaceFile.Bind(, 'v2\' destName '_UIA.exe', newDirAndName '_UIA.exe', '')
             }
             else if curFile.Hash != HashFile(item.Dest)
                 modifiedFiles .= item.Dest "`n"
@@ -766,23 +772,23 @@ class Installation {
     }
     
     GetConfirmation(message, icon:='!') {
-        if !this.Silent && MsgBox(message, this.DialogTitle, 'Icon' icon ' OkCancel') = 'Cancel'
+        if !this.Silent && MsgBox(message, this.DialogTitle, this.DialogOptions ' Icon' icon ' OkCancel') = 'Cancel'
             ExitApp 1
     }
     
     WarnBox(message) {
         if !this.Silent
-            MsgBox message, this.DialogTitle, "Icon!"
+            MsgBox message, this.DialogTitle, this.DialogOptions ' Icon!'
     }
     
     InfoBox(message) {
         if !this.Silent
-            MsgBox message, this.DialogTitle, "Iconi"
+            MsgBox message, this.DialogTitle, this.DialogOptions ' Iconi'
     }
     
     FatalError(message) {
         if !this.Silent
-            MsgBox message, this.DialogTitle, 'Iconx'
+            MsgBox message, this.DialogTitle, this.DialogOptions ' Iconx'
         ExitApp 1
     }
     
@@ -1004,7 +1010,10 @@ class Installation {
         SplitPath destPath,, &destDir
         if destDir != ""
             DirCreate destDir
-        FileMove sourcePath, destPath
+        try
+            FileMove sourcePath, destPath
+        catch as e
+            throw (e.Message := OSError().Message "`nSource: " sourcePath "`nDestination: " destPath, e.Extra := "", e)
         try this.Hashes.Delete(sourcePath)
         this.AddFileHash destPath, version
     }
