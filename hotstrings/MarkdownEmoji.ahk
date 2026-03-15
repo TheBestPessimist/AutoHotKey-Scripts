@@ -105,3 +105,5 @@ In order to debug try running the hotstring with these options:
 
 ; Business is  _special_
 :O::bus::💩 `
+:O::shit::💩 `
+:O::crap::💩 `
