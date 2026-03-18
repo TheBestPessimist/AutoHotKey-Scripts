@@ -267,41 +267,29 @@ K::Send "{RButton}"
 #HotIf WinActive(WinTitles.Obsidian)
 ; Create obsidian task
 ::.ttt:: {
-    oldClip := A_Clipboard
-    A_Clipboard := ""
-
-    ; Copy the line
+    ; 1. Prep Clipboard
+    old := A_Clipboard, A_Clipboard := ""
     Send("{Home 2}+{End}^c")
-    ClipWait(0.2, 0)
+    ClipWait(0.2)
 
-    line := A_Clipboard
-    currentDate := date()
+    ; 2. Parse (m[1]=Prefix, m[4]=Text)
+    ; Even if A_Clipboard is empty, RegExMatch will return "no match" instead of an error
+    RegExMatch(A_Clipboard, "^\s*((\d+\.|\-)\s*)?(\[[^\]]+\]\s*)?(.*)$", &m)
 
-    ; Handle Blank Line Case
-    if (Trim(line) == "") {
-        A_Clipboard := "- [ ] ttt  ➕ " currentDate
-        Send("^v{Left " StrLen(currentDate) + 3 "}")
-    }
-    ; Handle Existing Line Case
-    else {
-        ; Regex to separate Prefix (1. / -), Checkbox ([ ]), and Content
-        if RegExMatch(line, "^\s*((\d+\.|\-)\s*)?(\[[^\]]+\]\s*)?(.*)$", &match) {
-            prefix := match[1] ? match[1] : "- "
-            content := Trim(match[4])
+    ; 3. Logical Defaults
+    p   := (m && m[1]) ? m[1] : "- "         ; If no bullet/number, use "- "
+    txt := (m && m[4]) ? Trim(m[4]) : ""     ; The task description
+    date  := date()
 
-            newLine := prefix "[ ] ttt " content " ➕ " currentDate
+    ; 4. Construct and Paste
+    ; (txt ? " " : "") adds a space only if there's text to separate from the emoji
+    A_Clipboard := p "[ ] ttt " txt (txt ? " " : "") " ➕ " date
+    Send("^v")
 
-            A_Clipboard := newLine
-            Send("^+v")
+    ; 5. Cursor Fix: If the line was empty, jump back to the middle
+    Send("{Left " StrLen(date) + 3 "}")
 
-            ; If there was no content, put the cursor after "ttt "
-            if (content == "") {
-                Send("{Left " StrLen(currentDate) + 3 "}")
-            }
-        }
-    }
-
-    A_Clipboard := oldClip
+    SetTimer (*) => (A_Clipboard := old), -200
 }
 
 
