@@ -279,17 +279,17 @@ K::Send "{RButton}"
     ; 3. Logical Defaults
     p   := (m && m[1]) ? m[1] : "- "         ; If no bullet/number, use "- "
     txt := (m && m[4]) ? Trim(m[4]) : ""     ; The task description
-    date  := date()
+    now  := date()
 
     ; 4. Construct and Paste
     ; (txt ? " " : "") adds a space only if there's text to separate from the emoji
-    A_Clipboard := p "[ ] ttt " txt (txt ? " " : "") " ➕ " date
+    A_Clipboard := p "[ ] ttt " txt (txt ? " " : "") " ➕ " now
     Send("^v")
 
     ; 5. Cursor Fix: If the line was empty, jump back to the middle
-    Send("{Left " StrLen(date) + 3 "}")
+    Send("{Left " StrLen(now) + 3 "}")
 
-    SetTimer (*) => (A_Clipboard := old), -200
+    SetTimer((*) => (A_Clipboard := old), -200)
 }
 
 
