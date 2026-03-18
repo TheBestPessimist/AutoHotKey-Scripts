@@ -267,25 +267,26 @@ K::Send "{RButton}"
 #HotIf WinActive(WinTitles.Obsidian)
 ; Create obsidian task
 ::.ttt:: {
-    ; 1. Prep Clipboard
+    ; Prep Clipboard
     old := A_Clipboard, A_Clipboard := ""
     Send("{Home 2}+{End}^c")
     ClipWait(0.2)
 
-    ; 2. Parse (m[1]=Prefix, m[4]=Text)
-    ; Even if A_Clipboard is empty, RegExMatch will return "no match" instead of an error
-    RegExMatch(A_Clipboard, "^\s*((\d+\.|\-)\s*)?(\[[^\]]+\]\s*)?(.*)$", &m)
+    ; Group 1: ^(\s*)           -> Leading indentation (tabs/spaces)
+    ; Group 2: ((\d+\.|\-)\s*)? -> The bullet or number (- or 1.)
+    ; Group 4: (\[[^\]]+\]\s*)? -> Existing checkbox (discarded)
+    ; Group 5: (.*)$            -> The actual text
+    RegExMatch(A_Clipboard, "^(\s*)((\d+\.|\-)\s*)?(\[[^\]]+\]\s*)?(.*)$", &m)
 
-    ; 3. Logical Defaults
-    prefix := (m && m[1]) ? m[1] : "- "           ; If no bullet/number, use "- "
-    txt := (m && m[4]) ? Trim(m[4]) . " " : ""    ; The task description
+
+    indent := m[1]                 ; Preserve tabs/spaces
+    prefix := m[2] ? m[2] : "- "   ; If no bullet/number, use "- " by default
+    txt := Trim(m[5]) . " "        ; The task description
     now := date()
 
-    ; 4. Construct and Paste
-    A_Clipboard := prefix "[ ] ttt " txt " ➕ " now
+    ; Construct and Paste
+    A_Clipboard := indent . prefix . "[ ] ttt " . txt . " ➕ " . now
     Send("^v")
-
-    ; 5. Cursor Fix: If the line was empty, jump back to the middle
     Send("{Left " StrLen(now) + 3 "}")
 
     SetTimer((*) => (A_Clipboard := old), -200)
