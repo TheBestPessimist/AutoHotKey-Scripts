@@ -265,10 +265,48 @@ K::Send "{RButton}"
 
 
 #HotIf WinActive(WinTitles.Obsidian)
-; task
+; Create obsidian task
 ::.ttt:: {
-    Send("{Home}- [ ] ttt {end}  ➕ " date() " {left 14}")
+    oldClip := A_Clipboard
+    A_Clipboard := ""
+
+    ; Copy the line
+    Send("{Home 2}+{End}^c")
+    ClipWait(0.2, 0)
+
+    line := A_Clipboard
+    currentDate := date()
+
+    ; Handle Blank Line Case
+    if (Trim(line) == "") {
+        A_Clipboard := "- [ ] ttt  ➕ " currentDate
+        Send("^v{Left " StrLen(currentDate) + 3 "}")
+    }
+    ; Handle Existing Line Case
+    else {
+        ; Regex to separate Prefix (1. / -), Checkbox ([ ]), and Content
+        if RegExMatch(line, "^\s*((\d+\.|\-)\s*)?(\[[^\]]+\]\s*)?(.*)$", &match) {
+            prefix := match[1] ? match[1] : "- "
+            content := Trim(match[4])
+
+            newLine := prefix "[ ] ttt " content " ➕ " currentDate
+
+            A_Clipboard := newLine
+            Send("^+v")
+
+            ; If there was no content, put the cursor after "ttt "
+            if (content == "") {
+                Send("{Left " StrLen(currentDate) + 3 "}")
+            }
+        }
+    }
+
+    A_Clipboard := oldClip
 }
+
+
+
+
 
 ; Link to a local folder or file
 ::.file:: {
