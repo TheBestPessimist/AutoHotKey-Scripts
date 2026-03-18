@@ -278,7 +278,6 @@ K::Send "{RButton}"
     ; Group 5: (.*)$            -> The actual text
     RegExMatch(A_Clipboard, "^(\s*)((\d+\.|\-)\s*)?(\[[^\]]+\]\s*)?(.*)$", &m)
 
-
     indent := m[1]                 ; Preserve tabs/spaces
     prefix := m[2] ? m[2] : "- "   ; If no bullet/number, use "- " by default
     txt := Trim(m[5]) . " "        ; The task description
@@ -286,8 +285,7 @@ K::Send "{RButton}"
 
     ; Construct and Paste
     A_Clipboard := indent . prefix . "[ ] ttt " . txt . " ➕ " . now
-    Send("^v")
-    Send("{Left " StrLen(now) + 3 "}")
+    Send("^v{Left " StrLen(now) + 3 "}")
 
     SetTimer((*) => (A_Clipboard := old), -200)
 }
