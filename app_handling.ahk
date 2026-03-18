@@ -277,13 +277,12 @@ K::Send "{RButton}"
     RegExMatch(A_Clipboard, "^\s*((\d+\.|\-)\s*)?(\[[^\]]+\]\s*)?(.*)$", &m)
 
     ; 3. Logical Defaults
-    p   := (m && m[1]) ? m[1] : "- "         ; If no bullet/number, use "- "
-    txt := (m && m[4]) ? Trim(m[4]) : ""     ; The task description
-    now  := date()
+    prefix := (m && m[1]) ? m[1] : "- "           ; If no bullet/number, use "- "
+    txt := (m && m[4]) ? Trim(m[4]) . " " : ""    ; The task description
+    now := date()
 
     ; 4. Construct and Paste
-    ; (txt ? " " : "") adds a space only if there's text to separate from the emoji
-    A_Clipboard := p "[ ] ttt " txt (txt ? " " : "") " ➕ " now
+    A_Clipboard := prefix "[ ] ttt " txt " ➕ " now
     Send("^v")
 
     ; 5. Cursor Fix: If the line was empty, jump back to the middle
