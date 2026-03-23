@@ -274,9 +274,9 @@ K::Send "{RButton}"
 
     ; Group 1: ^(\s*)           -> Leading indentation (tabs/spaces)
     ; Group 2: ((\d+\.|\-)\s*)? -> The bullet or number (- or 1.)
-    ; Group 4: (\[[^\]]+\]\s*)? -> Existing checkbox (discarded)
+    ; Group 4: (\[[^\]]\]\s*)?  -> Existing checkbox like [ ], [x] (discarded). Matches exactly a single character inside [] so that markdown links like [Title](url) are preserved.
     ; Group 5: (.*)$            -> The actual text
-    RegExMatch(A_Clipboard, "^(\s*)((\d+\.|\-)\s*)?(\[[^\]]+\]\s*)?(.*)$", &m)
+    RegExMatch(A_Clipboard, "^(\s*)((\d+\.|\-)\s*)?(\[[^\]]\]\s*)?(.*)$", &m)
 
     indent := m[1]                 ; Preserve tabs/spaces
     prefix := m[2] ? m[2] : "- "   ; If no bullet/number, use "- " by default
@@ -287,14 +287,15 @@ K::Send "{RButton}"
     A_Clipboard := indent . prefix . "[ ] ttt " . txt . " ➕ " . now
     Send("^v{Left " StrLen(now) + 3 "}")
 
+    ; Restore Clipboard
     SetTimer((*) => (A_Clipboard := old), -200)
 }
 
+ 
 
 
 
-
-; Link to a local folder or file
+    ; Link to a local folder or file
 ::.file:: {
     Send("[title](<file:///paste_link_here>)")
 }
