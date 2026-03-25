@@ -152,21 +152,16 @@ stim() {
 
 ; todo i should try both of these and see which one works better
 CapsLock & LButton:: {
-        MouseGetPos(&xPos, &yPos)
+    Loop 20 {
         SetControlDelay -1
+        MouseGetPos(&xPos, &yPos)
         ControlClick(, WinTitles.tf2,, "Left", 20,  "NA " " X" xPos " Y" yPos)
+    }
 }
 
-;CapsLock & LButton::ClickManyTimes()
-;
-;ClickManyTimes()
-;{
-;    Loop 30
-;    {
-;        ; MouseGetPos, xPos, yPos
-;        ; ControlClick,, % this.ahk_SC2,, LEFT, 3, %  "NA" xPos yPos
-;        ; Click, xPos, yPos, 3
-;        Click
-;        Sleep 35
-;    }
-;}
+CapsLock & RButton:: {
+    While (GetKeyState("RButton", "P") && GetKeyState("CapsLock", "P")){
+        Click
+        sleep 5
+    }
+}
