@@ -397,8 +397,33 @@ $#s::Send "#^!+{F12}"
     WinActivate("ahk_pid " pid)
 }
 
+;-------------------------------------------------
+; Open selected file from `Explorer` in `File Pilot`
+#HotIf WinActive("ahk_class CabinetWClass")
+^!e:: {
+    saveClipboard()
 
+    ; Copy the selected file path using Explorer's "Copy as path" command
+    Send "^+c"
+    ClipWait 1
 
+    filePath := Trim(A_Clipboard, '`" `t`r`n')  ; Remove quotes and whitespace
+
+    ; Open File Pilot with the selected file
+    if(FileExist("D:\all\all\File Pilot\FPilot-Prof.exe")) {
+        Run("D:\all\all\File Pilot\FPilot-Prof.exe " filePath,, "Max", &pid)
+    } else
+    if(FileExist("D:\all\all\File Pilot\FPilot-Dev.exe")) {
+        Run("D:\all\all\File Pilot\FPilot-Dev.exe " filePath,, "Max", &pid)
+    } else {
+        Run("D:\all\all\File Pilot\FPilot.exe " filePath,, "Max", &pid)
+    }
+    WinWait("ahk_pid " pid)
+    WinActivate("ahk_pid " pid)
+
+    restoreClipboard()
+}
+#HotIf
 
 
 ;/*
