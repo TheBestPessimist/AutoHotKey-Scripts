@@ -19,8 +19,12 @@ CreateSmbMappingsBecauseMicroshitsoftDevelopersAreFuckingRetarded()
         . "Remove-SmbMapping -LocalPath 'P:' -Force -ErrorAction SilentlyContinue; "
         . "Remove-SmbMapping -LocalPath 'T:' -Force -ErrorAction SilentlyContinue; "
         . "Remove-SmbMapping -LocalPath 'W:' -Force -ErrorAction SilentlyContinue; "
+        . "Remove-SmbMapping -LocalPath 'H:' -Force -ErrorAction SilentlyContinue; "
+        . "Remove-SmbMapping -LocalPath 'I:' -Force -ErrorAction SilentlyContinue; "
         . "New-SmbMapping -Persistent `$true -LocalPath 'P:' -RemotePath '\\tbp-nuc\patrunjel\Patrunjel\Patrunjel'; "
         . "New-SmbMapping -Persistent `$true -LocalPath 'T:' -RemotePath '\\tbp-nuc\torrentz'; "
         . "New-SmbMapping -Persistent `$true -LocalPath 'W:' -RemotePath '\\tbp-nuc\tbp'; "
+        . "New-SmbMapping -Persistent `$true -LocalPath 'H:' -RemotePath '\\tbp-nuc\dcim'; "
+        . "New-SmbMapping -Persistent `$true -LocalPath 'I:' -RemotePath '\\tbp-nuc\clip'; "
         . '"',, "Hide")
 }
