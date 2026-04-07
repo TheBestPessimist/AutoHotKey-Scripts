@@ -12,13 +12,15 @@ bitwardenClickImage(imgPath) {
     y1 := wy
     x2 := wx + ww - 1
     y2 := wy + wh - 1
-    if ImageSearch(&ix, &iy, x1, y1, x2, y2, imgPath) {
+    if ImageSearch(&ix, &iy, x1, y1, x2, y2, "*32" " " imgPath) {
+        ix += 10
+        iy += 10
         MouseMove ix, iy, 5
         Send "{LButton}"
         MouseMove x, y, 5
         return true
     } else {
-        Tippy("Image   `"" . imgPath . "`"    was not found.")
+        Tippy("Image   `"" . imgPath . "`"    was not found on the screen.")
         return false
     }
 }
@@ -28,4 +30,3 @@ bitwardenClickImage(imgPath) {
 ^s::bitwardenClickImage("resources/BW - Bitwarden Save Button.png")
 ^d::bitwardenClickImage("resources/BW - Bitwarden Delete Button.png")
 #HotIf
-
