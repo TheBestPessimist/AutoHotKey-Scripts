@@ -11,13 +11,14 @@
 #include ui-launcherconfig.ahk
 #include ui-editor.ahk
 #include ui-newscript.ahk
+#include install.ahk
 
 DashRegKey := 'HKCU\Software\AutoHotkey\Dash'
 
 class AutoHotkeyDashGui extends AutoHotkeyUxGui {
     __new() {
         super.__new("AutoHotkey Dash")
-        
+
         lv := this.AddListMenu('vLV LV0x40 w250', ["Name", "Desc"])
         lv.OnEvent("Click", "ItemClicked")
         lv.OnEvent("ItemFocus", "ItemFocused")
@@ -49,13 +50,13 @@ class AutoHotkeyDashGui extends AutoHotkeyUxGui {
         ; lv.Add(, "Downloads", "Get related tools")
         
         lv.AutoSize()
-        lv.GetPos(,,, &h)
+        lv.GetPos(, &y, &w, &h)
         
         if !RegRead(DashRegKey, 'SuppressIntro', false) {
             this.SetFont('s12')
             this.AddText('yp x+m', "Welcome!")
             this.SetFont('s9')
-            this.AddText('xp', "This is the Dash. It provides access to tools, settings and help files.")
+            this.AddText('xp vIntroText', "This is the Dash. It provides access to tools, settings and help files.")
             this.AddText('xp', "To learn how to use AutoHotkey, refer to:")
             this.AddLink('xp', "
             (
@@ -71,9 +72,36 @@ class AutoHotkeyDashGui extends AutoHotkeyUxGui {
             checkBox.GetPos(,,, &hc)
             checkBox.Move(, h - hc)
             checkBox.OnEvent('Click', 'SetIntroPref')
+            
         }
         
         this.Show("Hide h" (h + this.MarginY*2))
+        
+        if RegRead(DashRegKey, 'CheckForUpdates', false)
+            CheckAvailableVersions(receiveVersions)
+        receiveVersions(v) {
+            if v := IsUpdateAvailable(v)
+                this.ShowUpdateBanner(v)
+        }
+    }
+    
+    ShowUpdateBanner(version) {
+        if !DllCall('IsWindowVisible', 'uint', this.Hwnd)
+            return
+        
+        this.newVersion := version
+        
+        this['LV'].GetPos(, &y,, &h)
+        this.GetClientPos(,, &gw, &gh)
+        this.AddText(Format('vUpdateBanner Backgroundb8e2e7 x0 y{} w{} h30', gh, gw))
+        
+        ; SysLink controls do not support transparent backgrounds it seems
+        updateLink := this.AddLink('vUpdateLink yp+5 Backgroundb8e2e7', Format('<a>Update available to: {}</a>', this.newVersion))
+        updateLink.OnEvent('Click', 'UpdateVersion')
+        updateLink.GetPos(,, &uw)
+        updateLink.Move(gw // 2 - uw // 2)
+        
+        this.Show('h' gh + 30)
     }
     
     LinkClicked(ctrl, id, href) {
@@ -93,7 +121,8 @@ class AutoHotkeyDashGui extends AutoHotkeyUxGui {
     KeyPressed(lv, lParam) {
         switch NumGet(lParam, A_PtrSize * 3, "Short") {
         case 0x70: ; F1
-            ShowHelpFile()
+            lv.Modify(3, 'Focus Select')
+            this.ItemClicked(lv, 3)
         }
     }
     
@@ -114,7 +143,8 @@ class AutoHotkeyDashGui extends AutoHotkeyUxGui {
             else
                 Run Format('"{1}" /script "{2}\install-ahk2exe.ahk"', A_AhkPath, A_ScriptDir)
         case "Help":
-            ShowHelpFile()
+            lv.GetItemPos(item, &x, &y,, &h)
+            ShowHelpFile(x, y + h)
         case "Window":
             try {
                 Run '"' A_MyDocuments '\AutoHotkey\WindowSpy.ahk"'
@@ -136,9 +166,19 @@ class AutoHotkeyDashGui extends AutoHotkeyUxGui {
         static WM_CHANGEUISTATE := 0x127 ; 295
         SendMessage WM_CHANGEUISTATE, 0x10001, 0, lv
     }
+
+    UpdateVersion(*) {
+        if (RunWait(Format('"{}" /script "{}\install-version.ahk" "{}"', A_AhkPath, A_ScriptDir, this.newVersion))) {
+            ; Error installing
+        } else {
+            this['UpdateLink'].Enabled := false
+            this['UpdateBanner'].GetPos(, &top)
+            this.Show("h" top)
+        }
+    }
 }
 
-ShowHelpFile() {
+ShowHelpFile(x?, y?) {
     SetWorkingDir ROOT_DIR
     main := Map(), sub := Map()
     other := Map(), other.CaseSense := "off"
@@ -193,8 +233,53 @@ ShowHelpFile() {
     for f, t in other
         m.Add t, openIt.Bind(f)
     
-    m.Show
+    m.Show(x?, y?)
     openIt(f, *) => Run(f)
+}
+
+; Lookup latest available versions for each minor version
+CheckAvailableVersions(successCallback) {
+    try {
+        req := ComObject('Msxml2.XMLHTTP')
+        req.open('GET', 'https://www.autohotkey.com/download/versions.txt', true)
+        req.onreadystatechange := readyStateChange
+        req.send()
+    }
+    readyStateChange() {
+        if req.readyState != 4
+            return
+        req.onreadystatechange := ComValue(13,0)
+        v := req.status = 200 ? req.responseText : ""
+        if v ~= '^(\d\..*\R)+$'
+            successCallback(StrSplit(Trim(v, '`r`n'), '`n', '`r'))
+    }
+}
+
+; Determine whether any one of the available versions is an update
+IsUpdateAvailable(verAvailable) {
+    inst := Installation()
+    inst.ResolveInstallDir()
+    verInstalled := inst.GetComponents().maxes
+    
+    verMax := ""
+    for v in verInstalled
+        verMax := v
+
+    ; Find a version to suggest:
+    ;  - Bug-fix update for an installed minor version
+    ;  - New minor version greater than any installed, and not alpha
+    verToSuggest := ""
+    for v in verAvailable {
+        vm := RegExReplace(v, '^\d+\.\d+\b\K.*')
+        vi := verInstalled.Get(vm, "")
+        if VerCompare(v, '>' vi) && (vi != "" || VerCompare(v, '>' verMax) && VerCompare(v, '>' vm '-b')) {
+            verToSuggest := v
+            if vi != ""
+                break ; Stop at the first version which is a bug-fix update for an installed version
+        }
+    }
+
+    return verToSuggest
 }
 
 AutoHotkeyDashGui.Show()

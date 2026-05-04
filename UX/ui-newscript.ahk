@@ -72,7 +72,7 @@ class NewScriptGui extends AutoHotkeyUxGui {
             if !(wParam = VK_UP || wParam = VK_DOWN)
                 return
             gc := GuiCtrlFromHwnd(hwnd)
-            if gc.Gui is NewScriptGui && gc is Gui.Edit {
+            if gc && gc.Gui is NewScriptGui && gc is Gui.Edit {
                 PostMessage nmsg, wParam, lParam, gc.Gui['LV']
                 return true
             }
@@ -146,6 +146,9 @@ class NewScriptGui extends AutoHotkeyUxGui {
             code := RegExReplace(code, 'si)/\*\s+\[NewScriptTemplate\].*\*/\R?')
             FileOpen(newPath, 'w', 'UTF-8').Write(code)
         }
+        
+        if FileExist(newPath)
+            DllCall("shell32\SHAddToRecentDocs", "uint", 3, "wstr", newPath)
         
         if this.ExplorerHwnd && (xp := GetExplorerByHwnd(this.ExplorerHwnd))
             || dir = A_Desktop && (xp := GetExplorerForDesktop()) {
