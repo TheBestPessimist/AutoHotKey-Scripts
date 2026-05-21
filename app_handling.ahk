@@ -269,7 +269,7 @@ K::Send "{RButton}"
 ::.ttt:: {
     ; Prep Clipboard
     old := A_Clipboard, A_Clipboard := ""
-    Send("{Home 2}+{End}^c")
+    Send("{Home 2}+{End}^c{Backspace}")
     ClipWait(0.2)
 
     ; Group 1: ^(\s*)           -> Leading indentation (tabs/spaces)
