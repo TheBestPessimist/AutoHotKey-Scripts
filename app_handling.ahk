@@ -443,7 +443,7 @@ $#s::Send "#^!+{F12}"
 ;    MouseMove xx, yy
 ;
 ;    Send "{LButton}"
-;;    Send "{Enter}"
+;    Send "{Enter}"
 ;
 ;    ; restore initial position
 ;    MouseMove x, y
