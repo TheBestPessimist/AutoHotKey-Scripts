@@ -382,17 +382,7 @@ $#s::Send "#^!+{F12}"
 
 ; Win E = File Pilot and not Explorer! 🎉
 #e:: {
-    if(FileExist("D:\all\all\File Pilot\FPilot-Prof.exe")) {
-        ; profiler version -- it creates HUGE files
-        Run("D:\all\all\File Pilot\FPilot-Prof.exe ~",, "Max", &pid)
-    } else
-    if(FileExist("D:\all\all\File Pilot\FPilot-Dev.exe")) {
-        ; development build - better stack traces. RUN THIS
-        Run("D:\all\all\File Pilot\FPilot-Dev.exe ~",, "Max", &pid)
-    } else {
-        ; perf optimised build
-        Run("D:\all\all\File Pilot\FPilot.exe ~",, "Max", &pid)
-    }
+    Run(Paths.FilePilot " ~",, "Max", &pid)
     WinWait("ahk_pid " pid)
     WinActivate("ahk_pid " pid)
 }
@@ -407,44 +397,29 @@ $#s::Send "#^!+{F12}"
     Send "^+c"
     ClipWait 1
 
-    filePath := Trim(A_Clipboard, '`" `t`r`n')  ; Remove quotes and whitespace
+    path := Trim(A_Clipboard, '`" `t`r`n')  ; Remove quotes and whitespace
+
+    Tippy(StrLen(path),, 4)
+
+    ; if path is empty, that means i didn't select any file, so i'll open the folder instead
+    if(StrLen(path) == 0) {
+        Send "!d"
+        Sleep 10
+        Send "^c" ; this copy is stupid, but i could not make it work any other way `¯\_(ツ)_/¯`
+        Send "^c"
+        Send "^c"
+        ClipWait 1
+        path := A_Clipboard
+    }
+
+    command := Paths.FilePilot " " "`"" path "`""
+    Tippy(command)
 
     ; Open File Pilot with the selected file
-    if(FileExist("D:\all\all\File Pilot\FPilot-Prof.exe")) {
-        Run("D:\all\all\File Pilot\FPilot-Prof.exe " filePath,, "Max", &pid)
-    } else
-    if(FileExist("D:\all\all\File Pilot\FPilot-Dev.exe")) {
-        Run("D:\all\all\File Pilot\FPilot-Dev.exe " filePath,, "Max", &pid)
-    } else {
-        Run("D:\all\all\File Pilot\FPilot.exe " filePath,, "Max", &pid)
-    }
+    Run(command,, "Max", &pid)
     WinWait("ahk_pid " pid)
     WinActivate("ahk_pid " pid)
 
     restoreClipboard()
 }
 #HotIf
-
-
-;/*
-;TF2: delete items from backpack when they're at the 300 limit. (fuck that limit btw)
-;*/
-;f:: {
-;    SendMode "Event"
-;    SetMouseDelay 20
-;    SetKeyDelay 20, 20
-;
-;    ; save initial position
-;    MouseGetPos &x, &y
-;
-;    Send "{RButton}"
-;
-;    ImageSearch &xx, &yy, 0, 0, A_ScreenWidth, A_ScreenHeight, "resources/TF2 - Items Backpack Delete Button.png"
-;    MouseMove xx, yy
-;
-;    Send "{LButton}"
-;    Send "{Enter}"
-;
-;    ; restore initial position
-;    MouseMove x, y
-;}

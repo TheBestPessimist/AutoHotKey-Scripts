@@ -33,7 +33,7 @@ class Paths {
     static FlowLauncher := "D:\all\all\FlowLauncher\Flow.Launcher.exe"
     static Obsidian := "C:\Users\TheBestPessimist\AppData\Local\Programs\obsidian\Obsidian.exe"
     static SublimeText := "D:\all\all\Sublime Text\sublime_text.exe"
-
+    static FilePilot := "D:\all\all\File Pilot\FPilot.exe"
 }
 
 class Process {
