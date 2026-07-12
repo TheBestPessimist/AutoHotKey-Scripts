@@ -27,6 +27,7 @@ class WinTitles
     static Obsidian := "ahk_exe Obsidian.exe"
     static BeatSlayer := "ahk_exe BeatSlayer.exe"
     static Bitwarden := "ahk_exe Bitwarden.exe"
+    static SteamChat := "ahk_exe steamwebhelper.exe"
 }
 
 class Paths {

@@ -2,7 +2,7 @@
 #include lib/clipboard.ahk
 
 
-#HotIf WinActive("ahk_class SDL_app")
+#HotIf WinActive("ahk_class SDL_app") && !WinActive(WinTitles.SteamChat)
 j::Space
 k::PgUp
 #HotIf
