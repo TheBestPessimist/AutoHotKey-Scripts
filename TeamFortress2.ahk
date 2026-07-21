@@ -1,5 +1,5 @@
 ﻿
-; todo i should try both of these and see which one works better
+#HotIf WinActive(WinTitles.tf2)
 CapsLock & LButton:: {
     Loop 20 {
         SetControlDelay -1
@@ -15,13 +15,13 @@ CapsLock & RButton:: {
     }
 }
 
-;
+;;
 ;CapsLock & RButton:: {
 ;    static toggle := 0
-;    SetTimer(clicky, (toggle := !toggle) ? 125 : 0)
+;    SetTimer(clicky, (toggle := !toggle) ? 150 : 0)
 ;
 ;    clicky(){
-;        Click
+;        ControlClick(, WinTitles.tf2,, "Left",)
 ;    }
 ;}
 
@@ -49,3 +49,5 @@ CapsLock & RButton:: {
 ;    ; restore initial position
 ;    MouseMove x, y
 ;}
+
+#HotIf
