@@ -272,19 +272,28 @@ K::Send "{RButton}"
     Send("{Home 2}+{End}^c{Backspace}")
     ClipWait(0.2)
 
-    ; Group 1: ^(\s*)           -> Leading indentation (tabs/spaces)
-    ; Group 2: ((\d+\.|\-)\s*)? -> The bullet or number (- or 1.)
-    ; Group 4: (\[[^\]]\]\s*)?  -> Existing checkbox like [ ], [x] (discarded). Matches exactly a single character inside [] so that markdown links like [Title](url) are preserved.
-    ; Group 5: (.*)$            -> The actual text
-    RegExMatch(A_Clipboard, "^(\s*)((\d+\.|\-)\s*)?(\[[^\]]\]\s*)?(.*)$", &m)
-
-    indent := m[1]                 ; Preserve tabs/spaces
-    prefix := m[2] ? m[2] : "- "   ; If no bullet/number, use "- " by default
-    txt := Trim(m[5]) . " "        ; The task description
     now := date()
 
+    ; With multiple cursors, Obsidian copies one line per cursor (newline-joined)
+    ; and pasting the same number of lines distributes one line back per cursor.
+    ; So transform each line independently and rejoin.
+    out := ""
+    for i, line in StrSplit(StrReplace(A_Clipboard, "`r"), "`n") {
+        ; Group 1: ^(\s*)           -> Leading indentation (tabs/spaces)
+        ; Group 2: ((\d+\.|\-)\s*)? -> The bullet or number (- or 1.)
+        ; Group 4: (\[[^\]]\]\s*)?  -> Existing checkbox like [ ], [x] (discarded). Matches exactly a single character inside [] so that markdown links like [Title](url) are preserved.
+        ; Group 5: (.*)$            -> The actual text
+        RegExMatch(line, "^(\s*)((\d+\.|\-)\s*)?(\[[^\]]\]\s*)?(.*)$", &m)
+
+        indent := m[1]                 ; Preserve tabs/spaces
+        prefix := m[2] ? m[2] : "- "   ; If no bullet/number, use "- " by default
+        txt := Trim(m[5]) . " "        ; The task description
+
+        out .= (i > 1 ? "`n" : "") . indent . prefix . "[ ] ttt " . txt . " ➕ " . now
+    }
+
     ; Construct and Paste
-    A_Clipboard := indent . prefix . "[ ] ttt " . txt . " ➕ " . now
+    A_Clipboard := out
     Send("^v{Left " StrLen(now) + 3 "}")
 
     ; Restore Clipboard
