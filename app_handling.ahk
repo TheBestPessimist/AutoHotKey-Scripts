@@ -406,7 +406,7 @@ $#s::Send "#^!+{F12}"
 
     ; Copy the selected file path using Explorer's "Copy as path" command
     Send "^+c"
-    ClipWait 1
+    ClipWait 2
 
     path := Trim(A_Clipboard, '`" `t`r`n')  ; Remove quotes and whitespace
 
@@ -415,11 +415,11 @@ $#s::Send "#^!+{F12}"
     ; if path is empty, that means i didn't select any file, so i'll open the folder instead
     if(StrLen(path) == 0) {
         Send "!d"
-        Sleep 10
+        Sleep 100
         Send "^c" ; this copy is stupid, but i could not make it work any other way `¯\_(ツ)_/¯`
         Send "^c"
         Send "^c"
-        ClipWait 1
+        ClipWait 2
         path := A_Clipboard
     }
 
