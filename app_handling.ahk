@@ -265,7 +265,13 @@ K::Send "{RButton}"
 
 
 #HotIf WinActive(WinTitles.Obsidian)
-; Create obsidian task
+/*
+Create obsidian task
+
+- when nothing is selected, an empty task block is created
+- when one or multiple lines are selected, one task for each line is created
+- when one or multiple cursors exist, one task for each line is created
+*/
 ::.ttt:: {
     ; Prep Clipboard
     old := A_Clipboard, A_Clipboard := ""
