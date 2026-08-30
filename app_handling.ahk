@@ -310,9 +310,20 @@ Task (with line or number):
 
         indent := m[1]                 ; Preserve tabs/spaces
         prefix := m[2] ? m[2] : "- "   ; If no bullet/number, use "- " by default
-        txt := Trim(m[5]) . " "        ; The task description
+        txt := Trim(m[5])              ; The task description
 
-        out .= (i > 1 ? "`n" : "") . indent . prefix . "[ ] ttt " . txt . " ➕ " . now
+        ; The task may already exist in any percentage (e.g. .ttt on a task line):
+        ; strip an existing "ttt" marker and "➕ date" so they are not duplicated,
+        ; and keep the existing creation date instead of stamping a new one.
+        txt := RegExReplace(txt, "^ttt(\s+|$)")
+        lineDate := now
+        if RegExMatch(txt, "\s*➕\s*(\d{4}-\d{2}-\d{2})", &d) {
+            lineDate := d[1]
+            txt := StrReplace(txt, d[0], " ")
+        }
+        txt := Trim(txt) . " "
+
+        out .= (i > 1 ? "`n" : "") . indent . prefix . "[ ] ttt " . txt . " ➕ " . lineDate
     }
 
     ; Construct and Paste
