@@ -271,20 +271,37 @@ Create obsidian task
 - when nothing is selected, an empty task block is created
 - when one or multiple lines are selected, one task for each line is created
 - when one or multiple cursors exist, one task for each line is created
+- if task already exists in any percentage, the rest of the task is created
+
+Task (with line or number):
+- [ ] ttt   ➕ 2026-08-30
+1. [ ] ttt   ➕ 2026-08-30
 */
 ::.ttt:: {
     ; Prep Clipboard
     old := A_Clipboard, A_Clipboard := ""
-    Send("{Home 2}+{End}^c{Backspace}")
+    Send("{Home 2}+{End}^c")
     ClipWait(0.2)
 
     now := date()
+
+    ; On an empty line the Home..End selection is empty: nothing gets copied
+    ; (or Obsidian copies the bare newline), and Backspace with no selection
+    ; would join the line with the previous one. So skip the delete and
+    ; transform a single empty line instead.
+    text := StrReplace(A_Clipboard, "`r")
+    if (text = "" || text = "`n") {
+        lines := [""]
+    } else {
+        Send("{Backspace}")
+        lines := StrSplit(text, "`n")
+    }
 
     ; With multiple cursors, Obsidian copies one line per cursor (newline-joined)
     ; and pasting the same number of lines distributes one line back per cursor.
     ; So transform each line independently and rejoin.
     out := ""
-    for i, line in StrSplit(StrReplace(A_Clipboard, "`r"), "`n") {
+    for i, line in lines {
         ; Group 1: ^(\s*)           -> Leading indentation (tabs/spaces)
         ; Group 2: ((\d+\.|\-)\s*)? -> The bullet or number (- or 1.)
         ; Group 4: (\[[^\]]\]\s*)?  -> Existing checkbox like [ ], [x] (discarded). Matches exactly a single character inside [] so that markdown links like [Title](url) are preserved.
