@@ -1,25 +1,36 @@
 ﻿#Include lib/Tippy.ahk
 
+CapsLockState := 0
+CapsLockStateWasChanged := 0
 
-resetCapsLockState()
+; On startup, caps is always off
+SetCapsLockState("AlwaysOff")
 
-; As far as i can see, CapsLock is sometimes stuck when launcher Flow Launcher via Caps + Win.
-; I hope this will fix it
-resetCapsLockState(){
-    SetCapsLockState("On")
-    Sleep(200)
-    SetCapsLockState("AlwaysOff")
-}
+SetTimer(() => setMyCapsLockState(), 10000)
 
 CapsLock & Alt:: {
-    static state := 0
-    state := !state
-    if state {
-        SetCapsLockState("AlwaysOn")
-        Tippy("CapsLock is: ON", 99999999999999, 15)
-    }
-    else {
-        SetCapsLockState("AlwaysOff")
-        Tippy("CapsLock is: off",, 15)
+    global CapsLockState
+    global CapsLockStateWasChanged
+
+    CapsLockState := !CapsLockState
+    CapsLockStateWasChanged := 1
+
+    setMyCapsLockState()
+}
+
+setMyCapsLockState() {
+    global CapsLockState
+    global CapsLockStateWasChanged
+
+    if CapsLockStateWasChanged {
+        CapsLockStateWasChanged := 0
+        if CapsLockState {
+            SetCapsLockState("AlwaysOn")
+            Tippy("CapsLock is: ON", 99999999999999, 15)
+        }
+        else {
+            SetCapsLockState("AlwaysOff")
+            Tippy("CapsLock is: off",, 15)
+        }
     }
 }
