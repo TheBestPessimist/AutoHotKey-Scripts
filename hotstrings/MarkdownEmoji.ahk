@@ -57,6 +57,7 @@ In order to debug try running the hotstring with these options:
 
 ; customer is our king - https://emojipedia.org/crown/
 :O::cus::👑 `
+:O::cc::👑 `
 
 
 :O::(tm)::™
