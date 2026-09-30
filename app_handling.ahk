@@ -323,7 +323,7 @@ Task (with line or number):
         }
         txt := Trim(txt) . " "
 
-        out .= (i > 1 ? "`n" : "") . indent . prefix . "[ ] ttt " . txt . " ➕ " . lineDate
+        out .= (i > 1 ? "`n" : "") . indent . prefix . "[ ] ttt " . txt . "➕ " . lineDate
     }
 
     ; Construct and Paste
